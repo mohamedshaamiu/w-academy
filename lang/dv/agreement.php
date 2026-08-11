@@ -10,6 +10,13 @@ return [
         'guardian_must_sign' => 'ކުރިއަށް ދިއުމުގެ ކުރިން، ތިޔަބޭފުޅާގެ ދަރިފުޅަށްޓަކައި ސުލޫކީ އެއްބަސްވުން ފުރިހަމަ ކުރައްވާ.',
     ],
 
+    // Dhivehi copy for this screen has not been supplied. Seeded as pending
+    // per SPEC.md §3.6 rather than machine-translated. See BACKLOG-NEW.md NEW-2.
+    'unavailable' => [
+        'title' => '[DV CONTENT PENDING]',
+        'body' => '[DV CONTENT PENDING]',
+    ],
+
     'signed_successfully' => 'އެއްބަސްވުމުގައި ކާމިޔާބުކަމާއެކު ސޮއިކުރެވިއްޖެ.',
 
     'validation' => [

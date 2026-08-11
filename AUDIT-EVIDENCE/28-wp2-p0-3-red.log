@@ -1,0 +1,61 @@
+########## P0-3 RED — AgreementSignatureTest against unmodified application code ##########
+
+  [39;41;1m FAIL [39;49;22m[39m Tests\Feature\AgreementSignatureTest[39m
+  [31;1m⨯[39;22m[90m [39m[90msigned agreement fields cannot be updated[39m[90m                                                                  [39m [90m12.73s[39m  
+  [31;1m⨯[39;22m[90m [39m[90mrevocation is the only mutation path[39m[90m                                                                        [39m [90m1.53s[39m  
+  [31;1m⨯[39;22m[90m [39m[90mrevoked signature no longer satisfies the gate[39m[90m                                                             [39m [90m53.29s[39m  
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AgreementSignatureTest[22m [90m>[39m signed agreement fields cannot be updated     [41;1m AssertionFailedError [49;22m  
+[39;1m  SPEC.md §8.3: updating `template_snapshot` on a signed agreement must throw.[39;22m
+
+  at [32mtests\Feature\AgreementSignatureTest.php[39m:[32m73[39m
+     69▕             $original = $signature->fresh()->getAttribute($column);
+     70▕ 
+     71▕             try {
+     72▕                 $signature->fresh()->update([$column => $value]);
+  ➜  73▕                 $this->fail("SPEC.md §8.3: updating `{$column}` on a signed agreement must throw.");
+     74▕             } catch (SignatureIsImmutable $e) {
+     75▕                 $this->assertStringContainsString($column, $e->getMessage());
+     76▕             }
+     77▕
+
+  [33m1   [39m[39;1mtests\Feature\AgreementSignatureTest.php[39;22m:[39;1m73[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AgreementSignatureTest[22m [90m>[39m revocation is the only mutation path          [41;1m AssertionFailedError [49;22m  
+[39;1m  SPEC.md §8.3: `status` must only be writable through AgreementService::revoke().[39;22m
+
+  at [32mtests\Feature\AgreementSignatureTest.php[39m:[32m94[39m
+     90▕         // Writing the revocation columns directly is refused...
+     91▕         foreach (['status' => AgreementStatus::Revoked, 'revoked_at' => now(), 'revoked_reason' => 'direct write'] as $column => $value) {
+     92▕             try {
+     93▕                 $signature->fresh()->update([$column => $value]);
+  ➜  94▕                 $this->fail("SPEC.md §8.3: `{$column}` must only be writable through AgreementService::revoke().");
+     95▕             } catch (SignatureIsImmutable $e) {
+     96▕                 $this->assertStringContainsString($column, $e->getMessage());
+     97▕             }
+     98▕         }
+
+  [33m1   [39m[39;1mtests\Feature\AgreementSignatureTest.php[39;22m:[39;1m94[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AgreementSignatureTest[22m [90m>[39m revoked signature no longer satisfies the gate               [41;1m Error [49;22m  
+[39;1m  Call to undefined method App\Services\AgreementService::revoke()[39;22m
+
+  at [32mtests\Feature\AgreementSignatureTest.php[39m:[32m122[39m
+    118▕         // Signed: the portal is reachable.
+    119▕         $this->actingAs($guardianUser)->get(route('guardian.dashboard'))->assertOk();
+    120▕         $this->assertTrue($student->fresh()->has_signed_current_agreement);
+    121▕ 
+  ➜ 122▕         app(AgreementService::class)->revoke($signature->fresh(), 'Superseded');
+    123▕ 
+    124▕         // Revoked: the gate closes again and the record is preserved, not deleted.
+    125▕         $this->assertFalse($student->fresh()->has_signed_current_agreement);
+    126▕         $this->actingAs($guardianUser)
+
+  [33m1   [39m[39;1mtests\Feature\AgreementSignatureTest.php[39;22m:[39;1m122[39;22m
+
+
+  [90mTests:[39m    [31;1m3 failed[39;22m[90m (4 assertions)[39m
+  [90mDuration:[39m [39m87.34s[39m
+

@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -18,6 +20,9 @@ class Student extends Model
 {
     /** @use HasFactory<StudentFactory> */
     use HasFactory, LogsActivity, SoftDeletes;
+
+    /** Memoises the private-disk stat behind hasPhoto() for one instance. */
+    private ?bool $photoExists = null;
 
     protected $fillable = [
         'index_number',
@@ -106,6 +111,29 @@ class Student extends Model
     public function getPrimaryGuardianAttribute(): ?Guardian
     {
         return $this->guardians()->wherePivot('is_primary', true)->first();
+    }
+
+    /**
+     * Whether a photo file is actually present on the private disk. Resolved
+     * here rather than in a view so a missing file renders a placeholder
+     * instead of a broken image (SPEC.md §8.6).
+     */
+    public function hasPhoto(): bool
+    {
+        return $this->photoExists ??= $this->photo_path !== null
+            && Storage::disk('local')->exists($this->photo_path);
+    }
+
+    /**
+     * The ONLY place a student photo URL is constructed (SPEC.md §8.6:
+     * "signed URLs ... from a single shared construction site"). The route
+     * additionally enforces `auth` and StudentPolicy@viewPhoto.
+     */
+    public function photoUrl(): ?string
+    {
+        return $this->hasPhoto()
+            ? URL::signedRoute('students.photo', ['student' => $this->getKey()])
+            : null;
     }
 
     public function getActivitylogOptions(): LogOptions

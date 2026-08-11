@@ -11,7 +11,7 @@
             <h2 class="font-semibold text-navy">{{ __('guardian.children.index_title') }}</h2>
 
             <div class="mt-4 flex items-center gap-4">
-                <img src="{{ route('students.photo', $student) }}" alt="" class="h-16 w-16 rounded-full bg-navy-50 object-cover" onerror="this.style.display='none'">
+                <x-student-photo :student="$student" class="h-16 w-16" />
                 <div>
                     <p class="text-lg font-semibold text-navy">{{ $student->full_name }}</p>
                     <p class="text-sm text-navy-400">{{ $student->index_number }}</p>

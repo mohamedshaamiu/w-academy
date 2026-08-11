@@ -76,6 +76,71 @@ class AgreementGateTest extends TestCase
         $this->assertFalse($student->fresh()->has_signed_current_agreement);
     }
 
+    public function test_guardian_must_change_password_before_signing(): void
+    {
+        // SPEC.md §7 lists the agreement group as (auth, role:guardian,
+        // password.changed); §8.3: "a binding agreement may not be signed
+        // while on an admin-issued password".
+        AgreementTemplate::factory()->create(['is_current' => true]);
+        [$guardianUser, , $student] = $this->makeGuardianWithStudent();
+        $guardianUser->update(['must_change_password' => true]);
+
+        $this->actingAs($guardianUser)
+            ->get(route('agreement.show', $student))
+            ->assertRedirect(route('password.change'));
+
+        $this->actingAs($guardianUser)
+            ->post(route('agreement.sign', $student), [
+                'signatory_name' => 'Test Guardian',
+                'consents' => ['discipline_policy_acknowledged' => true],
+            ])
+            ->assertRedirect(route('password.change'));
+
+        $this->assertDatabaseCount('agreement_signatures', 0);
+        $this->assertFalse($student->fresh()->has_signed_current_agreement);
+    }
+
+    public function test_gate_denies_when_no_current_template_exists(): void
+    {
+        // Deliberately no AgreementTemplate at all. SPEC.md §8.3: the gate
+        // fails CLOSED — guardians and students are denied portal access.
+        [$guardianUser, , $student] = $this->makeGuardianWithStudent();
+
+        $this->actingAs($guardianUser)
+            ->get(route('guardian.dashboard'))
+            ->assertForbidden()
+            ->assertViewIs('agreement.unavailable');
+
+        $studentUser = User::factory()->create(['username' => $student->index_number]);
+        $studentUser->assignRole('student');
+        $student->update(['user_id' => $studentUser->id]);
+
+        $this->actingAs($studentUser)
+            ->get(route('student.dashboard'))
+            ->assertForbidden()
+            ->assertViewIs('agreement.unavailable');
+    }
+
+    public function test_admin_retains_access_when_no_current_template_exists(): void
+    {
+        // No template published: an admin must still be able to reach the
+        // template screens in order to publish one (SPEC.md §8.3).
+        $admin = User::factory()->create();
+        $admin->assignRole('admin');
+
+        $this->actingAs($admin)
+            ->get(route('admin.agreement-templates.index'))
+            ->assertOk();
+
+        // And an admin who is also a guardian must not be locked out either.
+        [$guardianUser] = $this->makeGuardianWithStudent();
+        $guardianUser->assignRole('admin');
+
+        $this->actingAs($guardianUser->fresh())
+            ->get(route('guardian.dashboard'))
+            ->assertOk();
+    }
+
     public function test_signature_stores_immutable_template_snapshot(): void
     {
         $template = AgreementTemplate::factory()->create(['is_current' => true, 'body_dv' => 'Original text']);

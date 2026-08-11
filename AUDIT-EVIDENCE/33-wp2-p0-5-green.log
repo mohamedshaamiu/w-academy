@@ -1,0 +1,20 @@
+########## P0-5 GREEN ##########
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\AgreementGateTest[39m
+  [32;1m✓[39;22m[90m [39m[90mguardian must change password before signing[39m[90m                                                                [39m [90m3.88s[39m  
+
+  [90mTests:[39m    [32;1m1 passed[39;22m[90m (6 assertions)[39m
+  [90mDuration:[39m [39m5.96s[39m
+
+
+--- systematic route sweep ---
+
+  [30;43;1m WARN [39;49;22m[39m Tests\Feature\RouteCoverageTest[39m
+  [32;1m✓[39;22m[90m [39m[90mevery non public route rejects guests and wrong roles[39m[90m                                                      [39m [90m11.24s[39m  
+  [32;1m✓[39;22m[90m [39m[90mevery authenticated web route forces a pending password change[39m[90m                                              [39m [90m5.37s[39m  
+  [32;1m✓[39;22m[90m [39m[90mroute table contains no registration or password reset route[39m[90m                                                [39m [90m0.56s[39m  
+  [33;1m…[39;22m[90m [39m[90mno undeclared public route serves the private disk[39m[90m [39m[33m→ Deferred as BACKLOG-NEW.md NEW-1 (P2): storage/{path}[39m[90m… [39m [90m0.79s[39m  
+
+  [90mTests:[39m    [33;1m1 incomplete[39;22m[90m,[39m[39m [39m[32;1m3 passed[39;22m[90m (276 assertions)[39m
+  [90mDuration:[39m [39m19.73s[39m
+

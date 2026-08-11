@@ -1,0 +1,122 @@
+########## WP-2 FULL SUITE ##########
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\AgreementGateTest[39m
+  [32;1m✓[39;22m[90m [39m[90mguardian is redirected to agreement before portal access[39m[90m                                                    [39m [90m7.81s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstudent is blocked until guardian signs[39m[90m                                                                     [39m [90m1.90s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstudent cannot sign own agreement[39m[90m                                                                           [39m [90m1.38s[39m  
+  [32;1m✓[39;22m[90m [39m[90mnew template version forces resign[39m[90m                                                                          [39m [90m1.72s[39m  
+  [32;1m✓[39;22m[90m [39m[90mguardian must change password before signing[39m[90m                                                                [39m [90m1.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mgate denies when no current template exists[39m[90m                                                                 [39m [90m1.35s[39m  
+  [32;1m✓[39;22m[90m [39m[90madmin retains access when no current template exists[39m[90m                                                        [39m [90m1.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90msignature stores immutable template snapshot[39m[90m                                                                [39m [90m0.58s[39m  
+  [32;1m✓[39;22m[90m [39m[90msnapshot matches the locale the guardian signed in[39m[90m                                                          [39m [90m0.64s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\AgreementSignatureTest[39m
+  [32;1m✓[39;22m[90m [39m[90msigned agreement fields cannot be updated[39m[90m                                                                   [39m [90m0.99s[39m  
+  [32;1m✓[39;22m[90m [39m[90mrevocation is the only mutation path[39m[90m                                                                        [39m [90m0.70s[39m  
+  [32;1m✓[39;22m[90m [39m[90mrevoked signature no longer satisfies the gate[39m[90m                                                              [39m [90m0.83s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\AgreementTemplateTest[39m
+  [32;1m✓[39;22m[90m [39m[90mpublish blocked when either language incomplete[39m[90m                                                             [39m [90m1.24s[39m  
+  [32;1m✓[39;22m[90m [39m[90mpublish succeeds when both languages complete[39m[90m                                                               [39m [90m0.55s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\ApiLocaleTest[39m
+  [32;1m✓[39;22m[90m [39m[90maccept language switches resource language[39m[90m                                                                  [39m [90m6.17s[39m  
+  [32;1m✓[39;22m[90m [39m[90mapi locale falls back to the users locale column[39m[90m                                                            [39m [90m0.94s[39m  
+  [32;1m✓[39;22m[90m [39m[90munsupported accept language falls back rather than adding a locale[39m[90m                                          [39m [90m0.72s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Api\AuthTest[39m
+  [32;1m✓[39;22m[90m [39m[90mapi login returns a bearer token[39m[90m                                                                            [39m [90m1.44s[39m  
+  [32;1m✓[39;22m[90m [39m[90mapi login rejects bad credentials[39m[90m                                                                           [39m [90m0.94s[39m  
+  [32;1m✓[39;22m[90m [39m[90mapi login rejects an inactive account[39m[90m                                                                       [39m [90m0.81s[39m  
+  [32;1m✓[39;22m[90m [39m[90mapi logout revokes the token[39m[90m                                                                                [39m [90m0.95s[39m  
+  [32;1m✓[39;22m[90m [39m[90mapi logout is unreachable without a token[39m[90m                                                                   [39m [90m0.89s[39m  
+  [32;1m✓[39;22m[90m [39m[90mapi me returns role and forced password change[39m[90m                                                              [39m [90m0.59s[39m  
+  [32;1m✓[39;22m[90m [39m[90mapi me is unreachable without a token[39m[90m                                                                       [39m [90m0.46s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Api\ChildrenTest[39m
+  [32;1m✓[39;22m[90m [39m[90mguardian receives only their own children[39m[90m                                                                   [39m [90m3.16s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstudent cannot reach the children endpoint[39m[90m                                                                  [39m [90m0.73s[39m  
+  [32;1m✓[39;22m[90m [39m[90mcoach cannot reach the children endpoint[39m[90m                                                                    [39m [90m0.50s[39m  
+  [32;1m✓[39;22m[90m [39m[90mchildren endpoint is unreachable without a token[39m[90m                                                            [39m [90m0.30s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Api\FrameworkTest[39m
+  [32;1m✓[39;22m[90m [39m[90mframework returns pillars and strike levels[39m[90m                                                                 [39m [90m0.50s[39m  
+  [32;1m✓[39;22m[90m [39m[90mframework is unreachable without a token[39m[90m                                                                    [39m [90m0.51s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Api\ScheduleTest[39m
+  [32;1m✓[39;22m[90m [39m[90mcoach sees only their own squads sessions[39m[90m                                                                   [39m [90m0.47s[39m  
+  [32;1m✓[39;22m[90m [39m[90mguardian sees only their childs sessions[39m[90m                                                                    [39m [90m0.67s[39m  
+  [32;1m✓[39;22m[90m [39m[90mschedule never exposes another students data[39m[90m                                                                [39m [90m0.53s[39m  
+  [32;1m✓[39;22m[90m [39m[90mschedule is unreachable without a token[39m[90m                                                                     [39m [90m0.44s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\AttendanceTest[39m
+  [32;1m✓[39;22m[90m [39m[90monly assigned coach or admin can mark attendance[39m[90m                                                            [39m [90m1.86s[39m  
+  [32;1m✓[39;22m[90m [39m[90msuspended student cannot be marked present[39m[90m                                                                  [39m [90m0.58s[39m  
+  [32;1m✓[39;22m[90m [39m[90mmarking attendance twice updates not duplicates[39m[90m                                                             [39m [90m0.70s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\AuthenticationTest[39m
+  [32;1m✓[39;22m[90m [39m[90mlogin screen can be rendered[39m[90m                                                                                [39m [90m4.20s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstudent can log in with index number[39m[90m                                                                        [39m [90m3.39s[39m  
+  [32;1m✓[39;22m[90m [39m[90mguardian can log in with phone number[39m[90m                                                                       [39m [90m0.46s[39m  
+  [32;1m✓[39;22m[90m [39m[90mindex number lookup is case and space insensitive[39m[90m                                                           [39m [90m0.38s[39m  
+  [32;1m✓[39;22m[90m [39m[90minactive user cannot log in[39m[90m                                                                                 [39m [90m1.20s[39m  
+  [32;1m✓[39;22m[90m [39m[90mfirst login forces password change[39m[90m                                                                          [39m [90m1.12s[39m  
+  [32;1m✓[39;22m[90m [39m[90mno public registration route exists[39m[90m                                                                         [39m [90m1.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90musers can logout[39m[90m                                                                                            [39m [90m0.73s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\AuthorizationTest[39m
+  [32;1m✓[39;22m[90m [39m[90mguardian cannot view another guardians child[39m[90m                                                                [39m [90m5.48s[39m  
+  [32;1m✓[39;22m[90m [39m[90mcoach cannot view student outside own squad[39m[90m                                                                 [39m [90m5.24s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstudent cannot view another students record[39m[90m                                                                 [39m [90m1.83s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstudent schedule exposes no teammate names[39m[90m                                                                  [39m [90m1.37s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\CredentialTest[39m
+  [32;1m✓[39;22m[90m [39m[90missuing login sets username to index number[39m[90m                                                                 [39m [90m0.49s[39m  
+  [32;1m✓[39;22m[90m [39m[90mreissuing resets password without creating second account[39m[90m                                                   [39m [90m0.38s[39m  
+  [32;1m✓[39;22m[90m [39m[90mchanging index number updates linked username[39m[90m                                                               [39m [90m0.43s[39m  
+  [32;1m✓[39;22m[90m [39m[90mgenerated password is not persisted in plain text[39m[90m                                                           [39m [90m0.50s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\EnrolmentTest[39m
+  [32;1m✓[39;22m[90m [39m[90mnew enrolment closes previous active enrolment[39m[90m                                                              [39m [90m0.43s[39m  
+  [32;1m✓[39;22m[90m [39m[90menrolment blocked when squad at capacity[39m[90m                                                                    [39m [90m0.47s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\LocalisationTest[39m
+  [32;1m✓[39;22m[90m [39m[90mdhivehi locale renders rtl direction[39m[90m                                                                        [39m [90m2.19s[39m  
+  [32;1m✓[39;22m[90m [39m[90menglish locale renders ltr direction[39m[90m                                                                        [39m [90m1.19s[39m  
+  [32;1m✓[39;22m[90m [39m[90mswitching locale persists for authenticated user[39m[90m                                                            [39m [90m0.60s[39m  
+  [32;1m✓[39;22m[90m [39m[90minvalid locale is rejected[39m[90m                                                                                  [39m [90m1.17s[39m  
+  [32;1m✓[39;22m[90m [39m[90mlang dv and en have identical key sets[39m[90m                                                                      [39m [90m4.28s[39m  
+  [32;1m✓[39;22m[90m [39m[90mno untranslated literals in blade views[39m[90m                                                                     [39m [90m1.54s[39m  
+
+  [30;43;1m WARN [39;49;22m[39m Tests\Feature\RouteCoverageTest[39m
+  [32;1m✓[39;22m[90m [39m[90mevery non public route rejects guests and wrong roles[39m[90m                                                       [39m [90m7.72s[39m  
+  [32;1m✓[39;22m[90m [39m[90mevery authenticated web route forces a pending password change[39m[90m                                              [39m [90m5.88s[39m  
+  [32;1m✓[39;22m[90m [39m[90mroute table contains no registration or password reset route[39m[90m                                                [39m [90m1.13s[39m  
+  [33;1m…[39;22m[90m [39m[90mno undeclared public route serves the private disk[39m[90m [39m[33m→ Deferred as BACKLOG-NEW.md NEW-1 (P2): storage/{path}[39m[90m… [39m [90m0.87s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\SessionSchedulingTest[39m
+  [32;1m✓[39;22m[90m [39m[90mgenerate skips dates with existing sessions[39m[90m                                                                 [39m [90m1.31s[39m  
+  [32;1m✓[39;22m[90m [39m[90moverlapping session is rejected[39m[90m                                                                             [39m [90m0.48s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\StudentCreationTest[39m
+  [32;1m✓[39;22m[90m [39m[90madmin can create student with primary guardian[39m[90m                                                              [39m [90m2.67s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstudent creation requires at least one guardian[39m[90m                                                             [39m [90m1.69s[39m  
+  [32;1m✓[39;22m[90m [39m[90mduplicate index number is rejected[39m[90m                                                                          [39m [90m0.88s[39m  
+  [32;1m✓[39;22m[90m [39m[90mage outside 5 to 18 is rejected[39m[90m                                                                             [39m [90m1.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mthaana input is accepted and stored intact[39m[90m                                                                  [39m [90m1.23s[39m  
+  [32;1m✓[39;22m[90m [39m[90mnon admin cannot create a student[39m[90m                                                                           [39m [90m0.75s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\StudentPhotoTest[39m
+  [32;1m✓[39;22m[90m [39m[90msigned photo url renders for authorised viewer[39m[90m                                                             [39m [90m15.17s[39m  
+  [32;1m✓[39;22m[90m [39m[90munsigned photo url is rejected[39m[90m                                                                              [39m [90m0.78s[39m  
+  [32;1m✓[39;22m[90m [39m[90mguardian cannot load another childs photo[39m[90m                                                                   [39m [90m1.05s[39m  
+  [32;1m✓[39;22m[90m [39m[90mphoto route is not publicly reachable[39m[90m                                                                       [39m [90m0.57s[39m  
+  [32;1m✓[39;22m[90m [39m[90mmedia failure is shown as a placeholder not suppressed[39m[90m                                                      [39m [90m0.93s[39m  
+
+  [90mTests:[39m    [33;1m1 incomplete[39;22m[90m,[39m[39m [39m[32;1m77 passed[39;22m[90m (563 assertions)[39m
+  [90mDuration:[39m [39m152.49s[39m
+
+
+########## PINT ##########
+{"tool":"pint","result":"passed"}

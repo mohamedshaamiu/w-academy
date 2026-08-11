@@ -6,7 +6,7 @@
             @foreach ($students as $student)
                 <a href="{{ route('guardian.children.show', $student) }}" class="block rounded-xl border border-navy-100 bg-white p-5 shadow-sm transition hover:shadow-md">
                     <div class="flex items-center gap-3">
-                        <img src="{{ route('students.photo', $student) }}" alt="" class="h-12 w-12 rounded-full bg-navy-50 object-cover" onerror="this.style.display='none'">
+                        <x-student-photo :student="$student" class="h-12 w-12" />
                         <div>
                             <p class="font-semibold text-navy">{{ $student->full_name }}</p>
                             <p class="text-xs text-navy-400">{{ $student->index_number }}</p>

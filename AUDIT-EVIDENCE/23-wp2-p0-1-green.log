@@ -1,0 +1,12 @@
+########## P0-1 GREEN ##########
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\StudentPhotoTest[39m
+  [32;1m✓[39;22m[90m [39m[90msigned photo url renders for authorised viewer[39m[90m                                                            [39m [90m142.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90munsigned photo url is rejected[39m[90m                                                                             [39m [90m15.33s[39m  
+  [32;1m✓[39;22m[90m [39m[90mguardian cannot load another childs photo[39m[90m                                                                  [39m [90m19.26s[39m  
+  [32;1m✓[39;22m[90m [39m[90mphoto route is not publicly reachable[39m[90m                                                                      [39m [90m20.33s[39m  
+  [32;1m✓[39;22m[90m [39m[90mmedia failure is shown as a placeholder not suppressed[39m[90m                                                     [39m [90m14.49s[39m  
+
+  [90mTests:[39m    [32;1m5 passed[39;22m[90m (12 assertions)[39m
+  [90mDuration:[39m [39m283.04s[39m
+

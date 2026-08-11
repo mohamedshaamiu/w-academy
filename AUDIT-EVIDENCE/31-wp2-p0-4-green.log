@@ -1,0 +1,15 @@
+########## P0-4 GREEN ##########
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\AgreementGateTest[39m
+  [32;1m✓[39;22m[90m [39m[90mguardian is redirected to agreement before portal access[39m[90m                                                   [39m [90m40.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstudent is blocked until guardian signs[39m[90m                                                                    [39m [90m10.07s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstudent cannot sign own agreement[39m[90m                                                                           [39m [90m6.67s[39m  
+  [32;1m✓[39;22m[90m [39m[90mnew template version forces resign[39m[90m                                                                          [39m [90m5.21s[39m  
+  [32;1m✓[39;22m[90m [39m[90mgate denies when no current template exists[39m[90m                                                                [39m [90m10.14s[39m  
+  [32;1m✓[39;22m[90m [39m[90madmin retains access when no current template exists[39m[90m                                                        [39m [90m4.85s[39m  
+  [32;1m✓[39;22m[90m [39m[90msignature stores immutable template snapshot[39m[90m                                                                [39m [90m5.54s[39m  
+  [32;1m✓[39;22m[90m [39m[90msnapshot matches the locale the guardian signed in[39m[90m                                                          [39m [90m4.47s[39m  
+
+  [90mTests:[39m    [32;1m8 passed[39;22m[90m (15 assertions)[39m
+  [90mDuration:[39m [39m96.67s[39m
+

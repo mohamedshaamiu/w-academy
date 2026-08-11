@@ -48,7 +48,7 @@
 
             <div class="rounded-xl border {{ $isSuspended ? 'border-navy-100 bg-navy-50' : 'border-navy-100 bg-white' }} p-4">
                 <div class="flex items-center gap-3">
-                    <img src="{{ route('students.photo', $student) }}" alt="" class="h-12 w-12 shrink-0 rounded-full bg-navy-100 object-cover" onerror="this.style.display='none'">
+                    <x-student-photo :student="$student" class="h-12 w-12 shrink-0" />
 
                     <div class="min-w-0 flex-1">
                         <p class="truncate font-semibold text-navy">{{ $student->full_name }}</p>

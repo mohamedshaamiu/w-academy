@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Enums\AgreementStatus;
 use App\Enums\StudentStatus;
+use App\Exceptions\SignatureIsImmutable;
 use App\Models\AgreementSignature;
 use App\Models\AgreementTemplate;
 use App\Models\Guardian;
@@ -107,6 +109,29 @@ class AgreementService
             $this->maybeActivateStudent($student->fresh());
 
             return $signature;
+        });
+    }
+
+    /**
+     * The ONLY permitted writer of `status`, `revoked_at` and `revoked_reason`
+     * (SPEC.md §8.3). Corrections to a signed agreement are made by revoking
+     * and re-signing — the original record is preserved, never mutated or
+     * deleted, so the audit trail stays intact.
+     */
+    public function revoke(AgreementSignature $signature, string $reason): AgreementSignature
+    {
+        if ($signature->status === AgreementStatus::Revoked) {
+            throw SignatureIsImmutable::alreadyRevoked($signature->getKey());
+        }
+
+        return DB::transaction(function () use ($signature, $reason) {
+            $signature->markRevoking()->forceFill([
+                'status' => AgreementStatus::Revoked,
+                'revoked_at' => now(),
+                'revoked_reason' => $reason,
+            ])->save();
+
+            return $signature->fresh();
         });
     }
 

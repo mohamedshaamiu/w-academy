@@ -1,0 +1,35 @@
+########## P0-2 GREEN (2) — after SetApiLocale guard fix + test corrections ##########
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Api\AuthTest[39m
+  [32;1m✓[39;22m[90m [39m[90mapi login returns a bearer token[39m[90m                                                                           [39m [90m34.56s[39m  
+  [32;1m✓[39;22m[90m [39m[90mapi login rejects bad credentials[39m[90m                                                                           [39m [90m8.26s[39m  
+  [32;1m✓[39;22m[90m [39m[90mapi login rejects an inactive account[39m[90m                                                                       [39m [90m8.21s[39m  
+  [32;1m✓[39;22m[90m [39m[90mapi logout revokes the token[39m[90m                                                                               [39m [90m11.96s[39m  
+  [32;1m✓[39;22m[90m [39m[90mapi logout is unreachable without a token[39m[90m                                                                   [39m [90m9.25s[39m  
+  [32;1m✓[39;22m[90m [39m[90mapi me returns role and forced password change[39m[90m                                                              [39m [90m8.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mapi me is unreachable without a token[39m[90m                                                                      [39m [90m14.93s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Api\ChildrenTest[39m
+  [32;1m✓[39;22m[90m [39m[90mguardian receives only their own children[39m[90m                                                                  [39m [90m13.14s[39m  
+  [32;1m✓[39;22m[90m [39m[90mstudent cannot reach the children endpoint[39m[90m                                                                  [39m [90m7.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mcoach cannot reach the children endpoint[39m[90m                                                                    [39m [90m2.50s[39m  
+  [32;1m✓[39;22m[90m [39m[90mchildren endpoint is unreachable without a token[39m[90m                                                            [39m [90m2.71s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Api\FrameworkTest[39m
+  [32;1m✓[39;22m[90m [39m[90mframework returns pillars and strike levels[39m[90m                                                                 [39m [90m1.72s[39m  
+  [32;1m✓[39;22m[90m [39m[90mframework is unreachable without a token[39m[90m                                                                    [39m [90m1.25s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Api\ScheduleTest[39m
+  [32;1m✓[39;22m[90m [39m[90mcoach sees only their own squads sessions[39m[90m                                                                   [39m [90m1.37s[39m  
+  [32;1m✓[39;22m[90m [39m[90mguardian sees only their childs sessions[39m[90m                                                                    [39m [90m4.79s[39m  
+  [32;1m✓[39;22m[90m [39m[90mschedule never exposes another students data[39m[90m                                                                [39m [90m5.62s[39m  
+  [32;1m✓[39;22m[90m [39m[90mschedule is unreachable without a token[39m[90m                                                                     [39m [90m2.97s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\ApiLocaleTest[39m
+  [32;1m✓[39;22m[90m [39m[90maccept language switches resource language[39m[90m                                                                  [39m [90m3.81s[39m  
+  [32;1m✓[39;22m[90m [39m[90mapi locale falls back to the users locale column[39m[90m                                                            [39m [90m5.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90munsupported accept language falls back rather than adding a locale[39m[90m                                          [39m [90m4.10s[39m  
+
+  [90mTests:[39m    [32;1m20 passed[39;22m[90m (93 assertions)[39m
+  [90mDuration:[39m [39m162.36s[39m
+

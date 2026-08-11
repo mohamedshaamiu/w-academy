@@ -190,6 +190,53 @@ class RouteCoverageTest extends TestCase
         $this->assertSame([], $roleFailures, "Routes reachable by the wrong role:\n".implode("\n", $roleFailures));
     }
 
+    /**
+     * SPEC.md §8.1: "If `must_change_password` is true, ALL routes except
+     * `/password/change`, `/logout` and `/locale/*` redirect to the
+     * change-password screen."
+     */
+    public function test_every_authenticated_web_route_forces_a_pending_password_change(): void
+    {
+        $exempt = ['password.change', 'password.change.update', 'logout', 'locale.switch'];
+        $failures = [];
+
+        foreach ($this->auditableRoutes() as $route) {
+            $name = $route->getName();
+            $middleware = $route->gatherMiddleware();
+
+            if (in_array($name, self::PUBLIC_ROUTE_NAMES, true)
+                || in_array($name, self::INFRASTRUCTURE_ROUTE_NAMES, true)
+                || in_array($name, $exempt, true)) {
+                continue;
+            }
+
+            // The API surface is tracked separately as BACKLOG.md P1-8 and is
+            // deliberately out of scope for this package. Excluded explicitly
+            // so the gap stays visible rather than silently uncovered.
+            if (in_array('auth:sanctum', $middleware, true)) {
+                continue;
+            }
+
+            if (! in_array('auth', $middleware, true)) {
+                continue;
+            }
+
+            $role = $this->requiredRole($middleware) ?? 'admin';
+            $user = $this->userWithRole($role);
+            $user->update(['must_change_password' => true]);
+
+            $response = $this->requestAsUser($route, $user->fresh(), false);
+            $location = (string) $response->headers->get('Location');
+
+            if ($response->getStatusCode() !== 302 || ! str_contains($location, '/password/change')) {
+                $failures[] = "{$name} — expected a redirect to /password/change, got "
+                    .$response->getStatusCode().' → '.($location ?: 'no location');
+            }
+        }
+
+        $this->assertSame([], $failures, "Routes reachable while a password change is pending:\n".implode("\n", $failures));
+    }
+
     public function test_route_table_contains_no_registration_or_password_reset_route(): void
     {
         $forbidden = ['register', 'password.request', 'password.email', 'password.reset', 'password.store', 'verification.notice'];

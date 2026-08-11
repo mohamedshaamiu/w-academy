@@ -1,0 +1,25 @@
+########## P0-4 RED ##########
+
+  [39;41;1m FAIL [39;49;22m[39m Tests\Feature\AgreementGateTest[39m
+  [31;1m⨯[39;22m[90m [39m[90mgate denies when no current template exists[39m[90m                                                                [39m [90m31.18s[39m  
+  [32;1m✓[39;22m[90m [39m[90madmin retains access when no current template exists[39m[90m                                                       [39m [90m10.68s[39m  
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AgreementGateTest[22m [90m>[39m gate denies when no current template exists                                
+[39;1m  Expected response status code [403] but received 200.
+Failed asserting that 200 is identical to 403.[39;22m
+
+  at [32mtests\Feature\AgreementGateTest.php[39m:[32m87[39m
+     83▕         [$guardianUser, , $student] = $this->makeGuardianWithStudent();
+     84▕ 
+     85▕         $this->actingAs($guardianUser)
+     86▕             ->get(route('guardian.dashboard'))
+  ➜  87▕             ->assertForbidden()
+     88▕             ->assertViewIs('agreement.unavailable');
+     89▕ 
+     90▕         $studentUser = User::factory()->create(['username' => $student->index_number]);
+     91▕         $studentUser->assignRole('student');
+
+
+  [90mTests:[39m    [31;1m1 failed[39;22m[90m,[39m[39m [39m[32;1m1 passed[39;22m[90m (3 assertions)[39m
+  [90mDuration:[39m [39m80.91s[39m
+

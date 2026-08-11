@@ -1,0 +1,35 @@
+########## P0-1 RULE-6 SWEEPS (five independent passes) ##########
+
+=== SWEEP 1 — string-referenced symbols ===
+-- 1a route name 'students.photo' as a string --
+   app/Models/Student.php:135:            ? URL::signedRoute('students.photo', ['student' => $this->getKey()])
+   routes/web.php:156:    ->name('students.photo');
+   tests/Feature/RouteCoverageTest.php:69:        'students.photo' => 'SPEC.md §8.6 — guarded by a signed URL plus StudentPolicy@viewPhoto, not by role.',
+   tests/Feature/StudentPhotoTest.php:101:            ->get(URL::signedRoute('students.photo', ['student' => $student->id]))
+   tests/Feature/StudentPhotoTest.php:113:            ->get(route('students.photo', $student))
+   tests/Feature/StudentPhotoTest.php:127:            ->get(URL::signedRoute('students.photo', ['student' => $student->id]))
+   tests/Feature/StudentPhotoTest.php:138:        $this->get(URL::signedRoute('students.photo', ['student' => $student->id]))
+   count: 7
+-- 1b component name (x-student-photo / <x-student-photo) --
+   resources/views/coach/attendance-mark.blade.php:51:                    <x-student-photo :student="$student" class="h-12 w-12 shrink-0" />
+   resources/views/coach/squad-detail.blade.php:26:                            <x-student-photo :student="$student" class="h-10 w-10" />
+   resources/views/guardian/child-detail.blade.php:14:                <x-student-photo :student="$student" class="h-16 w-16" />
+   resources/views/guardian/children.blade.php:9:                        <x-student-photo :student="$student" class="h-12 w-12" />
+   resources/views/guardian/dashboard.blade.php:9:                        <x-student-photo :student="$card['student']" class="h-12 w-12" />
+   resources/views/student/dashboard.blade.php:4:            <x-student-photo :student="$student" class="h-16 w-16 shrink-0" />
+   resources/views/student/profile.blade.php:5:                <x-student-photo :student="$student" class="h-16 w-16 shrink-0" />
+   count: 7
+-- 1c view()/@include/@each referencing a photo partial --
+   (none)
+-- 1d config keys touched --
+   (none)
+-- 1e method names as strings (dynamic calls / eager-load strings) --
+   app/Http/Controllers/Admin/StudentController.php:71:                'photo_path' => $photoPath,
+   app/Models/Student.php:36:        'photo_path',
+   tests/Feature/StudentPhotoTest.php:41:        $student->update(['photo_path' => $path]);
+   database/migrations/2024_01_01_000030_create_students_table.php:21:            $table->string('photo_path')->nullable();
+   count: 4
+
+=== SWEEP 2 — comparison operators on photo state ===
+      0 [main] bash 70267 dofork: child -1 - forked process 14524 died unexpectedly, retry 0, exit code 0xC0000142, errno 11
+/usr/bin/bash: fork: retry: Resource temporarily unavailable

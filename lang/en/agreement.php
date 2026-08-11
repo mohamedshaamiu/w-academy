@@ -10,6 +10,11 @@ return [
         'guardian_must_sign' => 'Please complete the discipline agreement for your child before continuing.',
     ],
 
+    'unavailable' => [
+        'title' => 'Agreement unavailable',
+        'body' => 'No discipline agreement is currently published, so the portal cannot be opened yet. Please contact the academy office.',
+    ],
+
     'signed_successfully' => 'The agreement has been signed successfully.',
 
     'validation' => [

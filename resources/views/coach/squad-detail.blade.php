@@ -23,7 +23,7 @@
                 @forelse ($roster as $student)
                     <tr>
                         <td class="px-4 py-3">
-                            <img src="{{ route('students.photo', $student) }}" alt="" class="h-10 w-10 rounded-full bg-navy-50 object-cover" onerror="this.style.display='none'">
+                            <x-student-photo :student="$student" class="h-10 w-10" />
                         </td>
                         <td class="px-4 py-3 font-mono">{{ $student->index_number }}</td>
                         <td class="px-4 py-3">{{ $student->full_name }}</td>

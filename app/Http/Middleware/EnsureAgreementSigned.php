@@ -33,10 +33,20 @@ class EnsureAgreementSigned
         }
 
         $user = $request->user();
+
+        // SPEC.md §8.3: "admins retain access so they can publish one". Admin
+        // routes do not carry this middleware, but a user who holds both the
+        // admin and guardian roles must not be locked out of the portal.
+        if ($user->isAdmin()) {
+            return $next($request);
+        }
+
         $current = AgreementTemplate::current()->first();
 
+        // SPEC.md §8.3: the gate fails CLOSED. With no current template there
+        // is nothing to sign, so portal access is denied rather than allowed.
         if (! $current) {
-            return $next($request);
+            return response()->view('agreement.unavailable', [], 403);
         }
 
         if ($user->isGuardian()) {

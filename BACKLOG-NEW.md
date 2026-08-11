@@ -40,3 +40,47 @@ The framework's serve handler refuses files whose disk visibility is private, so
 **Depends on:** interacts with P0-1 and P3-01 (private-disk naming) — sequence after P0-1.
 
 **Interim handling in WP-1:** `RouteCoverageTest` allowlists `storage.local` as framework infrastructure with this ID cited inline, so the route is accounted for rather than silently skipped.
+
+---
+
+## NEW-2 — `agreement.unavailable` ships with placeholder Dhivehi copy
+
+- **Severity:** **P2** (content, blocks go-live for the `dv` audience — not acceptance of the mechanism).
+- **Found during:** WP-2, P0-4.
+- **SPEC ref:** §3.6 (seed `[DV CONTENT PENDING]` rather than fabricate), §8.3 (the fail-closed screen shows "a translated message directing them to the academy office").
+
+Making the gate fail closed required a screen that did not exist, and therefore two new lang keys. English is written; **Dhivehi is seeded as `[DV CONTENT PENDING]`** because §3.6 forbids fabricating or machine-translating Dhivehi and none was supplied:
+
+```php
+// lang/dv/agreement.php
+'unavailable' => [
+    'title' => '[DV CONTENT PENDING]',
+    'body'  => '[DV CONTENT PENDING]',
+],
+```
+
+The mechanism is complete and tested (`AgreementGateTest::test_gate_denies_when_no_current_template_exists`); only the copy is outstanding. A Dhivehi-speaking guardian hitting this screen today sees the literal placeholder.
+
+**English source to translate:**
+- title — "Agreement unavailable"
+- body — "No discipline agreement is currently published, so the portal cannot be opened yet. Please contact the academy office."
+
+**Files affected:** `lang/dv/agreement.php`, `resources/views/agreement/unavailable.blade.php` (no change needed).
+**Proving test:** `LocalisationTest::test_no_placeholder_content_in_dv_lang_files` (BACKLOG.md P1-11 — note that item now covers only genuinely-missing copy, since `public.contact.*` placeholders were confirmed correct in DELTA.md).
+**Depends on:** customer-supplied Dhivehi copy.
+
+---
+
+## NEW-3 — `AgreementSignature` docblock references a factory that does not exist
+
+- **Severity:** **P3** (static-analysis noise; no runtime impact).
+- **Found during:** WP-2, P0-3.
+- **SPEC ref:** §11 (`database/factories/...`).
+
+`app/Models/AgreementSignature.php:16` carries `/** @use HasFactory<AgreementSignatureFactory> */` and imports `Database\Factories\AgreementSignatureFactory`, but no such class exists — `database/factories/` holds only 8 factories and this is not among them. Calling `AgreementSignature::factory()` would fail at runtime; nothing currently does, because the model is only ever created through `AgreementService::sign()`.
+
+Pre-existing, not introduced by WP-2, and left untouched under standing rule 3.
+
+**Recommended fix (not applied):** add `database/factories/AgreementSignatureFactory.php`, or drop the unused import and the generic docblock parameter.
+**Files affected:** `app/Models/AgreementSignature.php:7,16`.
+**Proving test:** `Unit/AgreementSignatureFactoryTest::test_factory_creates_a_valid_signature`.

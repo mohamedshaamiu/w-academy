@@ -14,7 +14,11 @@ class SetApiLocale
         $locale = $request->header('Accept-Language');
 
         if (! in_array($locale, Locale::values(), true)) {
-            $locale = $request->user()?->locale?->value ?? Locale::Dhivehi->value;
+            // Resolve through the sanctum guard explicitly: this middleware is
+            // prepended to the api group, and $request->user() would use the
+            // default `web` guard, which is never populated on an API request —
+            // so the user's locale column would never be consulted (SPEC.md §3.2).
+            $locale = $request->user('sanctum')?->locale?->value ?? Locale::Dhivehi->value;
         }
 
         app()->setLocale($locale);

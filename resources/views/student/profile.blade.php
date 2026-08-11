@@ -2,7 +2,7 @@
     <div class="max-w-xl space-y-6">
         <div class="rounded-xl border border-navy-100 bg-white p-5 shadow-sm">
             <div class="flex items-center gap-4">
-                <img src="{{ route('students.photo', $student) }}" alt="" class="h-16 w-16 shrink-0 rounded-full bg-navy-50 object-cover" onerror="this.style.display='none'">
+                <x-student-photo :student="$student" class="h-16 w-16 shrink-0" />
                 <div>
                     <p class="text-lg font-semibold text-navy">{{ $student->full_name }}</p>
                     <p class="text-sm text-navy-400">{{ $student->index_number }}</p>

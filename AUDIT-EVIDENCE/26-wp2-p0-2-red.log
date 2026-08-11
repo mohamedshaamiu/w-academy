@@ -1,0 +1,1094 @@
+########## P0-2 RED — /api/v1 against unmodified application code ##########
+
+  [39;41;1m FAIL [39;49;22m[39m Tests\Feature\Api\AuthTest[39m
+  [31;1m⨯[39;22m[90m [39m[90mapi login returns a bearer token[39m[90m                                                                           [39m [90m25.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90mapi login rejects bad credentials[39m[90m                                                                           [39m [90m1.19s[39m  
+  [32;1m✓[39;22m[90m [39m[90mapi login rejects an inactive account[39m[90m                                                                       [39m [90m0.62s[39m  
+  [31;1m⨯[39;22m[90m [39m[90mapi logout revokes the token[39m[90m                                                                                [39m [90m0.76s[39m  
+  [32;1m✓[39;22m[90m [39m[90mapi logout is unreachable without a token[39m[90m                                                                   [39m [90m0.99s[39m  
+  [31;1m⨯[39;22m[90m [39m[90mapi me returns role and forced password change[39m[90m                                                              [39m [90m1.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mapi me is unreachable without a token[39m[90m                                                                       [39m [90m0.73s[39m  
+
+  [39;41;1m FAIL [39;49;22m[39m Tests\Feature\Api\ChildrenTest[39m
+  [31;1m⨯[39;22m[90m [39m[90mguardian receives only their own children[39m[90m                                                                   [39m [90m1.16s[39m  
+  [31;1m⨯[39;22m[90m [39m[90mstudent cannot reach the children endpoint[39m[90m                                                                  [39m [90m0.73s[39m  
+  [31;1m⨯[39;22m[90m [39m[90mcoach cannot reach the children endpoint[39m[90m                                                                    [39m [90m0.61s[39m  
+  [32;1m✓[39;22m[90m [39m[90mchildren endpoint is unreachable without a token[39m[90m                                                            [39m [90m0.53s[39m  
+
+  [39;41;1m FAIL [39;49;22m[39m Tests\Feature\Api\FrameworkTest[39m
+  [31;1m⨯[39;22m[90m [39m[90mframework returns pillars and strike levels[39m[90m                                                                 [39m [90m0.58s[39m  
+  [32;1m✓[39;22m[90m [39m[90mframework is unreachable without a token[39m[90m                                                                    [39m [90m0.57s[39m  
+
+  [39;41;1m FAIL [39;49;22m[39m Tests\Feature\Api\ScheduleTest[39m
+  [31;1m⨯[39;22m[90m [39m[90mcoach sees only their own squads sessions[39m[90m                                                                   [39m [90m0.56s[39m  
+  [31;1m⨯[39;22m[90m [39m[90mguardian sees only their childs sessions[39m[90m                                                                    [39m [90m0.85s[39m  
+  [31;1m⨯[39;22m[90m [39m[90mschedule never exposes another students data[39m[90m                                                                [39m [90m0.84s[39m  
+  [32;1m✓[39;22m[90m [39m[90mschedule is unreachable without a token[39m[90m                                                                     [39m [90m0.84s[39m  
+
+  [39;41;1m FAIL [39;49;22m[39m Tests\Feature\ApiLocaleTest[39m
+  [31;1m⨯[39;22m[90m [39m[90maccept language switches resource language[39m[90m                                                                  [39m [90m0.87s[39m  
+  [31;1m⨯[39;22m[90m [39m[90mapi locale falls back to the users locale column[39m[90m                                                            [39m [90m0.89s[39m  
+  [31;1m⨯[39;22m[90m [39m[90munsupported accept language falls back rather than adding a locale[39m[90m                                          [39m [90m0.58s[39m  
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\Api\AuthTest[22m [90m>[39m api login returns a bearer token                                                
+[39;1m  Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.
+
+The following exception occurred during the last request:
+
+BadMethodCallException: Call to undefined method App\Models\User::createToken() in C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:67
+Stack trace:
+#0 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php(36): Illuminate\Database\Eloquent\Model::throwBadMethodCallException('createToken')
+#1 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Model.php(2372): Illuminate\Database\Eloquent\Model->forwardCallTo(Object(Illuminate\Database\Eloquent\Builder), 'createToken', Array)
+#2 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Controllers\Api\V1\AuthController.php(36): Illuminate\Database\Eloquent\Model->__call('createToken', Array)
+#3 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(47): App\Http\Controllers\Api\V1\AuthController->login(Object(Illuminate\Http\Request))
+#4 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(266): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\Api\V1\AuthController), 'login')
+#5 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route->runController()
+#6 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route->run()
+#7 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Routing\Router->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#8 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#9 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#10 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Middleware\SetApiLocale.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#11 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): App\Http\Middleware\SetApiLocale->handle(Object(Illuminate\Http\Request), Object(Closure))
+#12 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#13 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#14 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#15 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router->runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#16 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#17 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#18 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Foundation\Http\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#19 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#20 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#21 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle(Object(Illuminate\Http\Request), Object(Closure))
+#22 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#23 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#24 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\TrimStrings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#25 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#26 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\ValidatePostSize->handle(Object(Illuminate\Http\Request), Object(Closure))
+#27 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#28 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle(Object(Illuminate\Http\Request), Object(Closure))
+#29 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(62): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#30 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\HandleCors->handle(Object(Illuminate\Http\Request), Object(Closure))
+#31 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#32 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\TrustProxies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#33 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#34 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks->handle(Object(Illuminate\Http\Request), Object(Closure))
+#35 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#36 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#37 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#38 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(607): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#39 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(573): Illuminate\Foundation\Testing\TestCase->call('POST', '/api/v1/auth/lo...', Array, Array, Array, Array, '{"username":"78...')
+#40 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(411): Illuminate\Foundation\Testing\TestCase->json('POST', '/api/v1/auth/lo...', Array, Array, 0)
+#41 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\AuthTest.php(14): Illuminate\Foundation\Testing\TestCase->postJson('/api/v1/auth/lo...', Array)
+#42 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(1667): Tests\Feature\Api\AuthTest->test_api_login_returns_a_bearer_token()
+#43 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+#44 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestRunner\TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+#45 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\Api\AuthTest))
+#46 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+#47 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+#48 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+#49 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+#50 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\phpunit(104): PHPUnit\TextUI\Application->run(Array)
+#51 {main}
+
+----------------------------------------------------------------------------------
+
+Call to undefined method App\Models\User::createToken()[39;22m
+
+  at [32mtests\Feature\Api\AuthTest.php[39m:[32m19[39m
+     15▕             'username' => '7811100',
+     16▕             'password' => 'password',
+     17▕         ]);
+     18▕ 
+  ➜  19▕         $response->assertOk();
+     20▕         $response->assertJsonStructure(['token', 'user' => ['id', 'name', 'username', 'locale', 'role', 'must_change_password']]);
+     21▕         $this->assertNotEmpty($response->json('token'));
+     22▕         $this->assertSame('guardian', $response->json('user.role'));
+     23▕         $this->assertSame($user->id, $response->json('user.id'));
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\Api\AuthTest[22m [90m>[39m api logout revokes the token                                                    
+[39;1m  Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.
+
+The following exception occurred during the last request:
+
+BadMethodCallException: Call to undefined method App\Models\User::createToken() in C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:67
+Stack trace:
+#0 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php(36): Illuminate\Database\Eloquent\Model::throwBadMethodCallException('createToken')
+#1 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Model.php(2372): Illuminate\Database\Eloquent\Model->forwardCallTo(Object(Illuminate\Database\Eloquent\Builder), 'createToken', Array)
+#2 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Controllers\Api\V1\AuthController.php(36): Illuminate\Database\Eloquent\Model->__call('createToken', Array)
+#3 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(47): App\Http\Controllers\Api\V1\AuthController->login(Object(Illuminate\Http\Request))
+#4 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(266): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\Api\V1\AuthController), 'login')
+#5 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route->runController()
+#6 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route->run()
+#7 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Routing\Router->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#8 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#9 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#10 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Middleware\SetApiLocale.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#11 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): App\Http\Middleware\SetApiLocale->handle(Object(Illuminate\Http\Request), Object(Closure))
+#12 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#13 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#14 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#15 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router->runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#16 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#17 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#18 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Foundation\Http\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#19 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#20 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#21 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle(Object(Illuminate\Http\Request), Object(Closure))
+#22 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#23 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#24 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\TrimStrings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#25 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#26 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\ValidatePostSize->handle(Object(Illuminate\Http\Request), Object(Closure))
+#27 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#28 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle(Object(Illuminate\Http\Request), Object(Closure))
+#29 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(62): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#30 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\HandleCors->handle(Object(Illuminate\Http\Request), Object(Closure))
+#31 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#32 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\TrustProxies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#33 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#34 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks->handle(Object(Illuminate\Http\Request), Object(Closure))
+#35 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#36 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#37 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#38 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(607): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#39 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(573): Illuminate\Foundation\Testing\TestCase->call('POST', '/api/v1/auth/lo...', Array, Array, Array, Array, '{"username":"70...')
+#40 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(411): Illuminate\Foundation\Testing\TestCase->json('POST', '/api/v1/auth/lo...', Array, Array, 0)
+#41 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ApiTestCase.php(63): Illuminate\Foundation\Testing\TestCase->postJson('/api/v1/auth/lo...', Array)
+#42 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\AuthTest.php(49): Tests\Feature\Api\ApiTestCase->tokenFor(Object(App\Models\User))
+#43 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(1667): Tests\Feature\Api\AuthTest->test_api_logout_revokes_the_token()
+#44 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+#45 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestRunner\TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+#46 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\Api\AuthTest))
+#47 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+#48 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+#49 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+#50 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+#51 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\phpunit(104): PHPUnit\TextUI\Application->run(Array)
+#52 {main}
+
+----------------------------------------------------------------------------------
+
+Call to undefined method App\Models\User::createToken()[39;22m
+
+  at [32mtests\Feature\Api\ApiTestCase.php[39m:[32m68[39m
+     64▕             'username' => $user->username,
+     65▕             'password' => $password,
+     66▕         ]);
+     67▕ 
+  ➜  68▕         $response->assertOk();
+     69▕ 
+     70▕         return $response->json('token');
+     71▕     }
+     72▕
+
+  [33m1   [39m[39;1mtests\Feature\Api\AuthTest.php[39;22m:[39;1m49[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\Api\AuthTest[22m [90m>[39m api me returns role and forced password change                                  
+[39;1m  Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.
+
+The following exception occurred during the last request:
+
+BadMethodCallException: Call to undefined method App\Models\User::createToken() in C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:67
+Stack trace:
+#0 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php(36): Illuminate\Database\Eloquent\Model::throwBadMethodCallException('createToken')
+#1 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Model.php(2372): Illuminate\Database\Eloquent\Model->forwardCallTo(Object(Illuminate\Database\Eloquent\Builder), 'createToken', Array)
+#2 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Controllers\Api\V1\AuthController.php(36): Illuminate\Database\Eloquent\Model->__call('createToken', Array)
+#3 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(47): App\Http\Controllers\Api\V1\AuthController->login(Object(Illuminate\Http\Request))
+#4 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(266): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\Api\V1\AuthController), 'login')
+#5 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route->runController()
+#6 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route->run()
+#7 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Routing\Router->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#8 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#9 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#10 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Middleware\SetApiLocale.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#11 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): App\Http\Middleware\SetApiLocale->handle(Object(Illuminate\Http\Request), Object(Closure))
+#12 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#13 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#14 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#15 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router->runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#16 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#17 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#18 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Foundation\Http\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#19 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#20 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#21 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle(Object(Illuminate\Http\Request), Object(Closure))
+#22 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#23 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#24 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\TrimStrings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#25 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#26 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\ValidatePostSize->handle(Object(Illuminate\Http\Request), Object(Closure))
+#27 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#28 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle(Object(Illuminate\Http\Request), Object(Closure))
+#29 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(62): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#30 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\HandleCors->handle(Object(Illuminate\Http\Request), Object(Closure))
+#31 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#32 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\TrustProxies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#33 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#34 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks->handle(Object(Illuminate\Http\Request), Object(Closure))
+#35 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#36 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#37 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#38 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(607): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#39 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(573): Illuminate\Foundation\Testing\TestCase->call('POST', '/api/v1/auth/lo...', Array, Array, Array, Array, '{"username":"77...')
+#40 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(411): Illuminate\Foundation\Testing\TestCase->json('POST', '/api/v1/auth/lo...', Array, Array, 0)
+#41 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ApiTestCase.php(63): Illuminate\Foundation\Testing\TestCase->postJson('/api/v1/auth/lo...', Array)
+#42 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ApiTestCase.php(75): Tests\Feature\Api\ApiTestCase->tokenFor(Object(App\Models\User))
+#43 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\AuthTest.php(70): Tests\Feature\Api\ApiTestCase->asApi(Object(App\Models\User))
+#44 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(1667): Tests\Feature\Api\AuthTest->test_api_me_returns_role_and_forced_password_change()
+#45 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+#46 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestRunner\TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+#47 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\Api\AuthTest))
+#48 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+#49 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+#50 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+#51 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+#52 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\phpunit(104): PHPUnit\TextUI\Application->run(Array)
+#53 {main}
+
+----------------------------------------------------------------------------------
+
+Call to undefined method App\Models\User::createToken()[39;22m
+
+  at [32mtests\Feature\Api\ApiTestCase.php[39m:[32m68[39m
+     64▕             'username' => $user->username,
+     65▕             'password' => $password,
+     66▕         ]);
+     67▕ 
+  ➜  68▕         $response->assertOk();
+     69▕ 
+     70▕         return $response->json('token');
+     71▕     }
+     72▕
+
+  [33m1   [39m[39;1mtests\Feature\Api\ApiTestCase.php[39;22m:[39;1m75[39;22m
+  [33m2   [39m[39;1mtests\Feature\Api\AuthTest.php[39;22m:[39;1m70[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\Api\ChildrenTest[22m [90m>[39m guardian receives only their own children                                   
+[39;1m  Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.
+
+The following exception occurred during the last request:
+
+BadMethodCallException: Call to undefined method App\Models\User::createToken() in C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:67
+Stack trace:
+#0 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php(36): Illuminate\Database\Eloquent\Model::throwBadMethodCallException('createToken')
+#1 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Model.php(2372): Illuminate\Database\Eloquent\Model->forwardCallTo(Object(Illuminate\Database\Eloquent\Builder), 'createToken', Array)
+#2 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Controllers\Api\V1\AuthController.php(36): Illuminate\Database\Eloquent\Model->__call('createToken', Array)
+#3 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(47): App\Http\Controllers\Api\V1\AuthController->login(Object(Illuminate\Http\Request))
+#4 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(266): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\Api\V1\AuthController), 'login')
+#5 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route->runController()
+#6 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route->run()
+#7 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Routing\Router->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#8 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#9 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#10 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Middleware\SetApiLocale.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#11 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): App\Http\Middleware\SetApiLocale->handle(Object(Illuminate\Http\Request), Object(Closure))
+#12 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#13 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#14 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#15 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router->runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#16 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#17 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#18 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Foundation\Http\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#19 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#20 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#21 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle(Object(Illuminate\Http\Request), Object(Closure))
+#22 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#23 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#24 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\TrimStrings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#25 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#26 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\ValidatePostSize->handle(Object(Illuminate\Http\Request), Object(Closure))
+#27 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#28 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle(Object(Illuminate\Http\Request), Object(Closure))
+#29 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(62): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#30 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\HandleCors->handle(Object(Illuminate\Http\Request), Object(Closure))
+#31 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#32 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\TrustProxies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#33 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#34 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks->handle(Object(Illuminate\Http\Request), Object(Closure))
+#35 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#36 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#37 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#38 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(607): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#39 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(573): Illuminate\Foundation\Testing\TestCase->call('POST', '/api/v1/auth/lo...', Array, Array, Array, Array, '{"username":"70...')
+#40 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(411): Illuminate\Foundation\Testing\TestCase->json('POST', '/api/v1/auth/lo...', Array, Array, 0)
+#41 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ApiTestCase.php(63): Illuminate\Foundation\Testing\TestCase->postJson('/api/v1/auth/lo...', Array)
+#42 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ApiTestCase.php(75): Tests\Feature\Api\ApiTestCase->tokenFor(Object(App\Models\User))
+#43 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ChildrenTest.php(15): Tests\Feature\Api\ApiTestCase->asApi(Object(App\Models\User))
+#44 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(1667): Tests\Feature\Api\ChildrenTest->test_guardian_receives_only_their_own_children()
+#45 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+#46 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestRunner\TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+#47 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\Api\ChildrenTest))
+#48 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+#49 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+#50 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+#51 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+#52 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\phpunit(104): PHPUnit\TextUI\Application->run(Array)
+#53 {main}
+
+----------------------------------------------------------------------------------
+
+Call to undefined method App\Models\User::createToken()[39;22m
+
+  at [32mtests\Feature\Api\ApiTestCase.php[39m:[32m68[39m
+     64▕             'username' => $user->username,
+     65▕             'password' => $password,
+     66▕         ]);
+     67▕ 
+  ➜  68▕         $response->assertOk();
+     69▕ 
+     70▕         return $response->json('token');
+     71▕     }
+     72▕
+
+  [33m1   [39m[39;1mtests\Feature\Api\ApiTestCase.php[39;22m:[39;1m75[39;22m
+  [33m2   [39m[39;1mtests\Feature\Api\ChildrenTest.php[39;22m:[39;1m15[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\Api\ChildrenTest[22m [90m>[39m student cannot reach the children endpoint                                  
+[39;1m  Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.
+
+The following exception occurred during the last request:
+
+BadMethodCallException: Call to undefined method App\Models\User::createToken() in C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:67
+Stack trace:
+#0 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php(36): Illuminate\Database\Eloquent\Model::throwBadMethodCallException('createToken')
+#1 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Model.php(2372): Illuminate\Database\Eloquent\Model->forwardCallTo(Object(Illuminate\Database\Eloquent\Builder), 'createToken', Array)
+#2 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Controllers\Api\V1\AuthController.php(36): Illuminate\Database\Eloquent\Model->__call('createToken', Array)
+#3 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(47): App\Http\Controllers\Api\V1\AuthController->login(Object(Illuminate\Http\Request))
+#4 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(266): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\Api\V1\AuthController), 'login')
+#5 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route->runController()
+#6 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route->run()
+#7 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Routing\Router->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#8 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#9 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#10 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Middleware\SetApiLocale.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#11 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): App\Http\Middleware\SetApiLocale->handle(Object(Illuminate\Http\Request), Object(Closure))
+#12 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#13 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#14 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#15 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router->runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#16 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#17 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#18 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Foundation\Http\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#19 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#20 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#21 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle(Object(Illuminate\Http\Request), Object(Closure))
+#22 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#23 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#24 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\TrimStrings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#25 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#26 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\ValidatePostSize->handle(Object(Illuminate\Http\Request), Object(Closure))
+#27 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#28 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle(Object(Illuminate\Http\Request), Object(Closure))
+#29 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(62): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#30 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\HandleCors->handle(Object(Illuminate\Http\Request), Object(Closure))
+#31 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#32 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\TrustProxies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#33 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#34 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks->handle(Object(Illuminate\Http\Request), Object(Closure))
+#35 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#36 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#37 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#38 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(607): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#39 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(573): Illuminate\Foundation\Testing\TestCase->call('POST', '/api/v1/auth/lo...', Array, Array, Array, Array, '{"username":"WA...')
+#40 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(411): Illuminate\Foundation\Testing\TestCase->json('POST', '/api/v1/auth/lo...', Array, Array, 0)
+#41 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ApiTestCase.php(63): Illuminate\Foundation\Testing\TestCase->postJson('/api/v1/auth/lo...', Array)
+#42 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ApiTestCase.php(75): Tests\Feature\Api\ApiTestCase->tokenFor(Object(App\Models\User))
+#43 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ChildrenTest.php(34): Tests\Feature\Api\ApiTestCase->asApi(Object(App\Models\User))
+#44 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(1667): Tests\Feature\Api\ChildrenTest->test_student_cannot_reach_the_children_endpoint()
+#45 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+#46 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestRunner\TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+#47 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\Api\ChildrenTest))
+#48 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+#49 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+#50 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+#51 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+#52 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\phpunit(104): PHPUnit\TextUI\Application->run(Array)
+#53 {main}
+
+----------------------------------------------------------------------------------
+
+Call to undefined method App\Models\User::createToken()[39;22m
+
+  at [32mtests\Feature\Api\ApiTestCase.php[39m:[32m68[39m
+     64▕             'username' => $user->username,
+     65▕             'password' => $password,
+     66▕         ]);
+     67▕ 
+  ➜  68▕         $response->assertOk();
+     69▕ 
+     70▕         return $response->json('token');
+     71▕     }
+     72▕
+
+  [33m1   [39m[39;1mtests\Feature\Api\ApiTestCase.php[39;22m:[39;1m75[39;22m
+  [33m2   [39m[39;1mtests\Feature\Api\ChildrenTest.php[39;22m:[39;1m34[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\Api\ChildrenTest[22m [90m>[39m coach cannot reach the children endpoint                                    
+[39;1m  Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.
+
+The following exception occurred during the last request:
+
+BadMethodCallException: Call to undefined method App\Models\User::createToken() in C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:67
+Stack trace:
+#0 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php(36): Illuminate\Database\Eloquent\Model::throwBadMethodCallException('createToken')
+#1 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Model.php(2372): Illuminate\Database\Eloquent\Model->forwardCallTo(Object(Illuminate\Database\Eloquent\Builder), 'createToken', Array)
+#2 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Controllers\Api\V1\AuthController.php(36): Illuminate\Database\Eloquent\Model->__call('createToken', Array)
+#3 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(47): App\Http\Controllers\Api\V1\AuthController->login(Object(Illuminate\Http\Request))
+#4 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(266): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\Api\V1\AuthController), 'login')
+#5 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route->runController()
+#6 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route->run()
+#7 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Routing\Router->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#8 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#9 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#10 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Middleware\SetApiLocale.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#11 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): App\Http\Middleware\SetApiLocale->handle(Object(Illuminate\Http\Request), Object(Closure))
+#12 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#13 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#14 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#15 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router->runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#16 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#17 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#18 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Foundation\Http\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#19 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#20 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#21 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle(Object(Illuminate\Http\Request), Object(Closure))
+#22 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#23 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#24 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\TrimStrings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#25 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#26 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\ValidatePostSize->handle(Object(Illuminate\Http\Request), Object(Closure))
+#27 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#28 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle(Object(Illuminate\Http\Request), Object(Closure))
+#29 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(62): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#30 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\HandleCors->handle(Object(Illuminate\Http\Request), Object(Closure))
+#31 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#32 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\TrustProxies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#33 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#34 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks->handle(Object(Illuminate\Http\Request), Object(Closure))
+#35 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#36 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#37 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#38 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(607): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#39 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(573): Illuminate\Foundation\Testing\TestCase->call('POST', '/api/v1/auth/lo...', Array, Array, Array, Array, '{"username":"76...')
+#40 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(411): Illuminate\Foundation\Testing\TestCase->json('POST', '/api/v1/auth/lo...', Array, Array, 0)
+#41 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ApiTestCase.php(63): Illuminate\Foundation\Testing\TestCase->postJson('/api/v1/auth/lo...', Array)
+#42 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ApiTestCase.php(75): Tests\Feature\Api\ApiTestCase->tokenFor(Object(App\Models\User))
+#43 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ChildrenTest.php(41): Tests\Feature\Api\ApiTestCase->asApi(Object(App\Models\User))
+#44 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(1667): Tests\Feature\Api\ChildrenTest->test_coach_cannot_reach_the_children_endpoint()
+#45 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+#46 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestRunner\TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+#47 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\Api\ChildrenTest))
+#48 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+#49 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+#50 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+#51 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+#52 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\phpunit(104): PHPUnit\TextUI\Application->run(Array)
+#53 {main}
+
+----------------------------------------------------------------------------------
+
+Call to undefined method App\Models\User::createToken()[39;22m
+
+  at [32mtests\Feature\Api\ApiTestCase.php[39m:[32m68[39m
+     64▕             'username' => $user->username,
+     65▕             'password' => $password,
+     66▕         ]);
+     67▕ 
+  ➜  68▕         $response->assertOk();
+     69▕ 
+     70▕         return $response->json('token');
+     71▕     }
+     72▕
+
+  [33m1   [39m[39;1mtests\Feature\Api\ApiTestCase.php[39;22m:[39;1m75[39;22m
+  [33m2   [39m[39;1mtests\Feature\Api\ChildrenTest.php[39;22m:[39;1m41[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\Api\FrameworkTest[22m [90m>[39m framework returns pillars and strike levels                                
+[39;1m  Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.
+
+The following exception occurred during the last request:
+
+BadMethodCallException: Call to undefined method App\Models\User::createToken() in C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:67
+Stack trace:
+#0 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php(36): Illuminate\Database\Eloquent\Model::throwBadMethodCallException('createToken')
+#1 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Model.php(2372): Illuminate\Database\Eloquent\Model->forwardCallTo(Object(Illuminate\Database\Eloquent\Builder), 'createToken', Array)
+#2 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Controllers\Api\V1\AuthController.php(36): Illuminate\Database\Eloquent\Model->__call('createToken', Array)
+#3 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(47): App\Http\Controllers\Api\V1\AuthController->login(Object(Illuminate\Http\Request))
+#4 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(266): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\Api\V1\AuthController), 'login')
+#5 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route->runController()
+#6 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route->run()
+#7 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Routing\Router->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#8 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#9 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#10 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Middleware\SetApiLocale.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#11 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): App\Http\Middleware\SetApiLocale->handle(Object(Illuminate\Http\Request), Object(Closure))
+#12 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#13 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#14 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#15 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router->runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#16 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#17 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#18 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Foundation\Http\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#19 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#20 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#21 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle(Object(Illuminate\Http\Request), Object(Closure))
+#22 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#23 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#24 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\TrimStrings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#25 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#26 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\ValidatePostSize->handle(Object(Illuminate\Http\Request), Object(Closure))
+#27 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#28 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle(Object(Illuminate\Http\Request), Object(Closure))
+#29 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(62): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#30 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\HandleCors->handle(Object(Illuminate\Http\Request), Object(Closure))
+#31 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#32 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\TrustProxies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#33 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#34 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks->handle(Object(Illuminate\Http\Request), Object(Closure))
+#35 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#36 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#37 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#38 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(607): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#39 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(573): Illuminate\Foundation\Testing\TestCase->call('POST', '/api/v1/auth/lo...', Array, Array, Array, Array, '{"username":"70...')
+#40 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(411): Illuminate\Foundation\Testing\TestCase->json('POST', '/api/v1/auth/lo...', Array, Array, 0)
+#41 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ApiTestCase.php(63): Illuminate\Foundation\Testing\TestCase->postJson('/api/v1/auth/lo...', Array)
+#42 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ApiTestCase.php(75): Tests\Feature\Api\ApiTestCase->tokenFor(Object(App\Models\User))
+#43 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\FrameworkTest.php(20): Tests\Feature\Api\ApiTestCase->asApi(Object(App\Models\User))
+#44 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(1667): Tests\Feature\Api\FrameworkTest->test_framework_returns_pillars_and_strike_levels()
+#45 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+#46 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestRunner\TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+#47 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\Api\FrameworkTest))
+#48 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+#49 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+#50 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+#51 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+#52 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\phpunit(104): PHPUnit\TextUI\Application->run(Array)
+#53 {main}
+
+----------------------------------------------------------------------------------
+
+Call to undefined method App\Models\User::createToken()[39;22m
+
+  at [32mtests\Feature\Api\ApiTestCase.php[39m:[32m68[39m
+     64▕             'username' => $user->username,
+     65▕             'password' => $password,
+     66▕         ]);
+     67▕ 
+  ➜  68▕         $response->assertOk();
+     69▕ 
+     70▕         return $response->json('token');
+     71▕     }
+     72▕
+
+  [33m1   [39m[39;1mtests\Feature\Api\ApiTestCase.php[39;22m:[39;1m75[39;22m
+  [33m2   [39m[39;1mtests\Feature\Api\FrameworkTest.php[39;22m:[39;1m20[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\Api\ScheduleTest[22m [90m>[39m coach sees only their own squads sessions                                   
+[39;1m  Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.
+
+The following exception occurred during the last request:
+
+BadMethodCallException: Call to undefined method App\Models\User::createToken() in C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:67
+Stack trace:
+#0 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php(36): Illuminate\Database\Eloquent\Model::throwBadMethodCallException('createToken')
+#1 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Model.php(2372): Illuminate\Database\Eloquent\Model->forwardCallTo(Object(Illuminate\Database\Eloquent\Builder), 'createToken', Array)
+#2 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Controllers\Api\V1\AuthController.php(36): Illuminate\Database\Eloquent\Model->__call('createToken', Array)
+#3 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(47): App\Http\Controllers\Api\V1\AuthController->login(Object(Illuminate\Http\Request))
+#4 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(266): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\Api\V1\AuthController), 'login')
+#5 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route->runController()
+#6 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route->run()
+#7 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Routing\Router->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#8 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#9 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#10 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Middleware\SetApiLocale.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#11 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): App\Http\Middleware\SetApiLocale->handle(Object(Illuminate\Http\Request), Object(Closure))
+#12 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#13 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#14 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#15 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router->runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#16 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#17 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#18 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Foundation\Http\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#19 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#20 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#21 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle(Object(Illuminate\Http\Request), Object(Closure))
+#22 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#23 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#24 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\TrimStrings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#25 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#26 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\ValidatePostSize->handle(Object(Illuminate\Http\Request), Object(Closure))
+#27 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#28 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle(Object(Illuminate\Http\Request), Object(Closure))
+#29 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(62): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#30 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\HandleCors->handle(Object(Illuminate\Http\Request), Object(Closure))
+#31 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#32 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\TrustProxies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#33 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#34 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks->handle(Object(Illuminate\Http\Request), Object(Closure))
+#35 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#36 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#37 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#38 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(607): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#39 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(573): Illuminate\Foundation\Testing\TestCase->call('POST', '/api/v1/auth/lo...', Array, Array, Array, Array, '{"username":"76...')
+#40 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(411): Illuminate\Foundation\Testing\TestCase->json('POST', '/api/v1/auth/lo...', Array, Array, 0)
+#41 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ApiTestCase.php(63): Illuminate\Foundation\Testing\TestCase->postJson('/api/v1/auth/lo...', Array)
+#42 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ApiTestCase.php(75): Tests\Feature\Api\ApiTestCase->tokenFor(Object(App\Models\User))
+#43 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ScheduleTest.php(36): Tests\Feature\Api\ApiTestCase->asApi(Object(App\Models\User))
+#44 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(1667): Tests\Feature\Api\ScheduleTest->test_coach_sees_only_their_own_squads_sessions()
+#45 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+#46 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestRunner\TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+#47 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\Api\ScheduleTest))
+#48 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+#49 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+#50 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+#51 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+#52 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\phpunit(104): PHPUnit\TextUI\Application->run(Array)
+#53 {main}
+
+----------------------------------------------------------------------------------
+
+Call to undefined method App\Models\User::createToken()[39;22m
+
+  at [32mtests\Feature\Api\ApiTestCase.php[39m:[32m68[39m
+     64▕             'username' => $user->username,
+     65▕             'password' => $password,
+     66▕         ]);
+     67▕ 
+  ➜  68▕         $response->assertOk();
+     69▕ 
+     70▕         return $response->json('token');
+     71▕     }
+     72▕
+
+  [33m1   [39m[39;1mtests\Feature\Api\ApiTestCase.php[39;22m:[39;1m75[39;22m
+  [33m2   [39m[39;1mtests\Feature\Api\ScheduleTest.php[39;22m:[39;1m36[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\Api\ScheduleTest[22m [90m>[39m guardian sees only their childs sessions                                    
+[39;1m  Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.
+
+The following exception occurred during the last request:
+
+BadMethodCallException: Call to undefined method App\Models\User::createToken() in C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:67
+Stack trace:
+#0 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php(36): Illuminate\Database\Eloquent\Model::throwBadMethodCallException('createToken')
+#1 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Model.php(2372): Illuminate\Database\Eloquent\Model->forwardCallTo(Object(Illuminate\Database\Eloquent\Builder), 'createToken', Array)
+#2 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Controllers\Api\V1\AuthController.php(36): Illuminate\Database\Eloquent\Model->__call('createToken', Array)
+#3 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(47): App\Http\Controllers\Api\V1\AuthController->login(Object(Illuminate\Http\Request))
+#4 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(266): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\Api\V1\AuthController), 'login')
+#5 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route->runController()
+#6 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route->run()
+#7 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Routing\Router->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#8 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#9 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#10 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Middleware\SetApiLocale.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#11 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): App\Http\Middleware\SetApiLocale->handle(Object(Illuminate\Http\Request), Object(Closure))
+#12 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#13 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#14 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#15 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router->runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#16 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#17 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#18 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Foundation\Http\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#19 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#20 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#21 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle(Object(Illuminate\Http\Request), Object(Closure))
+#22 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#23 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#24 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\TrimStrings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#25 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#26 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\ValidatePostSize->handle(Object(Illuminate\Http\Request), Object(Closure))
+#27 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#28 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle(Object(Illuminate\Http\Request), Object(Closure))
+#29 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(62): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#30 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\HandleCors->handle(Object(Illuminate\Http\Request), Object(Closure))
+#31 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#32 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\TrustProxies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#33 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#34 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks->handle(Object(Illuminate\Http\Request), Object(Closure))
+#35 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#36 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#37 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#38 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(607): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#39 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(573): Illuminate\Foundation\Testing\TestCase->call('POST', '/api/v1/auth/lo...', Array, Array, Array, Array, '{"username":"75...')
+#40 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(411): Illuminate\Foundation\Testing\TestCase->json('POST', '/api/v1/auth/lo...', Array, Array, 0)
+#41 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ApiTestCase.php(63): Illuminate\Foundation\Testing\TestCase->postJson('/api/v1/auth/lo...', Array)
+#42 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ApiTestCase.php(75): Tests\Feature\Api\ApiTestCase->tokenFor(Object(App\Models\User))
+#43 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ScheduleTest.php(55): Tests\Feature\Api\ApiTestCase->asApi(Object(App\Models\User))
+#44 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(1667): Tests\Feature\Api\ScheduleTest->test_guardian_sees_only_their_childs_sessions()
+#45 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+#46 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestRunner\TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+#47 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\Api\ScheduleTest))
+#48 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+#49 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+#50 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+#51 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+#52 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\phpunit(104): PHPUnit\TextUI\Application->run(Array)
+#53 {main}
+
+----------------------------------------------------------------------------------
+
+Call to undefined method App\Models\User::createToken()[39;22m
+
+  at [32mtests\Feature\Api\ApiTestCase.php[39m:[32m68[39m
+     64▕             'username' => $user->username,
+     65▕             'password' => $password,
+     66▕         ]);
+     67▕ 
+  ➜  68▕         $response->assertOk();
+     69▕ 
+     70▕         return $response->json('token');
+     71▕     }
+     72▕
+
+  [33m1   [39m[39;1mtests\Feature\Api\ApiTestCase.php[39;22m:[39;1m75[39;22m
+  [33m2   [39m[39;1mtests\Feature\Api\ScheduleTest.php[39;22m:[39;1m55[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\Api\ScheduleTest[22m [90m>[39m schedule never exposes another students data                                
+[39;1m  Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.
+
+The following exception occurred during the last request:
+
+BadMethodCallException: Call to undefined method App\Models\User::createToken() in C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:67
+Stack trace:
+#0 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php(36): Illuminate\Database\Eloquent\Model::throwBadMethodCallException('createToken')
+#1 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Model.php(2372): Illuminate\Database\Eloquent\Model->forwardCallTo(Object(Illuminate\Database\Eloquent\Builder), 'createToken', Array)
+#2 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Controllers\Api\V1\AuthController.php(36): Illuminate\Database\Eloquent\Model->__call('createToken', Array)
+#3 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(47): App\Http\Controllers\Api\V1\AuthController->login(Object(Illuminate\Http\Request))
+#4 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(266): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\Api\V1\AuthController), 'login')
+#5 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route->runController()
+#6 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route->run()
+#7 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Routing\Router->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#8 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#9 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#10 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Middleware\SetApiLocale.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#11 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): App\Http\Middleware\SetApiLocale->handle(Object(Illuminate\Http\Request), Object(Closure))
+#12 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#13 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#14 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#15 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router->runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#16 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#17 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#18 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Foundation\Http\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#19 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#20 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#21 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle(Object(Illuminate\Http\Request), Object(Closure))
+#22 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#23 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#24 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\TrimStrings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#25 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#26 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\ValidatePostSize->handle(Object(Illuminate\Http\Request), Object(Closure))
+#27 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#28 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle(Object(Illuminate\Http\Request), Object(Closure))
+#29 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(62): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#30 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\HandleCors->handle(Object(Illuminate\Http\Request), Object(Closure))
+#31 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#32 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\TrustProxies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#33 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#34 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks->handle(Object(Illuminate\Http\Request), Object(Closure))
+#35 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#36 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#37 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#38 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(607): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#39 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(573): Illuminate\Foundation\Testing\TestCase->call('POST', '/api/v1/auth/lo...', Array, Array, Array, Array, '{"username":"71...')
+#40 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(411): Illuminate\Foundation\Testing\TestCase->json('POST', '/api/v1/auth/lo...', Array, Array, 0)
+#41 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ApiTestCase.php(63): Illuminate\Foundation\Testing\TestCase->postJson('/api/v1/auth/lo...', Array)
+#42 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ApiTestCase.php(75): Tests\Feature\Api\ApiTestCase->tokenFor(Object(App\Models\User))
+#43 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ScheduleTest.php(72): Tests\Feature\Api\ApiTestCase->asApi(Object(App\Models\User))
+#44 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(1667): Tests\Feature\Api\ScheduleTest->test_schedule_never_exposes_another_students_data()
+#45 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+#46 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestRunner\TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+#47 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\Api\ScheduleTest))
+#48 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+#49 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+#50 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+#51 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+#52 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\phpunit(104): PHPUnit\TextUI\Application->run(Array)
+#53 {main}
+
+----------------------------------------------------------------------------------
+
+Call to undefined method App\Models\User::createToken()[39;22m
+
+  at [32mtests\Feature\Api\ApiTestCase.php[39m:[32m68[39m
+     64▕             'username' => $user->username,
+     65▕             'password' => $password,
+     66▕         ]);
+     67▕ 
+  ➜  68▕         $response->assertOk();
+     69▕ 
+     70▕         return $response->json('token');
+     71▕     }
+     72▕
+
+  [33m1   [39m[39;1mtests\Feature\Api\ApiTestCase.php[39;22m:[39;1m75[39;22m
+  [33m2   [39m[39;1mtests\Feature\Api\ScheduleTest.php[39;22m:[39;1m72[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\ApiLocaleTest[22m [90m>[39m accept language switches resource language                                     
+[39;1m  Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.
+
+The following exception occurred during the last request:
+
+BadMethodCallException: Call to undefined method App\Models\User::createToken() in C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:67
+Stack trace:
+#0 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php(36): Illuminate\Database\Eloquent\Model::throwBadMethodCallException('createToken')
+#1 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Model.php(2372): Illuminate\Database\Eloquent\Model->forwardCallTo(Object(Illuminate\Database\Eloquent\Builder), 'createToken', Array)
+#2 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Controllers\Api\V1\AuthController.php(36): Illuminate\Database\Eloquent\Model->__call('createToken', Array)
+#3 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(47): App\Http\Controllers\Api\V1\AuthController->login(Object(Illuminate\Http\Request))
+#4 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(266): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\Api\V1\AuthController), 'login')
+#5 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route->runController()
+#6 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route->run()
+#7 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Routing\Router->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#8 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#9 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#10 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Middleware\SetApiLocale.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#11 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): App\Http\Middleware\SetApiLocale->handle(Object(Illuminate\Http\Request), Object(Closure))
+#12 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#13 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#14 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#15 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router->runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#16 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#17 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#18 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Foundation\Http\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#19 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#20 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#21 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle(Object(Illuminate\Http\Request), Object(Closure))
+#22 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#23 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#24 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\TrimStrings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#25 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#26 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\ValidatePostSize->handle(Object(Illuminate\Http\Request), Object(Closure))
+#27 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#28 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle(Object(Illuminate\Http\Request), Object(Closure))
+#29 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(62): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#30 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\HandleCors->handle(Object(Illuminate\Http\Request), Object(Closure))
+#31 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#32 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\TrustProxies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#33 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#34 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks->handle(Object(Illuminate\Http\Request), Object(Closure))
+#35 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#36 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#37 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#38 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(607): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#39 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(573): Illuminate\Foundation\Testing\TestCase->call('POST', '/api/v1/auth/lo...', Array, Array, Array, Array, '{"username":"75...')
+#40 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(411): Illuminate\Foundation\Testing\TestCase->json('POST', '/api/v1/auth/lo...', Array, Array, 0)
+#41 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ApiTestCase.php(63): Illuminate\Foundation\Testing\TestCase->postJson('/api/v1/auth/lo...', Array)
+#42 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ApiTestCase.php(75): Tests\Feature\Api\ApiTestCase->tokenFor(Object(App\Models\User))
+#43 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\ApiLocaleTest.php(38): Tests\Feature\Api\ApiTestCase->asApi(Object(App\Models\User), 'en')
+#44 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(1667): Tests\Feature\ApiLocaleTest->test_accept_language_switches_resource_language()
+#45 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+#46 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestRunner\TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+#47 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\ApiLocaleTest))
+#48 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+#49 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+#50 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+#51 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+#52 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\phpunit(104): PHPUnit\TextUI\Application->run(Array)
+#53 {main}
+
+----------------------------------------------------------------------------------
+
+Call to undefined method App\Models\User::createToken()[39;22m
+
+  at [32mtests\Feature\Api\ApiTestCase.php[39m:[32m68[39m
+     64▕             'username' => $user->username,
+     65▕             'password' => $password,
+     66▕         ]);
+     67▕ 
+  ➜  68▕         $response->assertOk();
+     69▕ 
+     70▕         return $response->json('token');
+     71▕     }
+     72▕
+
+  [33m1   [39m[39;1mtests\Feature\Api\ApiTestCase.php[39;22m:[39;1m75[39;22m
+  [33m2   [39m[39;1mtests\Feature\ApiLocaleTest.php[39;22m:[39;1m38[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\ApiLocaleTest[22m [90m>[39m api locale falls back to the users locale column                               
+[39;1m  Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.
+
+The following exception occurred during the last request:
+
+BadMethodCallException: Call to undefined method App\Models\User::createToken() in C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:67
+Stack trace:
+#0 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php(36): Illuminate\Database\Eloquent\Model::throwBadMethodCallException('createToken')
+#1 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Model.php(2372): Illuminate\Database\Eloquent\Model->forwardCallTo(Object(Illuminate\Database\Eloquent\Builder), 'createToken', Array)
+#2 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Controllers\Api\V1\AuthController.php(36): Illuminate\Database\Eloquent\Model->__call('createToken', Array)
+#3 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(47): App\Http\Controllers\Api\V1\AuthController->login(Object(Illuminate\Http\Request))
+#4 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(266): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\Api\V1\AuthController), 'login')
+#5 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route->runController()
+#6 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route->run()
+#7 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Routing\Router->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#8 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#9 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#10 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Middleware\SetApiLocale.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#11 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): App\Http\Middleware\SetApiLocale->handle(Object(Illuminate\Http\Request), Object(Closure))
+#12 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#13 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#14 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#15 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router->runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#16 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#17 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#18 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Foundation\Http\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#19 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#20 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#21 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle(Object(Illuminate\Http\Request), Object(Closure))
+#22 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#23 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#24 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\TrimStrings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#25 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#26 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\ValidatePostSize->handle(Object(Illuminate\Http\Request), Object(Closure))
+#27 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#28 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle(Object(Illuminate\Http\Request), Object(Closure))
+#29 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(62): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#30 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\HandleCors->handle(Object(Illuminate\Http\Request), Object(Closure))
+#31 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#32 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\TrustProxies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#33 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#34 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks->handle(Object(Illuminate\Http\Request), Object(Closure))
+#35 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#36 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#37 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#38 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(607): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#39 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(573): Illuminate\Foundation\Testing\TestCase->call('POST', '/api/v1/auth/lo...', Array, Array, Array, Array, '{"username":"77...')
+#40 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(411): Illuminate\Foundation\Testing\TestCase->json('POST', '/api/v1/auth/lo...', Array, Array, 0)
+#41 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ApiTestCase.php(63): Illuminate\Foundation\Testing\TestCase->postJson('/api/v1/auth/lo...', Array)
+#42 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ApiTestCase.php(75): Tests\Feature\Api\ApiTestCase->tokenFor(Object(App\Models\User))
+#43 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\ApiLocaleTest.php(61): Tests\Feature\Api\ApiTestCase->asApi(Object(App\Models\User))
+#44 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(1667): Tests\Feature\ApiLocaleTest->test_api_locale_falls_back_to_the_users_locale_column()
+#45 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+#46 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestRunner\TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+#47 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\ApiLocaleTest))
+#48 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+#49 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+#50 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+#51 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+#52 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\phpunit(104): PHPUnit\TextUI\Application->run(Array)
+#53 {main}
+
+----------------------------------------------------------------------------------
+
+Call to undefined method App\Models\User::createToken()[39;22m
+
+  at [32mtests\Feature\Api\ApiTestCase.php[39m:[32m68[39m
+     64▕             'username' => $user->username,
+     65▕             'password' => $password,
+     66▕         ]);
+     67▕ 
+  ➜  68▕         $response->assertOk();
+     69▕ 
+     70▕         return $response->json('token');
+     71▕     }
+     72▕
+
+  [33m1   [39m[39;1mtests\Feature\Api\ApiTestCase.php[39;22m:[39;1m75[39;22m
+  [33m2   [39m[39;1mtests\Feature\ApiLocaleTest.php[39;22m:[39;1m61[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\ApiLocaleTest[22m [90m>[39m unsupported accept language falls back rather than adding a locale             
+[39;1m  Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.
+
+The following exception occurred during the last request:
+
+BadMethodCallException: Call to undefined method App\Models\User::createToken() in C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php:67
+Stack trace:
+#0 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php(36): Illuminate\Database\Eloquent\Model::throwBadMethodCallException('createToken')
+#1 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Model.php(2372): Illuminate\Database\Eloquent\Model->forwardCallTo(Object(Illuminate\Database\Eloquent\Builder), 'createToken', Array)
+#2 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Controllers\Api\V1\AuthController.php(36): Illuminate\Database\Eloquent\Model->__call('createToken', Array)
+#3 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(47): App\Http\Controllers\Api\V1\AuthController->login(Object(Illuminate\Http\Request))
+#4 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(266): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\Api\V1\AuthController), 'login')
+#5 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route->runController()
+#6 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route->run()
+#7 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Routing\Router->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#8 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#9 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#10 C:\Users\pc\Documents\GitHub\wacademy\app\Http\Middleware\SetApiLocale.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#11 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): App\Http\Middleware\SetApiLocale->handle(Object(Illuminate\Http\Request), Object(Closure))
+#12 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#13 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#14 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#15 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router->runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#16 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#17 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#18 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Foundation\Http\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#19 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#20 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#21 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle(Object(Illuminate\Http\Request), Object(Closure))
+#22 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#23 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#24 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\TrimStrings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#25 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#26 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\ValidatePostSize->handle(Object(Illuminate\Http\Request), Object(Closure))
+#27 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#28 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle(Object(Illuminate\Http\Request), Object(Closure))
+#29 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(62): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#30 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\HandleCors->handle(Object(Illuminate\Http\Request), Object(Closure))
+#31 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(58): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#32 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\TrustProxies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#33 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#34 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks->handle(Object(Illuminate\Http\Request), Object(Closure))
+#35 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#36 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#37 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#38 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(607): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#39 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(573): Illuminate\Foundation\Testing\TestCase->call('POST', '/api/v1/auth/lo...', Array, Array, Array, Array, '{"username":"75...')
+#40 C:\Users\pc\Documents\GitHub\wacademy\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(411): Illuminate\Foundation\Testing\TestCase->json('POST', '/api/v1/auth/lo...', Array, Array, 0)
+#41 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ApiTestCase.php(63): Illuminate\Foundation\Testing\TestCase->postJson('/api/v1/auth/lo...', Array)
+#42 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\Api\ApiTestCase.php(75): Tests\Feature\Api\ApiTestCase->tokenFor(Object(App\Models\User))
+#43 C:\Users\pc\Documents\GitHub\wacademy\tests\Feature\ApiLocaleTest.php(72): Tests\Feature\Api\ApiTestCase->asApi(Object(App\Models\User), 'fr')
+#44 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(1667): Tests\Feature\ApiLocaleTest->test_unsupported_accept_language_falls_back_rather_than_adding_a_locale()
+#45 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(519): PHPUnit\Framework\TestCase->runTest()
+#46 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestRunner\TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+#47 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestCase.php(365): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\ApiLocaleTest))
+#48 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+#49 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\Framework\TestSuite.php(369): PHPUnit\Framework\TestSuite->run()
+#50 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+#51 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\src\TextUI\Application.php(211): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+#52 C:\Users\pc\Documents\GitHub\wacademy\vendor\phpunit\phpunit\phpunit(104): PHPUnit\TextUI\Application->run(Array)
+#53 {main}
+
+----------------------------------------------------------------------------------
+
+Call to undefined method App\Models\User::createToken()[39;22m
+
+  at [32mtests\Feature\Api\ApiTestCase.php[39m:[32m68[39m
+     64▕             'username' => $user->username,
+     65▕             'password' => $password,
+     66▕         ]);
+     67▕ 
+  ➜  68▕         $response->assertOk();
+     69▕ 
+     70▕         return $response->json('token');
+     71▕     }
+     72▕
+
+  [33m1   [39m[39;1mtests\Feature\Api\ApiTestCase.php[39;22m:[39;1m75[39;22m
+  [33m2   [39m[39;1mtests\Feature\ApiLocaleTest.php[39;22m:[39;1m72[39;22m
+
+
+  [90mTests:[39m    [31;1m13 failed[39;22m[90m,[39m[39m [39m[32;1m7 passed[39;22m[90m (24 assertions)[39m
+  [90mDuration:[39m [39m41.86s[39m
+

@@ -1,0 +1,49 @@
+########## P0-1 RED — StudentPhotoTest against unmodified application code ##########
+
+  [39;41;1m FAIL [39;49;22m[39m Tests\Feature\StudentPhotoTest[39m
+  [31;1m⨯[39;22m[90m [39m[90msigned photo url renders for authorised viewer[39m[90m                                                             [39m [90m11.71s[39m  
+  [32;1m✓[39;22m[90m [39m[90munsigned photo url is rejected[39m[90m                                                                              [39m [90m1.90s[39m  
+  [32;1m✓[39;22m[90m [39m[90mguardian cannot load another childs photo[39m[90m                                                                   [39m [90m1.68s[39m  
+  [32;1m✓[39;22m[90m [39m[90mphoto route is not publicly reachable[39m[90m                                                                       [39m [90m0.96s[39m  
+  [31;1m⨯[39;22m[90m [39m[90mmedia failure is shown as a placeholder not suppressed[39m[90m                                                      [39m [90m1.54s[39m  
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\StudentPhotoTest[22m [90m>[39m signed photo url renders for authorised viewer                              
+[39;1m  Expected: [39;22m[31m/students/1/photo[39m[39;1m
+
+  To contain: [39;22m[32msignature=[39m
+
+  at [32mtests\Feature\StudentPhotoTest.php[39m:[32m92[39m
+     88▕ 
+     89▕         $this->assertNotEmpty($emitted, 'The child detail page emitted no student photo URL at all.');
+     90▕ 
+     91▕         foreach ($emitted as $url) {
+  ➜  92▕             $this->assertStringContainsString(
+     93▕                 'signature=',
+     94▕                 $url,
+     95▕                 "SPEC.md §8.6: photo URLs must be signed. Found an unsigned URL: {$url}"
+     96▕             );
+
+  [33m1   [39m[39;1mtests\Feature\StudentPhotoTest.php[39;22m:[39;1m92[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\StudentPhotoTest[22m [90m>[39m media failure is shown as a placeholder not suppressed                      
+[39;1m  SPEC.md §8.6 forbids suppressing student media failures with onerror.
+Failed asserting that 1 is identical to 0.[39;22m
+
+  at [32mtests\Feature\StudentPhotoTest.php[39m:[32m164[39m
+    160▕         $page = $this->actingAs($guardianUser)->get(route('guardian.children.show', $student));
+    161▕ 
+    162▕         $page->assertOk();
+    163▕ 
+  ➜ 164▕         $this->assertSame(
+    165▕             0,
+    166▕             substr_count($page->getContent(), 'onerror'),
+    167▕             'SPEC.md §8.6 forbids suppressing student media failures with onerror.'
+    168▕         );
+
+  [33m1   [39m[39;1mtests\Feature\StudentPhotoTest.php[39;22m:[39;1m164[39;22m
+
+
+  [90mTests:[39m    [31;1m2 failed[39;22m[90m,[39m[39m [39m[32;1m3 passed[39;22m[90m (10 assertions)[39m
+  [90mDuration:[39m [39m21.52s[39m
+

@@ -49,12 +49,16 @@ require __DIR__.'/auth.php';
 // --- Authenticated dashboard redirect ----------------------------------
 
 Route::get('/dashboard', DashboardRedirectController::class)
-    ->middleware('auth')
+    ->middleware(['auth', 'password.changed'])
     ->name('dashboard.redirect');
 
 // --- Agreement gate (guardian) ------------------------------------------
+//
+// SPEC.md §7 lists this group as (auth, role:guardian, password.changed), and
+// §8.3 requires the forced password change to be completed first: a binding
+// agreement may not be signed while on an admin-issued password.
 
-Route::middleware(['auth', 'role:guardian'])->group(function () {
+Route::middleware(['auth', 'role:guardian', 'password.changed'])->group(function () {
     Route::get('/agreement/{student}', [AgreementController::class, 'show'])->name('agreement.show');
     Route::post('/agreement/{student}', [AgreementController::class, 'sign'])->name('agreement.sign');
     Route::get('/agreement/{student}/download', [AgreementController::class, 'download'])->name('agreement.download');
@@ -151,6 +155,8 @@ Route::middleware(['auth', 'role:admin', 'password.changed'])
 
 // --- Private, signed, policy-checked student photo route ----------------
 
+// `password.changed` precedes `signed` so a pending password change redirects
+// rather than failing the signature check first (SPEC.md §8.1: ALL routes).
 Route::get('/students/{student}/photo', StudentPhotoController::class)
-    ->middleware(['auth', 'signed'])
+    ->middleware(['auth', 'password.changed', 'signed'])
     ->name('students.photo');
