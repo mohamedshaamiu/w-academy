@@ -41,12 +41,21 @@ class EnsureAgreementSigned
             return $next($request);
         }
 
+        // The gate governs guardians and students only (SPEC.md §8.3). A coach
+        // is not party to the agreement, so it must not stand in their way —
+        // this matters on the API, where /schedule serves all three roles.
+        if (! $user->isGuardian() && ! $user->isStudent()) {
+            return $next($request);
+        }
+
         $current = AgreementTemplate::current()->first();
 
         // SPEC.md §8.3: the gate fails CLOSED. With no current template there
         // is nothing to sign, so portal access is denied rather than allowed.
         if (! $current) {
-            return response()->view('agreement.unavailable', [], 403);
+            return $request->expectsJson()
+                ? abort(403, __('agreement.unavailable.body'))
+                : response()->view('agreement.unavailable', [], 403);
         }
 
         if ($user->isGuardian()) {
@@ -56,6 +65,10 @@ class EnsureAgreementSigned
                 ->first(fn ($student) => ! $student->has_signed_current_agreement);
 
             if ($unsignedStudent) {
+                if ($request->expectsJson()) {
+                    abort(403, __('agreement.gate.guardian_must_sign'));
+                }
+
                 return redirect()
                     ->route('agreement.show', $unsignedStudent)
                     ->with('notice', __('agreement.gate.guardian_must_sign'));
@@ -66,7 +79,9 @@ class EnsureAgreementSigned
             $student = $user->student;
 
             if (! $student || ! $student->has_signed_current_agreement) {
-                return response()->view('student.agreement-pending', [], 403);
+                return $request->expectsJson()
+                    ? abort(403, __('student.agreement_pending.body'))
+                    : response()->view('student.agreement-pending', [], 403);
             }
         }
 

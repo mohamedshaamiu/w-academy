@@ -23,6 +23,11 @@ class EnsurePasswordChanged
         $user = $request->user();
 
         if ($user && $user->must_change_password && ! in_array($request->route()?->getName(), self::ALLOWED_ROUTE_NAMES, true)) {
+            // The API has nowhere to redirect to; it gets a refusal it can act on.
+            if ($request->expectsJson()) {
+                abort(403, __('auth.change_password.notice'));
+            }
+
             return redirect()->route('password.change');
         }
 

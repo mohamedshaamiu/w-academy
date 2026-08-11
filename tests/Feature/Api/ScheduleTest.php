@@ -44,10 +44,11 @@ class ScheduleTest extends ApiTestCase
 
     public function test_guardian_sees_only_their_childs_sessions(): void
     {
-        [$guardianUser, , $child] = $this->makeGuardianWithChild();
+        [$guardianUser, $guardian, $child] = $this->makeGuardianWithChild();
         [, $coach, $squad] = $this->makeCoachWithSquad('Child Squad');
         app(EnrolmentService::class)->enrol($child, $squad);
         $this->sessionFor($squad, $coach->id, 'Child Venue');
+        $this->signAgreementFor($child, $guardian);
 
         [, $otherCoach, $otherSquad] = $this->makeCoachWithSquad('Unrelated Squad');
         $this->sessionFor($otherSquad, $otherCoach->id, 'Unrelated Venue');
@@ -63,12 +64,21 @@ class ScheduleTest extends ApiTestCase
 
     public function test_schedule_never_exposes_another_students_data(): void
     {
-        [, , $child] = $this->makeGuardianWithChild('Schedule Teammate');
+        [, , $teammate] = $this->makeGuardianWithChild('Schedule Teammate');
         [, $coach, $squad] = $this->makeCoachWithSquad('Shared Squad');
-        app(EnrolmentService::class)->enrol($child, $squad);
+        app(EnrolmentService::class)->enrol($teammate, $squad);
         $this->sessionFor($squad, $coach->id, 'Shared Venue');
 
-        $studentUser = $this->makeUser('student');
+        // The caller is a real student in the same squad, with their own
+        // guardian and a signed agreement — so they genuinely reach the
+        // endpoint and the assertion below means something.
+        [, $ownGuardian, $self] = $this->makeGuardianWithChild('Schedule Self');
+        app(EnrolmentService::class)->enrol($self, $squad);
+        $this->signAgreementFor($self, $ownGuardian);
+
+        $studentUser = $this->makeUser('student', ['username' => $self->index_number]);
+        $self->update(['user_id' => $studentUser->id]);
+
         $response = $this->asApi($studentUser)->getJson('/api/v1/schedule');
 
         $response->assertOk();

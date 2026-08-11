@@ -7,9 +7,14 @@ use App\Models\User;
 
 class StudentPolicy
 {
+    /**
+     * SPEC.md §8.6 requires a Policy, not query scoping alone, to decide who
+     * may see students. Guardians are included here for their own children's
+     * listing; which children they get is still scoped by the relation.
+     */
     public function viewAny(User $user): bool
     {
-        return $user->isAdmin() || $user->isCoach();
+        return $user->isAdmin() || $user->isCoach() || $user->isGuardian();
     }
 
     public function view(User $user, Student $student): bool

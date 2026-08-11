@@ -87,4 +87,22 @@ class AuthTest extends ApiTestCase
     {
         $this->getJson('/api/v1/me')->assertUnauthorized();
     }
+
+    /** SPEC.md §8.1: 5 failed attempts per username per minute. */
+    public function test_api_login_is_rate_limited(): void
+    {
+        $this->makeUser('guardian', ['username' => '7811103', 'phone' => '7811103']);
+
+        for ($attempt = 1; $attempt <= 5; $attempt++) {
+            $this->postJson('/api/v1/auth/login', ['username' => '7811103', 'password' => 'wrong'])
+                ->assertStatus(422);
+        }
+
+        $this->postJson('/api/v1/auth/login', ['username' => '7811103', 'password' => 'wrong'])
+            ->assertStatus(429);
+
+        // Even the correct password is refused while the lockout holds.
+        $this->postJson('/api/v1/auth/login', ['username' => '7811103', 'password' => 'password'])
+            ->assertStatus(429);
+    }
 }

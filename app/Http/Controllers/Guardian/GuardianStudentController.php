@@ -11,6 +11,8 @@ class GuardianStudentController extends Controller
 {
     public function index(Request $request): View
     {
+        $this->authorize('viewAny', Student::class);
+
         return view('guardian.children', [
             'students' => $request->user()->guardian->students()->with('activeEnrolment.squad')->get(),
         ]);

@@ -3,11 +3,13 @@
 namespace Tests\Feature\Api;
 
 use App\Enums\StudentStatus;
+use App\Models\AgreementTemplate;
 use App\Models\Coach;
 use App\Models\Guardian;
 use App\Models\Squad;
 use App\Models\Student;
 use App\Models\User;
+use App\Services\AgreementService;
 use Tests\TestCase;
 
 /**
@@ -53,6 +55,26 @@ abstract class ApiTestCase extends TestCase
         ]);
 
         return [$user, $coach, $squad];
+    }
+
+    /**
+     * Publish a template and sign it, so a test measures the endpoint rather
+     * than the agreement gate.
+     */
+    protected function signAgreementFor(Student $student, Guardian $guardian): void
+    {
+        if (! AgreementTemplate::current()->exists()) {
+            AgreementTemplate::factory()->create(['is_current' => true]);
+        }
+
+        app(AgreementService::class)->sign(
+            student: $student->fresh(),
+            guardian: $guardian,
+            signatoryName: 'Test Guardian',
+            consents: ['discipline_policy_acknowledged' => true],
+            signatureImagePath: null,
+            request: request(),
+        );
     }
 
     /**
