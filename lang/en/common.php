@@ -1,0 +1,98 @@
+<?php
+
+return [
+    'app_name' => 'W-Academy',
+    'tagline' => 'Home. School. Religion. Sport.',
+
+    'locale' => [
+        'dv' => 'ދިވެހި',
+        'en' => 'English',
+    ],
+
+    'actions' => [
+        'save' => 'Save',
+        'cancel' => 'Cancel',
+        'edit' => 'Edit',
+        'delete' => 'Delete',
+        'create' => 'Create',
+        'back' => 'Back',
+        'search' => 'Search',
+        'filter' => 'Filter',
+        'export' => 'Export',
+        'confirm' => 'Confirm',
+        'close' => 'Close',
+        'print' => 'Print',
+        'download' => 'Download',
+        'view' => 'View',
+        'issue' => 'Issue',
+        'reset' => 'Reset',
+        'publish' => 'Publish',
+        'add' => 'Add',
+        'remove' => 'Remove',
+        'submit' => 'Submit',
+        'copy' => 'Copy',
+        'start' => 'Start',
+        'complete' => 'Complete',
+        'cancel_session' => 'Cancel session',
+        'generate' => 'Generate',
+        'sign' => 'Sign',
+        'link_existing' => 'Link existing',
+        'create_new' => 'Create new',
+    ],
+
+    'labels' => [
+        'name' => 'Name',
+        'phone' => 'Phone number',
+        'email' => 'Email',
+        'address' => 'Address',
+        'status' => 'Status',
+        'date' => 'Date',
+        'time' => 'Time',
+        'date_time' => 'Date & time',
+        'venue' => 'Venue',
+        'notes' => 'Notes',
+        'photo' => 'Photo',
+        'password' => 'Password',
+        'username' => 'Username',
+        'active' => 'Active',
+    ],
+
+    'not_available_in_language' => 'Not available in this language yet',
+
+    'weekday' => [
+        0 => 'Sunday',
+        1 => 'Monday',
+        2 => 'Tuesday',
+        3 => 'Wednesday',
+        4 => 'Thursday',
+        5 => 'Friday',
+        6 => 'Saturday',
+    ],
+
+    'month' => [
+        1 => 'January',
+        2 => 'February',
+        3 => 'March',
+        4 => 'April',
+        5 => 'May',
+        6 => 'June',
+        7 => 'July',
+        8 => 'August',
+        9 => 'September',
+        10 => 'October',
+        11 => 'November',
+        12 => 'December',
+    ],
+
+    'api' => [
+        'logged_out' => 'Logged out.',
+    ],
+
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'na' => 'N/A',
+    'required' => 'Required',
+    'optional' => 'Optional',
+    'confirm_prompt' => 'Are you sure?',
+];
