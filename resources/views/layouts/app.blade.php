@@ -45,7 +45,8 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-thaana antialiased bg-navy-50 text-navy-900">
+    {{-- SPEC.md §3.4: the Thaana face applies only in the dv locale. --}}
+    <body class="{{ app()->getLocale() === 'dv' ? 'font-thaana' : 'font-sans' }} antialiased bg-navy-50 text-navy-900">
         <div class="min-h-screen">
             <header class="bg-navy text-white">
                 <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">

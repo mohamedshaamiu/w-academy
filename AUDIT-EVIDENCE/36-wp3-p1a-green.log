@@ -1,0 +1,11 @@
+########## P1-A GREEN ##########
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\AttendanceStatisticsTest[39m
+  [32;1m✓[39;22m[90m [39m[90mall roles see identical percentage for same student[39m[90m                                                         [39m [90m8.99s[39m  
+  [32;1m✓[39;22m[90m [39m[90mlate treatment follows config[39m[90m                                                                               [39m [90m0.49s[39m  
+  [32;1m✓[39;22m[90m [39m[90mexcused is excluded from denominator[39m[90m                                                                        [39m [90m0.47s[39m  
+  [32;1m✓[39;22m[90m [39m[90mno percentage is computed outside the service[39m[90m                                                               [39m [90m0.66s[39m  
+
+  [90mTests:[39m    [32;1m4 passed[39;22m[90m (15 assertions)[39m
+  [90mDuration:[39m [39m11.57s[39m
+

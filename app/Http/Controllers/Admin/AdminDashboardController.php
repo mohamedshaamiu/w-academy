@@ -7,17 +7,19 @@ use App\Models\Attendance;
 use App\Models\Squad;
 use App\Models\Student;
 use App\Models\TrainingSession;
+use App\Services\AttendanceStatisticsService;
 use Illuminate\View\View;
 use Spatie\Activitylog\Models\Activity;
 
 class AdminDashboardController extends Controller
 {
+    public function __construct(private readonly AttendanceStatisticsService $statistics) {}
+
     public function index(): View
     {
-        $weekAttendances = Attendance::whereBetween('marked_at', [now()->startOfWeek(), now()->endOfWeek()])->get();
-        $attendanceRate = $weekAttendances->isEmpty()
-            ? null
-            : (int) round($weekAttendances->whereIn('status', ['present', 'late'])->count() / $weekAttendances->count() * 100);
+        $attendanceRate = $this->statistics->percentage(
+            Attendance::whereBetween('marked_at', [now()->startOfWeek(), now()->endOfWeek()])->get()
+        );
 
         return view('admin.dashboard', [
             'activeStudents' => Student::where('status', 'active')->count(),

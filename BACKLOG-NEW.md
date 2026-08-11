@@ -84,3 +84,30 @@ Pre-existing, not introduced by WP-2, and left untouched under standing rule 3.
 **Recommended fix (not applied):** add `database/factories/AgreementSignatureFactory.php`, or drop the unused import and the generic docblock parameter.
 **Files affected:** `app/Models/AgreementSignature.php:7,16`.
 **Proving test:** `Unit/AgreementSignatureFactoryTest::test_factory_creates_a_valid_signature`.
+
+---
+
+## NEW-4 — The attendance report's "Present" column counts present **and** late
+
+- **Severity:** **P3** (labelling accuracy).
+- **Found during:** WP-3, P1-A.
+- **SPEC ref:** §8.7 (config-driven `late` treatment), §9.28 (attendance report).
+
+The report's numerator column is headed `report.csv.present` — "Present" — but
+with the academy's confirmed policy that `late` counts as attended, it now
+tallies `present + late`. The number is correct; the heading understates what
+it contains. This was equally true before WP-3 (the old inline code also
+counted `['present','late']`); consolidating into `AttendanceStatisticsService`
+made it visible rather than introducing it.
+
+Not fixed here because a truthful heading — "Attended" — needs a new lang key
+in both languages, and the Dhivehi copy would have to be invented (§3.6).
+The underlying array key was renamed `present` → `attended` in WP-3, so only
+the user-facing label is out of step.
+
+**Recommended fix (not applied):** add `report.csv.attended` in `lang/en` and
+`lang/dv`, point the table header and CSV header at it, and retire
+`report.csv.present` if nothing else uses it.
+**Files affected:** `lang/{en,dv}/report.php`, `resources/views/admin/reports/attendance.blade.php:39`, `app/Http/Controllers/Admin/ReportController.php:52`.
+**Proving test:** `AttendanceStatisticsTest::test_report_column_heading_matches_the_configured_policy`.
+**Depends on:** Dhivehi copy for "Attended".

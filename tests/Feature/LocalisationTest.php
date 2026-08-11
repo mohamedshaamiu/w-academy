@@ -111,6 +111,128 @@ class LocalisationTest extends TestCase
         $this->assertEmpty($violations, "Possible untranslated literal text found:\n".implode("\n", $violations));
     }
 
+    /**
+     * SPEC.md §3.4: the Thaana face is "applied via a `.font-thaana` class and
+     * set as the body font ONLY when locale is `dv`. It must never be set as
+     * the global `sans` family."
+     */
+    public function test_thaana_font_class_applies_only_in_dv_locale(): void
+    {
+        $admin = User::factory()->create();
+        $admin->assignRole('admin');
+
+        // Every layout: public, guest and app.
+        $pages = [
+            'public' => fn (string $locale) => $this->withSession(['locale' => $locale])->get('/'),
+            'guest' => fn (string $locale) => $this->withSession(['locale' => $locale])->get('/login'),
+            'app' => fn (string $locale) => $this->withSession(['locale' => $locale])->actingAs($admin)->get(route('admin.dashboard')),
+        ];
+
+        foreach ($pages as $layout => $request) {
+            $dhivehi = $request('dv');
+            $dhivehi->assertOk();
+            $this->assertMatchesRegularExpression(
+                '/<body[^>]*\bfont-thaana\b/',
+                $dhivehi->getContent(),
+                "The {$layout} layout must carry font-thaana on <body> in the dv locale."
+            );
+
+            $english = $request('en');
+            $english->assertOk();
+            $this->assertDoesNotMatchRegularExpression(
+                '/<body[^>]*\bfont-thaana\b/',
+                $english->getContent(),
+                "The {$layout} layout must NOT carry font-thaana on <body> in the en locale."
+            );
+        }
+
+        // No Blade file may pin the Thaana face unconditionally — every use
+        // must be gated on a locale. This catches standalone documents such as
+        // the agreement print view, which carry their own <html>/<body>.
+        foreach (File::allFiles(resource_path('views')) as $file) {
+            $contents = File::get($file->getPathname());
+
+            foreach (explode("\n", $contents) as $number => $line) {
+                if (! str_contains($line, 'font-thaana')) {
+                    continue;
+                }
+
+                $this->assertMatchesRegularExpression(
+                    "/locale|'dv'|\"dv\"/",
+                    $line,
+                    "{$file->getRelativePathname()}:".($number + 1)
+                    .' applies font-thaana without a locale condition (SPEC.md §3.4).'
+                );
+            }
+        }
+
+        // ...and it must never be the global sans family.
+        $tailwind = File::get(base_path('tailwind.config.js'));
+
+        $this->assertMatchesRegularExpression(
+            '/sans:\s*\[[^\]]*\]/',
+            $tailwind,
+            'tailwind.config.js must declare a sans stack.'
+        );
+
+        preg_match('/sans:\s*\[([^\]]*)\]/', $tailwind, $matches);
+
+        $this->assertDoesNotMatchRegularExpression(
+            '/thaana|faseyha|faruma|boli/i',
+            $matches[1] ?? '',
+            'SPEC.md §3.4: a Thaana face must never appear in the global `sans` family.'
+        );
+    }
+
+    /**
+     * SPEC.md §3.4: "Do not bundle a proprietary font without a licence
+     * permitting web redistribution." §14 defers procurement of the licensed
+     * Thaana webfont, tracked in FONT-LICENCE.md.
+     */
+    public function test_no_proprietary_font_binary_in_repository(): void
+    {
+        // Fonts that ship with an operating system and may not be redistributed.
+        $proprietary = ['mvboli', 'segoeui', 'calibri', 'arial', 'tahoma', 'times'];
+
+        $bundled = [];
+
+        foreach ([resource_path('fonts'), public_path('build/assets')] as $directory) {
+            if (! File::isDirectory($directory)) {
+                continue;
+            }
+
+            foreach (File::files($directory) as $file) {
+                if (! in_array(strtolower($file->getExtension()), ['ttf', 'otf', 'woff', 'woff2', 'eot'], true)) {
+                    continue;
+                }
+
+                $bundled[] = $file;
+
+                $this->assertNotContains(
+                    preg_replace('/[^a-z]/', '', strtolower($file->getFilenameWithoutExtension())),
+                    $proprietary,
+                    "SPEC.md §3.4: {$file->getFilename()} is a proprietary system font and must not be bundled."
+                );
+            }
+        }
+
+        $this->assertTrue(
+            File::exists(base_path('FONT-LICENCE.md')),
+            'SPEC.md §14: FONT-LICENCE.md must record the Thaana webfont licence position.'
+        );
+
+        // Whatever IS bundled has to be accounted for in that document.
+        $licence = File::get(base_path('FONT-LICENCE.md'));
+
+        foreach ($bundled as $file) {
+            $this->assertStringContainsString(
+                $file->getFilenameWithoutExtension(),
+                $licence,
+                "{$file->getFilename()} is bundled but is not documented in FONT-LICENCE.md."
+            );
+        }
+    }
+
     private function stripTranslatedAndDynamicContent(string $contents): string
     {
         $contents = preg_replace('/\{\{--.*?--\}\}/s', '', $contents);

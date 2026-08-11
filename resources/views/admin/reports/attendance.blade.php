@@ -45,9 +45,9 @@
                     <tr>
                         <td class="px-4 py-3 font-mono">{{ $row['student']->index_number }}</td>
                         <td class="px-4 py-3">{{ $row['student']->full_name }}</td>
-                        <td class="px-4 py-3">{{ $row['present'] }}</td>
+                        <td class="px-4 py-3">{{ $row['attended'] }}</td>
                         <td class="px-4 py-3">{{ $row['total'] }}</td>
-                        <td class="px-4 py-3">{{ $row['percentage'] }}%</td>
+                        <td class="px-4 py-3">{{ $row['percentage'] !== null ? $row['percentage'].'%' : __('common.na') }}</td>
                     </tr>
                 @empty
                     <tr><td colspan="5" class="px-4 py-6 text-center text-navy-400">{{ __('common.none') }}</td></tr>

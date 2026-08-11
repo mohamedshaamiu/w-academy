@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Guardian;
 
 use App\Http\Controllers\Controller;
+use App\Services\AttendanceStatisticsService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class GuardianDashboardController extends Controller
 {
+    public function __construct(private readonly AttendanceStatisticsService $statistics) {}
+
     public function index(Request $request): View
     {
         $guardian = $request->user()->guardian;
@@ -24,20 +27,11 @@ class GuardianDashboardController extends Controller
                     ->orderBy('scheduled_start')
                     ->first();
 
-                $monthAttendance = $student->attendances()
-                    ->whereMonth('marked_at', now()->month)
-                    ->whereYear('marked_at', now()->year)
-                    ->get();
-
-                $percentage = $monthAttendance->isEmpty()
-                    ? null
-                    : (int) round($monthAttendance->where('status', 'present')->count() / $monthAttendance->count() * 100);
-
                 return [
                     'student' => $student,
                     'squad' => $enrolment?->squad,
                     'next_session' => $nextSession,
-                    'attendance_percentage' => $percentage,
+                    'attendance_percentage' => $this->statistics->forStudentInMonth($student)['percentage'],
                 ];
             });
 

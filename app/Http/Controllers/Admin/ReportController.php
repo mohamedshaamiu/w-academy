@@ -5,36 +5,30 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use App\Models\Squad;
+use App\Models\Student;
+use App\Services\AttendanceStatisticsService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
 class ReportController extends Controller
 {
+    public function __construct(private readonly AttendanceStatisticsService $statistics) {}
+
     public function attendance(Request $request): View|Response
     {
         $from = $request->date('from') ?? now()->startOfMonth();
         $to = $request->date('to') ?? now()->endOfMonth();
         $squadId = $request->integer('squad') ?: null;
 
-        $rows = Attendance::query()
-            ->whereBetween('marked_at', [$from, $to])
-            ->when($squadId, fn ($q) => $q->whereHas('trainingSession', fn ($s) => $s->where('squad_id', $squadId)))
-            ->with('student')
-            ->get()
-            ->groupBy('student_id')
-            ->map(function ($attendances) {
-                $student = $attendances->first()->student;
-                $present = $attendances->whereIn('status', ['present', 'late'])->count();
-                $total = $attendances->count();
-
-                return [
-                    'student' => $student,
-                    'present' => $present,
-                    'total' => $total,
-                    'percentage' => $total > 0 ? (int) round($present / $total * 100) : 0,
-                ];
-            });
+        $rows = $this->statistics->summariseByStudent(
+            Attendance::query()
+                ->whereBetween('marked_at', [$from, $to])
+                ->when($squadId, fn ($q) => $q->whereHas('trainingSession', fn ($s) => $s->where('squad_id', $squadId)))
+                ->with('student')
+                ->get()
+        );
 
         if ($request->boolean('export')) {
             return $this->exportCsv($rows);
@@ -48,7 +42,10 @@ class ReportController extends Controller
         ]);
     }
 
-    private function exportCsv($rows): Response
+    /**
+     * @param  Collection<int, array{student: Student, attended: int, total: int, excluded: int, percentage: int|null}>  $rows
+     */
+    private function exportCsv(Collection $rows): Response
     {
         $headers = [
             __('report.csv.index_number'),
@@ -64,9 +61,9 @@ class ReportController extends Controller
             $lines[] = implode(',', [
                 $row['student']->index_number,
                 '"'.str_replace('"', '""', $row['student']->full_name).'"',
-                $row['present'],
+                $row['attended'],
                 $row['total'],
-                $row['percentage'].'%',
+                $row['percentage'] !== null ? $row['percentage'].'%' : __('common.na'),
             ]);
         }
 

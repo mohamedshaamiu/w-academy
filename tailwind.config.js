@@ -11,7 +11,12 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['MV Boli', 'Faruma', 'system-ui', 'sans-serif'],
+                // SPEC.md §3.4: the Thaana face must NEVER be the global sans
+                // family — English renders in the Latin stack. The Thaana face
+                // is opt-in through the `font-thaana` utility below, which the
+                // layouts apply to <body> only when the locale is `dv`.
+                sans: ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+                thaana: ['var(--font-thaana)'],
             },
             colors: {
                 navy: {

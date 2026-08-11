@@ -5,7 +5,10 @@
         <title>{{ __('agreement.page.title') }} — {{ $student->full_name }}</title>
         @vite(['resources/css/app.css'])
     </head>
-    <body class="font-thaana mx-auto max-w-3xl p-8 text-navy-900">
+    {{-- SPEC.md §3.4: Thaana only for Thaana. This print view renders in the
+         locale the guardian actually signed in, not the active locale, so the
+         font follows `signed_locale` exactly as `dir` and `lang` above do. --}}
+    <body class="{{ $signature->signed_locale->value === 'dv' ? 'font-thaana' : 'font-sans' }} mx-auto max-w-3xl p-8 text-navy-900">
         <h1 class="text-xl font-bold text-navy">{{ __('agreement.page.title') }}</h1>
         <p class="mt-1 text-sm text-navy-500">
             {{ $student->full_name }} ({{ $student->index_number }})

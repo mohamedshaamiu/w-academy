@@ -1,0 +1,152 @@
+########## P1-B RED ##########
+
+  [39;41;1m FAIL [39;49;22m[39m Tests\Feature\LocalisationTest[39m
+  [31;1m⨯[39;22m[90m [39m[90mthaana font class applies only in dv locale[39m[90m                                                                 [39m [90m4.59s[39m  
+  [31;1m⨯[39;22m[90m [39m[90mno proprietary font binary in repository[39m[90m                                                                    [39m [90m0.65s[39m  
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\LocalisationTest[22m [90m>[39m thaana font class applies only in dv locale                                 
+[39;1m  The public layout must NOT carry font-thaana on [39;22m[39;1m<body>[39;22m[39;1m in the en locale.
+Failed asserting that '<!DOCTYPE html>\n
+[39;22m[39;1m<html lang="en" dir="ltr">[39;22m[39;1m\n
+    [39;22m[39;1m<head>[39;22m[39;1m\n
+        [39;22m[39;1m<meta charset="utf-8">[39;22m[39;1m\n
+        [39;22m[39;1m<meta name="viewport" content="width=device-width, initial-scale=1">[39;22m[39;1m\n
+        [39;22m[39;1m<meta name="csrf-token" content="B1nbsMcW6HYSTp9NVx8ReezgZnOsQUFLewbjVifL">[39;22m[39;1m\n
+\n
+        [39;22m[39;1m<title>[39;22m[39;1mW-Academy[39;22m[39;1m</title>[39;22m[39;1m\n
+\n
+        [39;22m[39;1m<link rel="preload" as="style" href="http://localhost/build/assets/app-CHe7QDl0.css" />[39;22m[39;1m<link rel="modulepreload" href="http://localhost/build/assets/app-B0cA2RIw.js" />[39;22m[39;1m<link rel="stylesheet" href="http://localhost/build/assets/app-CHe7QDl0.css" />[39;22m[39;1m<script type="module" src="http://localhost/build/assets/app-B0cA2RIw.js">[39;22m[39;1m</script>[39;22m[39;1m    [39;22m[39;1m</head>[39;22m[39;1m\n
+    [39;22m[39;1m<body class="font-thaana antialiased bg-white text-navy-900">[39;22m[39;1m\n
+        [39;22m[39;1m<header class="bg-navy text-white">[39;22m[39;1m\n
+            [39;22m[39;1m<div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">[39;22m[39;1m\n
+                [39;22m[39;1m<a href="http://localhost" class="flex items-center gap-2 text-lg font-bold">[39;22m[39;1m\n
+                    [39;22m[39;1m<span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-gold text-navy-900">[39;22m[39;1mW[39;22m[39;1m</span>[39;22m[39;1m\n
+                    W-Academy\n
+                [39;22m[39;1m</a>[39;22m[39;1m\n
+\n
+                [39;22m[39;1m<nav class="hidden items-center gap-6 text-sm font-medium sm:flex">[39;22m[39;1m\n
+                    [39;22m[39;1m<a href="http://localhost" class="hover:text-gold">[39;22m[39;1mHome[39;22m[39;1m</a>[39;22m[39;1m\n
+                    [39;22m[39;1m<a href="http://localhost/framework" class="hover:text-gold">[39;22m[39;1mFramework Guide[39;22m[39;1m</a>[39;22m[39;1m\n
+                    [39;22m[39;1m<a href="http://localhost/contact" class="hover:text-gold">[39;22m[39;1mContact[39;22m[39;1m</a>[39;22m[39;1m\n
+                    [39;22m[39;1m<a href="http://localhost/login" class="rounded-md bg-gold px-4 py-2 text-navy-900 hover:bg-gold-400">[39;22m[39;1mLog in[39;22m[39;1m</a>[39;22m[39;1m\n
+                [39;22m[39;1m</nav>[39;22m[39;1m\n
+\n
+                [39;22m[39;1m<div class="flex items-center gap-3">[39;22m[39;1m\n
+                    [39;22m[39;1m<div class="inline-flex items-center gap-1 rounded-full bg-navy-800/10 p-1 text-sm">[39;22m[39;1m\n
+            [39;22m[39;1m<a\n
+            href="http://localhost/locale/dv"\n
+            class="rounded-full px-3 py-1 font-medium transition text-current hover:bg-navy-800/10"\n
+            aria-current="false"\n
+        >[39;22m[39;1m\n
+            ދިވެހި\n
+        [39;22m[39;1m</a>[39;22m[39;1m\n
+            [39;22m[39;1m<a\n
+            href="http://localhost/locale/en"\n
+            class="rounded-full px-3 py-1 font-medium transition bg-gold text-navy-900"\n
+            aria-current="true"\n
+        >[39;22m[39;1m\n
+            English\n
+        [39;22m[39;1m</a>[39;22m[39;1m\n
+    [39;22m[39;1m</div>[39;22m[39;1m\n
+                [39;22m[39;1m</div>[39;22m[39;1m\n
+            [39;22m[39;1m</div>[39;22m[39;1m\n
+\n
+            [39;22m[39;1m<nav class="flex items-center gap-4 overflow-x-auto border-t border-white/10 px-4 py-2 text-sm font-medium sm:hidden">[39;22m[39;1m\n
+                [39;22m[39;1m<a href="http://localhost" class="hover:text-gold">[39;22m[39;1mHome[39;22m[39;1m</a>[39;22m[39;1m\n
+                [39;22m[39;1m<a href="http://localhost/framework" class="hover:text-gold">[39;22m[39;1mFramework Guide[39;22m[39;1m</a>[39;22m[39;1m\n
+                [39;22m[39;1m<a href="http://localhost/contact" class="hover:text-gold">[39;22m[39;1mContact[39;22m[39;1m</a>[39;22m[39;1m\n
+                [39;22m[39;1m<a href="http://localhost/login" class="hover:text-gold">[39;22m[39;1mLog in[39;22m[39;1m</a>[39;22m[39;1m\n
+            [39;22m[39;1m</nav>[39;22m[39;1m\n
+        [39;22m[39;1m</header>[39;22m[39;1m\n
+\n
+        [39;22m[39;1m<main>[39;22m[39;1m\n
+            [39;22m[39;1m<section class="bg-navy text-white">[39;22m[39;1m\n
+        [39;22m[39;1m<div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">[39;22m[39;1m\n
+            [39;22m[39;1m<h1 class="max-w-2xl text-3xl font-bold sm:text-4xl">[39;22m[39;1mW-Academy[39;22m[39;1m</h1>[39;22m[39;1m\n
+            [39;22m[39;1m<p class="mt-4 max-w-xl text-navy-100">[39;22m[39;1mHome. School. Religion. Sport.[39;22m[39;1m</p>[39;22m[39;1m\n
+        [39;22m[39;1m</div>[39;22m[39;1m\n
+    [39;22m[39;1m</section>[39;22m[39;1m\n
+\n
+    [39;22m[39;1m<section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">[39;22m[39;1m\n
+        [39;22m[39;1m<h2 class="text-xl font-bold text-navy">[39;22m[39;1mThe 4 Pillars[39;22m[39;1m</h2>[39;22m[39;1m\n
+\n
+        [39;22m[39;1m<div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">[39;22m[39;1m\n
+                    [39;22m[39;1m</div>[39;22m[39;1m\n
+\n
+        [39;22m[39;1m<div class="mt-6">[39;22m[39;1m\n
+            [39;22m[39;1m<a href="http://localhost/framework" class="font-semibold text-navy underline hover:text-gold-700">[39;22m[39;1m\n
+                Framework Reference Guide &raquo;\n
+            [39;22m[39;1m</a>[39;22m[39;1m\n
+        [39;22m[39;1m</div>[39;22m[39;1m\n
+    [39;22m[39;1m</section>[39;22m[39;1m\n
+\n
+    [39;22m[39;1m<section class="bg-navy-50 py-12">[39;22m[39;1m\n
+        [39;22m[39;1m<div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">[39;22m[39;1m\n
+            [39;22m[39;1m<p class="rounded-lg bg-white p-6 text-center text-navy-500 shadow-sm">[39;22m[39;1m\n
+                Enrolment is arranged through the academy office — there is no online sign-up. Please visit or call us to register your child.\n
+            [39;22m[39;1m</p>[39;22m[39;1m\n
+        [39;22m[39;1m</div>[39;22m[39;1m\n
+    [39;22m[39;1m</section>[39;22m[39;1m\n
+\n
+    [39;22m[39;1m<section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">[39;22m[39;1m\n
+    [39;22m[39;1m<h2 class="text-xl font-bold text-navy">[39;22m[39;1mContact Us[39;22m[39;1m</h2>[39;22m[39;1m\n
+\n
+    [39;22m[39;1m<dl class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">[39;22m[39;1m\n
+        [39;22m[39;1m<div>[39;22m[39;1m\n
+            [39;22m[39;1m<dt class="text-sm font-semibold text-navy-400">[39;22m[39;1mAddress[39;22m[39;1m</dt>[39;22m[39;1m\n
+            [39;22m[39;1m<dd class="mt-1 text-navy-700">[39;22m[39;1m[EN CONTENT PENDING][39;22m[39;1m</dd>[39;22m[39;1m\n
+        [39;22m[39;1m</div>[39;22m[39;1m\n
+        [39;22m[39;1m<div>[39;22m[39;1m\n
+            [39;22m[39;1m<dt class="text-sm font-semibold text-navy-400">[39;22m[39;1mPhone[39;22m[39;1m</dt>[39;22m[39;1m\n
+            [39;22m[39;1m<dd class="mt-1 text-navy-700">[39;22m[39;1m[EN CONTENT PENDING][39;22m[39;1m</dd>[39;22m[39;1m\n
+        [39;22m[39;1m</div>[39;22m[39;1m\n
+        [39;22m[39;1m<div>[39;22m[39;1m\n
+            [39;22m[39;1m<dt class="text-sm font-semibold text-navy-400">[39;22m[39;1mOffice Hours[39;22m[39;1m</dt>[39;22m[39;1m\n
+            [39;22m[39;1m<dd class="mt-1 text-navy-700">[39;22m[39;1mSunday–Thursday, 9:00–16:00[39;22m[39;1m</dd>[39;22m[39;1m\n
+        [39;22m[39;1m</div>[39;22m[39;1m\n
+    [39;22m[39;1m</dl>[39;22m[39;1m\n
+[39;22m[39;1m</section>[39;22m[39;1m\n
+        [39;22m[39;1m</main>[39;22m[39;1m\n
+\n
+        [39;22m[39;1m<footer class="mt-16 border-t border-navy-100 bg-navy-50 py-8 text-center text-sm text-navy-500">[39;22m[39;1m\n
+            &copy; 2026 W-Academy\n
+        [39;22m[39;1m</footer>[39;22m[39;1m\n
+    [39;22m[39;1m</body>[39;22m[39;1m\n
+[39;22m[39;1m</html>[39;22m[39;1m\n
+' does not match PCRE pattern "/[39;22m[39;1m<body[^>[39;22m[39;1m]*\bfont-thaana\b/".[39;22m
+
+  at [32mtests\Feature\LocalisationTest.php[39m:[32m142[39m
+    138▕             );
+    139▕ 
+    140▕             $english = $request('en');
+    141▕             $english->assertOk();
+  ➜ 142▕             $this->assertDoesNotMatchRegularExpression(
+    143▕                 '/<body[^>]*\bfont-thaana\b/',
+    144▕                 $english->getContent(),
+    145▕                 "The {$layout} layout must NOT carry font-thaana on <body> in the en locale."
+    146▕             );
+
+  [33m1   [39m[39;1mtests\Feature\LocalisationTest.php[39;22m:[39;1m142[39;22m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\LocalisationTest[22m [90m>[39m no proprietary font binary in repository                                    
+[39;1m  SPEC.md §3.4: MVBoli.ttf is a proprietary system font and must not be bundled.
+Failed asserting that an array does not contain 'mvboli'.[39;22m
+
+  at [32mtests\Feature\LocalisationTest.php[39m:[32m191[39m
+    187▕                 }
+    188▕ 
+    189▕                 $bundled[] = $file;
+    190▕ 
+  ➜ 191▕                 $this->assertNotContains(
+    192▕                     preg_replace('/[^a-z]/', '', strtolower($file->getFilenameWithoutExtension())),
+    193▕                     $proprietary,
+    194▕                     "SPEC.md §3.4: {$file->getFilename()} is a proprietary system font and must not be bundled."
+    195▕                 );
+
+  [33m1   [39m[39;1mtests\Feature\LocalisationTest.php[39;22m:[39;1m191[39;22m
+
+
+  [90mTests:[39m    [31;1m2 failed[39;22m[90m (5 assertions)[39m
+  [90mDuration:[39m [39m7.04s[39m
+

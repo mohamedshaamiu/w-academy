@@ -1,0 +1,285 @@
+########## P1-A RED ##########
+
+  [39;41;1m FAIL [39;49;22m[39m Tests\Feature\AttendanceStatisticsTest[39m
+  [31;1m⨯[39;22m[90m [39m[90mall roles see identical percentage for same student[39m[90m                                                        [39m [90m60.01s[39m  
+  [31;1m⨯[39;22m[90m [39m[90mlate treatment follows config[39m[90m                                                                               [39m [90m0.63s[39m  
+  [31;1m⨯[39;22m[90m [39m[90mexcused is excluded from denominator[39m[90m                                                                        [39m [90m0.51s[39m  
+  [31;1m⨯[39;22m[90m [39m[90mno percentage is computed outside the service[39m[90m                                                               [39m [90m1.43s[39m  
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AttendanceStatisticsTest[22m [90m>[39m all roles see identical percentage for same student                 
+[39;1m  Expected: [39;22m[31m<!DOCTYPE html>\n
+[39m[31m<html lang="dv" dir="rtl">[39m[31m\n
+    [39m[31m<head>[39m[31m\n
+        [39m[31m<meta charset="utf-8">[39m[31m\n
+        [39m[31m<meta name="viewport" content="width=device-width, initial-scale=1">[39m[31m\n
+        [39m[31m<meta name="csrf-token" content="l754Dqh2eH5pat3mvvtbi6gVpz76rP6OIOXb502N">[39m[31m\n
+\n
+        [39m[31m<title>[39m[31mހާޒިރީ ރިޕޯޓު[39m[31m</title>[39m[31m\n
+\n
+        [39m[31m<link rel="preload" as="style" href="http://localhost/build/assets/app-CHe7QDl0.css" />[39m[31m<link rel="modulepreload" href="http://localhost/build/assets/app-B0cA2RIw.js" />[39m[31m<link rel="stylesheet" href="http://localhost/build/assets/app-CHe7QDl0.css" />[39m[31m<script type="module" src="http://localhost/build/assets/app-B0cA2RIw.js">[39m[31m</script>[39m[31m    [39m[31m</head>[39m[31m\n
+    [39m[31m<body class="font-thaana antialiased bg-navy-50 text-navy-900">[39m[31m\n
+        [39m[31m<div class="min-h-screen">[39m[31m\n
+            [39m[31m<header class="bg-navy text-white">[39m[31m\n
+                [39m[31m<div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">[39m[31m\n
+                    [39m[31m<a href="http://localhost/dashboard" class="flex shrink-0 items-center gap-2 font-bold">[39m[31m\n
+                        [39m[31m<span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gold text-navy-900">[39m[31mW[39m[31m</span>[39m[31m\n
+                        [39m[31m<span class="hidden sm:inline">[39m[31mޑަބްލިއު-އެކަޑަމީ[39m[31m</span>[39m[31m\n
+                    [39m[31m</a>[39m[31m\n
+\n
+                    [39m[31m<nav class="hidden flex-1 items-center gap-5 overflow-x-auto text-sm font-medium md:flex">[39m[31m\n
+                                                    [39m[31m<a\n
+                                href="http://localhost/admin"\n
+                                class="whitespace-nowrap border-b-2 py-1 border-transparent hover:text-gold"\n
+                            >[39m[31m\n
+                                ޑޭޝްބޯޑް\n
+                            [39m[31m</a>[39m[31m\n
+                                                    [39m[31m<a\n
+                                href="http://localhost/admin/students"\n
+                                class="whitespace-nowrap border-b-2 py-1 border-transparent hover:text-gold"\n
+                            >[39m[31m\n
+                                ދަރިވަރުން\n
+                            [39m[31m</a>[39m[31m\n
+                                                    [39m[31m<a\n
+                                href="http://localhost/admin/guardians"\n
+                                class="whitespace-nowrap border-b-2 py-1 border-transparent hover:text-gold"\n
+                            >[39m[31m\n
+                                ބެލެނިވެރިން\n
+                            [39m[31m</a>[39m[31m\n
+                                                    [39m[31m<a\n
+                                href="http://localhost/admin/coaches"\n
+                                class="whitespace-nowrap border-b-2 py-1 border-transparent hover:text-gold"\n
+                            >[39m[31m\n
+                                ކޯޗުން\n
+                            [39m[31m</a>[39m[31m\n
+                                                    [39m[31m<a\n
+                                href="http://localhost/admin/squads"\n
+                                class="whitespace-nowrap border-b-2 py-1 border-transparent hover:text-gold"\n
+                            >[39m[31m\n
+                                ސްކޮޑްތައް\n
+                            [39m[31m</a>[39m[31m\n
+                                                    [39m[31m<a\n
+                                href="http://localhost/admin/sessions"\n
+                                class="whitespace-nowrap border-b-2 py-1 border-transparent hover:text-gold"\n
+                            >[39m[31m\n
+                                ސެޝަންތައް\n
+                            [39m[31m</a>[39m[31m\n
+                                                    [39m[31m<a\n
+                                href="http://localhost/admin/agreement-templates"\n
+                                class="whitespace-nowrap border-b-2 py-1 border-transparent hover:text-gold"\n
+                            >[39m[31m\n
+                                އެއްބަސްވުމުގެ ޓެމްޕްލޭޓުތައް\n
+                            [39m[31m</a>[39m[31m\n
+                                                    [39m[31m<a\n
+                                href="http://localhost/admin/framework/pillars"\n
+                                class="whitespace-nowrap border-b-2 py-1 border-transparent hover:text-gold"\n
+                            >[39m[31m\n
+                                ފްރޭމްވޯކް\n
+                            [39m[31m</a>[39m[31m\n
+                                                    [39m[31m<a\n
+                                href="http://localhost/admin/reports/attendance"\n
+                                class="whitespace-nowrap border-b-2 py-1 border-gold text-gold"\n
+                            >[39m[31m\n
+                                ރިޕޯޓުތައް\n
+                            [39m[31m</a>[39m[31m\n
+                                                    [39m[31m<a\n
+                                href="http://localhost/admin/audit"\n
+                                class="whitespace-nowrap border-b-2 py-1 border-transparent hover:text-gold"\n
+                            >[39m[31m\n
+                                އޮޑިޓް ލޮގް\n
+                            [39m[31m</a>[39m[31m\n
+                                            [39m[31m</nav>[39m[31m\n
+\n
+                    [39m[31m<div class="flex items-center gap-3">[39m[31m\n
+                        [39m[31m<div class="inline-flex items-center gap-1 rounded-full bg-navy-800/10 p-1 text-sm">[39m[31m\n
+            [39m[31m<a\n
+            href="http://localhost/locale/dv"\n
+            class="rounded-full px-3 py-1 font-medium transition bg-gold text-navy-900"\n
+            aria-current="true"\n
+        >[39m[31m\n
+            ދިވެހި\n
+        [39m[31m</a>[39m[31m\n
+            [39m[31m<a\n
+            href="http://localhost/locale/en"\n
+            class="rounded-full px-3 py-1 font-medium transition text-current hover:bg-navy-800/10"\n
+            aria-current="false"\n
+        >[39m[31m\n
+            English\n
+        [39m[31m</a>[39m[31m\n
+    [39m[31m</div>[39m[31m\n
+                        [39m[31m<form method="POST" action="http://localhost/logout">[39m[31m\n
+                            [39m[31m<input type="hidden" name="_token" value="l754Dqh2eH5pat3mvvtbi6gVpz76rP6OIOXb502N" autocomplete="off">[39m[31m                            [39m[31m<button type="submit" class="rounded-md border border-white/30 px-3 py-1.5 text-sm hover:bg-white/10">[39m[31m\n
+                                ލޮގްއައުޓް\n
+                            [39m[31m</button>[39m[31m\n
+                        [39m[31m</form>[39m[31m\n
+                    [39m[31m</div>[39m[31m\n
+                [39m[31m</div>[39m[31m\n
+\n
+                [39m[31m<nav class="flex items-center gap-4 overflow-x-auto border-t border-white/10 px-4 py-2 text-sm font-medium md:hidden">[39m[31m\n
+                                            [39m[31m<a href="http://localhost/admin" class="whitespace-nowrap hover:text-gold">[39m[31mޑޭޝްބޯޑް[39m[31m</a>[39m[31m\n
+                                            [39m[31m<a href="http://localhost/admin/students" class="whitespace-nowrap hover:text-gold">[39m[31mދަރިވަރުން[39m[31m</a>[39m[31m\n
+                                            [39m[31m<a href="http://localhost/admin/guardians" class="whitespace-nowrap hover:text-gold">[39m[31mބެލެނިވެރިން[39m[31m</a>[39m[31m\n
+                                            [39m[31m<a href="http://localhost/admin/coaches" class="whitespace-nowrap hover:text-gold">[39m[31mކޯޗުން[39m[31m</a>[39m[31m\n
+                                            [39m[31m<a href="http://localhost/admin/squads" class="whitespace-nowrap hover:text-gold">[39m[31mސްކޮޑްތައް[39m[31m</a>[39m[31m\n
+                                            [39m[31m<a href="http://localhost/admin/sessions" class="whitespace-nowrap hover:text-gold">[39m[31mސެޝަންތައް[39m[31m</a>[39m[31m\n
+                                            [39m[31m<a href="http://localhost/admin/agreement-templates" class="whitespace-nowrap hover:text-gold">[39m[31mއެއްބަސްވުމުގެ ޓެމްޕްލޭޓުތައް[39m[31m</a>[39m[31m\n
+                                            [39m[31m<a href="http://localhost/admin/framework/pillars" class="whitespace-nowrap hover:text-gold">[39m[31mފްރޭމްވޯކް[39m[31m</a>[39m[31m\n
+                                            [39m[31m<a href="http://localhost/admin/reports/attendance" class="whitespace-nowrap hover:text-gold">[39m[31mރިޕޯޓުތައް[39m[31m</a>[39m[31m\n
+                                            [39m[31m<a href="http://localhost/admin/audit" class="whitespace-nowrap hover:text-gold">[39m[31mއޮޑިޓް ލޮގް[39m[31m</a>[39m[31m\n
+                                    [39m[31m</nav>[39m[31m\n
+            [39m[31m</header>[39m[31m\n
+\n
+            \n
+            \n
+            \n
+            [39m[31m<main class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">[39m[31m\n
+                [39m[31m<form method="GET" action="http://localhost/admin/reports/attendance" class="mb-4 flex flex-wrap items-end gap-2">[39m[31m\n
+        [39m[31m<div>[39m[31m\n
+            [39m[31m<label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="from">[39m[31m\n
+    ފެށޭ ތާރީޚު\n
+[39m[31m</label>[39m[31m\n
+            [39m[31m<input id="from" type="date" name="from" value="2026-08-01" class="mt-1 block rounded-md border-navy-200 text-sm">[39m[31m\n
+        [39m[31m</div>[39m[31m\n
+\n
+        [39m[31m<div>[39m[31m\n
+            [39m[31m<label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="to">[39m[31m\n
+    ނިމޭ ތާރީޚު\n
+[39m[31m</label>[39m[31m\n
+            [39m[31m<input id="to" type="date" name="to" value="2026-08-31" class="mt-1 block rounded-md border-navy-200 text-sm">[39m[31m\n
+        [39m[31m</div>[39m[31m\n
+\n
+        [39m[31m<div>[39m[31m\n
+            [39m[31m<label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="squad">[39m[31m\n
+    ސްކޮޑް\n
+[39m[31m</label>[39m[31m\n
+            [39m[31m<select id="squad" name="squad" class="mt-1 block rounded-md border-navy-200 text-sm">[39m[31m\n
+                [39m[31m<option value="">[39m[31m—[39m[31m</option>[39m[31m\n
+                                    [39m[31m<option value="1" >[39m[31m[DV CONTENT PENDING][39m[31m</option>[39m[31m\n
+                            [39m[31m</select>[39m[31m\n
+        [39m[31m</div>[39m[31m\n
+\n
+        [39m[31m<button type="submit" class="rounded-md bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-600">[39m[31m\n
+            ފިލްޓަރކުރޭ\n
+        [39m[31m</button>[39m[31m\n
+\n
+        [39m[31m<button type="submit" name="export" value="1" class="rounded-md bg-gold px-4 py-2 text-sm font-semibold text-navy-900 hover:bg-gold-400">[39m[31m\n
+            CSV އެކްސްޕޯޓްކުރޭ\n
+        [39m[31m</button>[39m[31m\n
+    [39m[31m</form>[39m[31m\n
+\n
+    [39m[31m<div class="overflow-x-auto rounded-xl border border-navy-100 bg-white">[39m[31m\n
+        [39m[31m<table class="min-w-full divide-y divide-navy-100 text-start text-sm">[39m[31m\n
+            [39m[31m<thead class="bg-navy-50">[39m[31m\n
+                [39m[31m<tr>[39m[31m\n
+                    [39m[31m<th class="px-4 py-3 text-start font-semibold text-navy">[39m[31mއިންޑެކްސް ނަންބަރު[39m[31m</th>[39m[31m\n
+                    [39m[31m<th class="px-4 py-3 text-start font-semibold text-navy">[39m[31mފުރިހަމަ ނަން[39m[31m</th>[39m[31m\n
+                    [39m[31m<th class="px-4 py-3 text-start font-semibold text-navy">[39m[31mހާޒިރު[39m[31m</th>[39m[31m\n
+                    [39m[31m<th class="px-4 py-3 text-start font-semibold text-navy">[39m[31mޖުމްލަ[39m[31m</th>[39m[31m\n
+                    [39m[31m<th class="px-4 py-3 text-start font-semibold text-navy">[39m[31mޕަސެންޓޭޖު[39m[31m</th>[39m[31m\n
+                [39m[31m</tr>[39m[31m\n
+            [39m[31m</thead>[39m[31m\n
+            [39m[31m<tbody class="divide-y divide-navy-100">[39m[31m\n
+                                    [39m[31m<tr>[39m[31m\n
+                        [39m[31m<td class="px-4 py-3 font-mono">[39m[31mWA-2933[39m[31m</td>[39m[31m\n
+                        [39m[31m<td class="px-4 py-3">[39m[31mStats Subject[39m[31m</td>[39m[31m\n
+                        [39m[31m<td class="px-4 py-3">[39m[31m0[39m[31m</td>[39m[31m\n
+                        [39m[31m<td class="px-4 py-3">[39m[31m5[39m[31m</td>[39m[31m\n
+                        [39m[31m<td class="px-4 py-3">[39m[31m0%[39m[31m</td>[39m[31m\n
+                    [39m[31m</tr>[39m[31m\n
+                            [39m[31m</tbody>[39m[31m\n
+        [39m[31m</table>[39m[31m\n
+    [39m[31m</div>[39m[31m\n
+            [39m[31m</main>[39m[31m\n
+        [39m[31m</div>[39m[31m\n
+    [39m[31m</body>[39m[31m\n
+[39m[31m</html>[39m[31m\n
+[39m[39;1m
+
+  To contain: [39;22m[32m75%[39m
+
+  at [32mtests\Feature\AttendanceStatisticsTest.php[39m:[32m104[39m
+    100▕         $this->actingAs($this->adminUser)
+    101▕             ->get(route('admin.reports.attendance'))
+    102▕             ->assertOk()
+    103▕             ->assertSee('Stats Subject')
+  ➜ 104▕             ->assertSee($expected);
+    105▕ 
+    106▕         $this->actingAs($this->guardianUser)
+    107▕             ->get(route('guardian.dashboard'))
+    108▕             ->assertOk()
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AttendanceStatisticsTest[22m [90m>[39m late treatment follows config         [41;1m BindingResolutionException [49;22m  
+[39;1m  Target class [App\Services\AttendanceStatisticsService] does not exist.[39;22m
+
+  at [32mvendor\laravel\framework\src\Illuminate\Container\Container.php[39m:[32m961[39m
+    957▕ 
+    958▕         try {
+    959▕             $reflector = new ReflectionClass($concrete);
+    960▕         } catch (ReflectionException $e) {
+  ➜ 961▕             throw new BindingResolutionException("Target class [$concrete] does not exist.", 0, $e);
+    962▕         }
+    963▕ 
+    964▕         // If the type is not instantiable, the developer is attempting to resolve
+    965▕         // an abstract type such as an Interface or Abstract Class and there is
+
+  [33m1   [39m[39;1mvendor\laravel\framework\src\Illuminate\Container\Container.php[39;22m:[39;1m961[39;22m
+
+  [33m2   [39m[39;1mvendor\laravel\framework\src\Illuminate\Container\Container.php[39;22m:[39;1m959[39;22m
+  [90m    NunoMaduro\Collision\Exceptions\TestException::("Class "App\Services\AttendanceStatisticsService" does not exist")[39m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AttendanceStatisticsTest[22m [90m>[39m excused is excluded from denominator  [41;1m BindingResolutionException [49;22m  
+[39;1m  Target class [App\Services\AttendanceStatisticsService] does not exist.[39;22m
+
+  at [32mvendor\laravel\framework\src\Illuminate\Container\Container.php[39m:[32m961[39m
+    957▕ 
+    958▕         try {
+    959▕             $reflector = new ReflectionClass($concrete);
+    960▕         } catch (ReflectionException $e) {
+  ➜ 961▕             throw new BindingResolutionException("Target class [$concrete] does not exist.", 0, $e);
+    962▕         }
+    963▕ 
+    964▕         // If the type is not instantiable, the developer is attempting to resolve
+    965▕         // an abstract type such as an Interface or Abstract Class and there is
+
+  [33m1   [39m[39;1mvendor\laravel\framework\src\Illuminate\Container\Container.php[39;22m:[39;1m961[39;22m
+
+  [33m2   [39m[39;1mvendor\laravel\framework\src\Illuminate\Container\Container.php[39;22m:[39;1m959[39;22m
+  [90m    NunoMaduro\Collision\Exceptions\TestException::("Class "App\Services\AttendanceStatisticsService" does not exist")[39m
+
+  [31m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m  
+  [41;1m FAILED [49;22m [1mTests\Feature\AttendanceStatisticsTest[22m [90m>[39m no percentage is computed outside the service                       
+[39;1m  SPEC.md §8.7: attendance percentages must only be computed in AttendanceStatisticsService.
+app/Http/Controllers/Admin/AdminDashboardController.php:20 — : (int) round($weekAttendances->whereIn('status', ['present', 'late'])->count() / $weekAttendances->count() * 100);
+app/Http/Controllers/Admin/ReportController.php:35 — 'percentage' => $total > 0 ? (int) round($present / $total * 100) : 0,
+app/Http/Controllers/Guardian/GuardianDashboardController.php:34 — : (int) round($monthAttendance->where('status', 'present')->count() / $monthAttendance->count() * 100);
+app/Http/Controllers/Student/StudentDashboardController.php:30 — : (int) round($monthAttendance->where('status', 'present')->count() / $monthAttendance->count() * 100);
+Failed asserting that two arrays are identical.
+--- Expected
++++ Actual
+@@ @@
+-Array &0 []
++Array &0 [
++    0 => 'app/Http/Controllers/Admin/AdminDashboardController.php:20 — : (int) round($weekAttendances->whereIn('status', ['present', 'late'])->count() / $weekAttendances->count() * 100);',
++    1 => 'app/Http/Controllers/Admin/ReportController.php:35 — 'percentage' => $total > 0 ? (int) round($present / $total * 100) : 0,',
++    2 => 'app/Http/Controllers/Guardian/GuardianDashboardController.php:34 — : (int) round($monthAttendance->where('status', 'present')->count() / $monthAttendance->count() * 100);',
++    3 => 'app/Http/Controllers/Student/StudentDashboardController.php:30 — : (int) round($monthAttendance->where('status', 'present')->count() / $monthAttendance->count() * 100);',
++][39;22m
+
+  at [32mtests\Feature\AttendanceStatisticsTest.php[39m:[32m178[39m
+    174▕                 }
+    175▕             }
+    176▕         }
+    177▕ 
+  ➜ 178▕         $this->assertSame(
+    179▕             [],
+    180▕             $offenders,
+    181▕             "SPEC.md §8.7: attendance percentages must only be computed in AttendanceStatisticsService.\n"
+    182▕             .implode("\n", $offenders)
+
+  [33m1   [39m[39;1mtests\Feature\AttendanceStatisticsTest.php[39;22m:[39;1m178[39;22m
+
+
+  [90mTests:[39m    [31;1m4 failed[39;22m[90m (4 assertions)[39m
+  [90mDuration:[39m [39m85.10s[39m
+
