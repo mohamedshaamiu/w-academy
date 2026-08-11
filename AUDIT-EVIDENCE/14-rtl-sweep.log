@@ -1,0 +1,52 @@
+=== 4.2 RTL: physical-direction Tailwind utilities in blade/css ===
+--- raw hits per utility (word-boundary, inside class attributes or css) ---
+ml-            0
+mr-            0
+pl-            0
+pr-            0
+text-left      0
+text-right     0
+left-          0
+right-         0
+border-l       2
+border-r       3
+rounded-l      14
+rounded-r      0
+float-left     0
+float-right    0
+
+--- TOTAL raw hits ---
+19
+
+--- classified: actual occurrences with context ---
+resources/views/admin/agreement-templates/create.blade.php:59: rounded-lg
+resources/views/admin/agreement-templates/edit.blade.php:60: rounded-lg
+resources/views/admin/agreement-templates/show.blade.php:24: border-red-200
+resources/views/admin/sessions/show.blade.php:62: border-red-200
+resources/views/admin/squads/show.blade.php:19: border-red-200
+resources/views/admin/students/create.blade.php:74: rounded-lg
+resources/views/coach/attendance-mark.blade.php:69: rounded-lg
+resources/views/coach/attendance-mark.blade.php:78: rounded-lg
+resources/views/coach/attendance-mark.blade.php:129: rounded-lg
+resources/views/coach/dashboard.blade.php:44: rounded-lg
+resources/views/coach/session-detail.blade.php:46: rounded-lg
+resources/views/coach/session-detail.blade.php:53: rounded-lg
+resources/views/coach/session-detail.blade.php:57: rounded-lg
+resources/views/coach/session-detail.blade.php:64: rounded-lg
+resources/views/components/credential-issuer.blade.php:32: rounded-lg
+resources/views/components/modal.blade.php:68: rounded-lg
+resources/views/components/responsive-nav-link.blade.php:5: border-l-4
+resources/views/components/responsive-nav-link.blade.php:6: border-l-4
+resources/views/public/home.blade.php:35:"rounded-lg
+
+=== logical (RTL-safe) utilities in use, for comparison ===
+ms-          7
+me-          1
+ps-          2
+pe-          2
+text-start   105
+text-end     4
+start-       1
+end-         1
+border-s     0
+border-e     0

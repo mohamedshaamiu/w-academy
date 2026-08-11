@@ -1,0 +1,105 @@
+=== A) user-facing HTML attributes with hardcoded literal text (placeholder/title/alt/aria-label) ===
+resources/views/admin/agreement-signatures/index.blade.php:1:title="__('admin.agreement.signatures.title')"
+resources/views/admin/agreement-templates/create.blade.php:1:title="__('admin.agreement.create.title')"
+resources/views/admin/agreement-templates/edit.blade.php:1:title="__('admin.agreement.edit.title')"
+resources/views/admin/agreement-templates/index.blade.php:1:title="__('admin.agreement.index.title')"
+resources/views/admin/agreement-templates/show.blade.php:1:title="__('admin.agreement.show.title').' v'.$template->version"
+resources/views/admin/audit/index.blade.php:1:title="__('admin.audit.title')"
+resources/views/admin/coaches/create.blade.php:1:title="__('admin.coach.create.title')"
+resources/views/admin/coaches/edit.blade.php:1:title="__('admin.coach.edit.title')"
+resources/views/admin/coaches/index.blade.php:1:title="__('admin.coach.index.title')"
+resources/views/admin/dashboard.blade.php:1:title="__('admin.dashboard.title')"
+resources/views/admin/framework/pillars.blade.php:1:title="__('admin.framework.pillars.title')"
+resources/views/admin/framework/strike-levels.blade.php:1:title="__('admin.framework.strike_levels.title')"
+resources/views/admin/guardians/create.blade.php:1:title="__('admin.guardian.create.title')"
+resources/views/admin/guardians/edit.blade.php:1:title="__('admin.guardian.edit.title')"
+resources/views/admin/guardians/index.blade.php:1:title="__('admin.guardian.index.title')"
+resources/views/admin/reports/attendance.blade.php:1:title="__('report.attendance.title')"
+resources/views/admin/sessions/create.blade.php:1:title="__('admin.session.create.title')"
+resources/views/admin/sessions/edit.blade.php:1:title="__('admin.session.edit.title')"
+resources/views/admin/sessions/index.blade.php:1:title="__('admin.session.index.title')"
+resources/views/admin/sessions/show.blade.php:1:title="__('admin.session.show.title')"
+resources/views/admin/squads/create.blade.php:1:title="__('admin.squad.create.title')"
+resources/views/admin/squads/edit.blade.php:1:title="__('admin.squad.edit.title')"
+resources/views/admin/squads/index.blade.php:1:title="__('admin.squad.index.title')"
+resources/views/admin/students/create.blade.php:1:title="__('admin.student.create.title')"
+resources/views/admin/students/edit.blade.php:1:title="__('admin.student.edit.title')"
+resources/views/admin/students/index.blade.php:1:title="__('admin.student.index.title')"
+resources/views/coach/attendance-mark.blade.php:1:title="__('attendance.mark.title')"
+resources/views/coach/dashboard.blade.php:1:title="__('coach.dashboard.title')"
+resources/views/coach/sessions.blade.php:1:title="__('coach.sessions.title')"
+resources/views/coach/squads.blade.php:1:title="__('coach.squads.title')"
+resources/views/guardian/agreement-sign.blade.php:1:title="__('agreement.page.title')"
+resources/views/guardian/attendance.blade.php:1:title="__('guardian.attendance.title')"
+resources/views/guardian/children.blade.php:1:title="__('guardian.children.title')"
+resources/views/guardian/dashboard.blade.php:1:title="__('guardian.dashboard.title')"
+resources/views/guardian/profile.blade.php:1:title="__('guardian.profile.title')"
+resources/views/guardian/schedule.blade.php:1:title="__('guardian.schedule.title')"
+resources/views/public/contact.blade.php:1:title="__('public.contact.title')"
+resources/views/public/framework.blade.php:1:title="__('framework.page.title')"
+resources/views/student/attendance.blade.php:1:title="__('student.attendance.title')"
+resources/views/student/dashboard.blade.php:1:title="__('student.dashboard.title')"
+resources/views/student/profile.blade.php:1:title="__('student.profile.title')"
+resources/views/student/schedule.blade.php:1:title="__('student.schedule.title')"
+-- count:
+42
+
+=== B) app/ hardcoded English in user-facing positions ===
+--- B1: string literals passed to abort(), ValidationException::withMessages, ->with(), session()->flash ---
+app/Http/Controllers/Admin/AgreementTemplateController.php:32:        return redirect()->route('admin.agreement-templates.show', $template)->with('status', __('admin.agreement.created'));
+app/Http/Controllers/Admin/AgreementTemplateController.php:49:        return redirect()->route('admin.agreement-templates.show', $agreementTemplate)->with('status', __('admin.agreement.updated'));
+app/Http/Controllers/Admin/AgreementTemplateController.php:58:        return redirect()->route('admin.agreement-templates.index')->with('status', __('admin.agreement.deleted'));
+app/Http/Controllers/Admin/AgreementTemplateController.php:65:        return back()->with('status', __('admin.agreement.published'));
+app/Http/Controllers/Admin/CoachController.php:40:        return redirect()->route('admin.coaches.show', $coach)->with('status', __('admin.coach.created'));
+app/Http/Controllers/Admin/CoachController.php:68:        return redirect()->route('admin.coaches.show', $coach)->with('status', __('admin.coach.updated'));
+app/Http/Controllers/Admin/CoachController.php:75:        return redirect()->route('admin.coaches.index')->with('status', __('admin.coach.deleted'));
+app/Http/Controllers/Admin/GuardianController.php:40:        return redirect()->route('admin.guardians.show', $guardian)->with('status', __('admin.guardian.created'));
+app/Http/Controllers/Admin/GuardianController.php:69:        return redirect()->route('admin.guardians.show', $guardian)->with('status', __('admin.guardian.updated'));
+app/Http/Controllers/Admin/GuardianController.php:76:        return redirect()->route('admin.guardians.index')->with('status', __('admin.guardian.deleted'));
+app/Http/Controllers/Admin/PillarController.php:36:        return redirect()->route('admin.framework.pillars.index')->with('status', __('admin.framework.pillar_updated'));
+app/Http/Controllers/Admin/SessionController.php:51:        return redirect()->route('admin.sessions.show', $session)->with('status', __('admin.session.created'));
+app/Http/Controllers/Admin/SessionController.php:72:        return redirect()->route('admin.sessions.show', $session)->with('status', __('admin.session.updated'));
+app/Http/Controllers/Admin/SessionController.php:81:        return back()->with('status', __('admin.session.cancelled'));
+app/Http/Controllers/Admin/SessionController.php:95:        return back()->with('status', __('admin.session.generated', $result));
+app/Http/Controllers/Admin/SquadController.php:31:        return redirect()->route('admin.squads.show', $squad)->with('status', __('admin.squad.created'));
+app/Http/Controllers/Admin/SquadController.php:51:        return redirect()->route('admin.squads.show', $squad)->with('status', __('admin.squad.updated'));
+app/Http/Controllers/Admin/SquadController.php:58:        return redirect()->route('admin.squads.index')->with('status', __('admin.squad.deleted'));
+app/Http/Controllers/Admin/SquadEnrolmentController.php:24:        return back()->with('status', __('admin.squad.student_enrolled'));
+app/Http/Controllers/Admin/SquadEnrolmentController.php:31:        return back()->with('status', __('admin.squad.student_withdrawn'));
+app/Http/Controllers/Admin/StrikeLevelController.php:45:        return redirect()->route('admin.framework.strike-levels.index')->with('status', __('admin.framework.strike_level_updated'));
+app/Http/Controllers/Admin/StudentController.php:80:        return redirect()->route('admin.students.show', $student)->with('status', __('admin.student.created'));
+app/Http/Controllers/Admin/StudentController.php:121:        return redirect()->route('admin.students.show', $student)->with('status', __('admin.student.updated'));
+app/Http/Controllers/Admin/StudentController.php:128:        return redirect()->route('admin.students.index')->with('status', __('admin.student.deleted'));
+app/Http/Controllers/Admin/StudentController.php:137:        return back()->with('status', __('admin.student.status_updated'));
+app/Http/Controllers/Admin/StudentGuardianController.php:48:        return back()->with('status', __('admin.student.guardian_linked'));
+app/Http/Controllers/Admin/StudentGuardianController.php:59:        return back()->with('status', __('admin.student.guardian_unlinked'));
+app/Http/Controllers/AgreementController.php:48:        return redirect()->route('guardian.dashboard')->with('status', __('agreement.signed_successfully'));
+app/Http/Controllers/Api/V1/AuthController.php:26:            throw ValidationException::withMessages(['username' => __('auth.failed')]);
+app/Http/Controllers/Api/V1/AuthController.php:30:            throw ValidationException::withMessages(['username' => __('auth.inactive')]);
+app/Http/Controllers/Coach/AttendanceController.php:33:        return redirect()->route('coach.sessions.show', $session)->with('status', __('attendance.saved'));
+app/Http/Controllers/Coach/CoachSessionController.php:37:        return back()->with('status', __('session.started'));
+app/Http/Controllers/Coach/CoachSessionController.php:46:        return back()->with('status', __('session.completed_notice'));
+app/Http/Controllers/Guardian/ProfileController.php:36:        return back()->with('status', __('guardian.profile.updated'));
+app/Http/Controllers/Student/StudentProfileController.php:31:        return back()->with('status', __('student.profile.updated'));
+app/Http/Middleware/EnsureAgreementSigned.php:51:                    ->with('notice', __('agreement.gate.guardian_must_sign'));
+app/Http/Requests/Auth/LoginRequest.php:43:            throw ValidationException::withMessages([
+app/Http/Requests/Auth/LoginRequest.php:51:            throw ValidationException::withMessages([
+app/Http/Requests/Auth/LoginRequest.php:71:        throw ValidationException::withMessages([
+app/Services/AgreementService.php:23:            throw ValidationException::withMessages([
+app/Services/AgreementService.php:73:                throw ValidationException::withMessages([
+app/Services/AgreementService.php:80:            throw ValidationException::withMessages([
+app/Services/AgreementService.php:86:            throw ValidationException::withMessages([
+app/Services/AttendanceService.php:33:            throw ValidationException::withMessages([
+app/Services/EnrolmentService.php:17:            throw ValidationException::withMessages([
+app/Services/EnrolmentService.php:23:            throw ValidationException::withMessages([
+app/Services/SessionSchedulingService.php:25:            throw ValidationException::withMessages([
+app/Services/SessionSchedulingService.php:77:            throw ValidationException::withMessages([
+app/Services/SessionSchedulingService.php:90:            throw ValidationException::withMessages([
+app/Services/StudentRegistrationService.php:28:            throw ValidationException::withMessages([
+app/Services/StudentRegistrationService.php:35:            throw ValidationException::withMessages([
+
+--- B2: FormRequest messages()/attributes() methods present? ---
+
+--- B3: any single-quoted or double-quoted multi-word Latin sentence in app/ (candidate UI text) ---
+-- count:
+0

@@ -1,0 +1,63 @@
+=== withMessages payload lines (checking for __() ) ===
+app/Http/Controllers/Api/V1/AuthController.php:26:            throw ValidationException::withMessages(['username' => __('auth.failed')]);
+app/Http/Controllers/Api/V1/AuthController.php:30:            throw ValidationException::withMessages(['username' => __('auth.inactive')]);
+app/Http/Controllers/Api/V1/AuthController.php-33-        $user->forceFill(['last_login_at' => now()])->save();
+app/Http/Requests/Auth/LoginRequest.php-44-                'username' => __('auth.failed'),
+app/Http/Requests/Auth/LoginRequest.php-52-                'username' => __('auth.inactive'),
+app/Http/Requests/Auth/LoginRequest.php-72-            'username' => __('auth.throttle', ['seconds' => $seconds]),
+app/Services/AgreementService.php-24-                'template' => __('admin.agreement.validation.both_languages_required'),
+app/Services/AgreementService.php-74-                    'consents' => __('agreement.validation.all_required_clauses'),
+app/Services/AgreementService.php-81-                'signatory_name' => __('agreement.validation.signatory_name_min'),
+app/Services/AgreementService.php-87-                'signature' => __('agreement.validation.signature_or_name_required'),
+app/Services/AttendanceService.php-34-                'session' => __('attendance.validation.session_not_open'),
+app/Services/EnrolmentService.php-18-                'student' => __('squad.validation.inactive_student_cannot_enrol'),
+app/Services/EnrolmentService.php-24-                'squad' => __('squad.validation.squad_at_capacity'),
+app/Services/SessionSchedulingService.php-26-                'squad' => __('session.validation.squad_missing_default_times'),
+app/Services/SessionSchedulingService.php-78-                'scheduled_end' => __('session.validation.end_after_start'),
+app/Services/SessionSchedulingService.php-91-                'scheduled_start' => __('session.validation.overlapping_session'),
+app/Services/StudentRegistrationService.php-29-                'guardians' => __('student.validation.at_least_one_guardian'),
+app/Services/StudentRegistrationService.php-36-                'guardians' => __('student.validation.exactly_one_primary_guardian'),
+
+=== validation.php 'attributes' array contents (dv) ===
+attributes count: 25
+array (
+  'index_number' => 'އިންޑެކްސް ނަންބަރު',
+  'full_name' => 'ފުރިހަމަ ނަން',
+  'date_of_birth' => 'އުފަން ތާރީޚު',
+  'school_name' => 'ސްކޫލުގެ ނަން',
+  'class_level' => 'ކްލާސް',
+  'phone' => 'ފޯނު ނަންބަރު',
+  'national_id' => 'ދިވެހި ރައްޔިތެއްކަން އަންގައިދޭ ނަންބަރު',
+  'occupation' => 'ވަޒީފާ',
+  'relationship' => 'ގުޅުން',
+  'signatory_name' => 'ސޮއިކުރާ ފަރާތުގެ ނަން',
+  'name_dv' => 'ނަން (ދިވެހި)',
+  'name_en' => 'ނަން (އިނގިރޭސި)',
+  'venue_dv' => 'ބާއްވާ ތަން (ދިވެހި)',
+  'venue_en' => 'ބާއްވާ ތަން (އިނގިރޭސި)',
+  'title_dv' => 'ސުރުޚީ (ދިވެހި)',
+  'title_en' => 'ސުރުޚީ (އިނގިރޭސި)',
+  'body_dv' => 'ލިޔުން (ދިވެހި)',
+  'body_en' => 'ލިޔުން (އިނގިރޭސި)',
+  'scheduled_start' => 'ފެށޭ ގަޑި',
+  'scheduled_end' => 'ނިމޭ ގަޑި',
+  'age_group' => 'އުމުރުފުރާ',
+  'capacity' => 'ޖާގަ',
+  'index' => 'އިންޑެކްސް ނަންބަރު',
+  'username' => 'ޔޫޒަރނޭމް',
+  'password' => 'ޕާސްވޯޑް',
+)
+custom count: 4
+
+=== validation.php 'attributes' (en) ===
+attributes count: 25
+custom count: 4
+
+=== sample of dv/validation.php to confirm real translation ===
+required = :attribute ފީލްޑަކީ ލާޒިމް ފީލްޑެކެވެ.
+email = :attribute ފީލްޑަކީ ސައްޙަ އީމެއިލް އެޑްރެހަކަށްވާން ޖެހެއެވެ.
+max = {"array":":attribute ފީލްޑުގައި :max އަށްވުރެ ގިނަ އައިޓަމް ހުރެގެން ނުވާނެއެވެ.","file":":attribute ފީލްޑަކީ :max ކިލޯބައިޓަށްވުރެ ބޮޑު ފައިލަކަށްވެގެން ނުވާނެއެވެ.","numeric":":attribute ފީލްޑަކީ :max އަށްވުރެ ބޮޑު އަދަދަކަށްވެގެން ނުވާނެއެވެ.","string":":attribute ފީލްޑަކީ :max އަކުރަށްވުރެ ދިގު ބަހަކަށްވެގެން ނުވާނެއެވެ."}
+unique = ދެއްވި :attribute މިހާރުވެސް ބޭނުންކުރެވިފައިވެއެވެ.
+confirmed = :attribute ފީލްޑުގެ ކަށަވަރުކުރުން ދިމައެއް ނުވެއެވެ.
+date = :attribute ފީލްޑަކީ ސައްޙަ ތާރީޚަކަށްވާން ޖެހެއެވެ.
+integer = :attribute ފީލްޑަކީ ބައި ނުކުރެވޭ އަދަދަކަށްވާން ޖެހެއެވެ.

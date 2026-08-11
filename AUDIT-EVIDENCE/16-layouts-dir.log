@@ -1,0 +1,73 @@
+=== dir attribute in every layout ===
+--- resources/views/layouts/app.blade.php ---
+  (no <html>/dir found in first 20 lines)
+--- resources/views/layouts/guest.blade.php ---
+2:<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'dv' ? 'rtl' : 'ltr' }}">
+--- resources/views/layouts/public.blade.php ---
+2:<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'dv' ? 'rtl' : 'ltr' }}">
+
+=== all files containing <html ===
+resources/views/guardian/agreement-download.blade.php:2:<html lang="{{ $signature->signed_locale->value }}" dir="{{ $signature->signed_locale->value === 'dv' ? 'rtl' : 'ltr' }}">
+resources/views/layouts/app.blade.php:38:<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'dv' ? 'rtl' : 'ltr' }}">
+resources/views/layouts/guest.blade.php:2:<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'dv' ? 'rtl' : 'ltr' }}">
+resources/views/layouts/public.blade.php:2:<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'dv' ? 'rtl' : 'ltr' }}">
+
+=== SetLocale middleware ===
+<?php
+
+namespace App\Http\Middleware;
+
+use App\Enums\Locale;
+use Closure;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+class SetLocale
+{
+    public function handle(Request $request, Closure $next): Response
+    {
+        $locale = session('locale');
+
+        if (! $locale && $request->user()) {
+            $locale = $request->user()->locale?->value;
+        }
+
+        if (! in_array($locale, Locale::values(), true)) {
+            $locale = Locale::Dhivehi->value;
+        }
+
+        app()->setLocale($locale);
+        session(['locale' => $locale]);
+
+        return $next($request);
+    }
+}
+
+=== Locale enum ===
+<?php
+
+namespace App\Enums;
+
+enum Locale: string
+{
+    case Dhivehi = 'dv';
+    case English = 'en';
+
+    public function label(): string
+    {
+        return __('common.locale.'.$this->value);
+    }
+
+    public function direction(): string
+    {
+        return $this === self::Dhivehi ? 'rtl' : 'ltr';
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    public static function values(): array
+    {
+        return array_map(fn (self $case) => $case->value, self::cases());
+    }
+}

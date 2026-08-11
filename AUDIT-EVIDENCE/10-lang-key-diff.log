@@ -1,0 +1,15 @@
+DV total keys: 570
+EN total keys: 570
+
+KEYS PRESENT IN EN, MISSING IN DV: 0
+
+KEYS PRESENT IN DV, MISSING IN EN: 0
+
+KEYS WHERE DV VALUE IS IDENTICAL TO EN VALUE (untranslated): 2
+  common.locale.dv = ދިވެހި
+  common.locale.en = English
+
+DV VALUES CONTAINING NO THAANA CHARACTERS: 3
+  common.locale.en = English
+  public.contact.address_value = [DV CONTENT PENDING]
+  public.contact.phone_value = [DV CONTENT PENDING]

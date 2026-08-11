@@ -1,0 +1,71 @@
+=== assertion count ===
+Configuration: C:\Users\pc\Documents\GitHub\wacademy\phpunit.xml
+
+...........................................                       43 / 43 (100%)
+
+Time: 00:34.800, Memory: 52.00 MB
+
+[4mAgreement Gate (Tests\Feature\AgreementGate)[0m
+[32m ✔ [0mGuardian is redirected to agreement before portal access
+[32m ✔ [0mStudent is blocked until guardian signs
+[32m ✔ [0mStudent cannot sign own agreement
+[32m ✔ [0mNew template version forces resign
+[32m ✔ [0mSignature stores immutable template snapshot
+[32m ✔ [0mSnapshot matches the locale the guardian signed in
+
+[4mAgreement Template (Tests\Feature\AgreementTemplate)[0m
+[32m ✔ [0mPublish blocked when either language incomplete
+[32m ✔ [0mPublish succeeds when both languages complete
+
+[4mAttendance (Tests\Feature\Attendance)[0m
+[32m ✔ [0mOnly assigned coach or admin can mark attendance
+[32m ✔ [0mSuspended student cannot be marked present
+[32m ✔ [0mMarking attendance twice updates not duplicates
+
+[4mAuthentication (Tests\Feature\Auth\Authentication)[0m
+[32m ✔ [0mLogin screen can be rendered
+[32m ✔ [0mStudent can log in with index number
+[32m ✔ [0mGuardian can log in with phone number
+[32m ✔ [0mIndex number lookup is case and space insensitive
+[32m ✔ [0mInactive user cannot log in
+[32m ✔ [0mFirst login forces password change
+[32m ✔ [0mNo public registration route exists
+[32m ✔ [0mUsers can logout
+
+[4mAuthorization (Tests\Feature\Authorization)[0m
+[32m ✔ [0mGuardian cannot view another guardians child
+[32m ✔ [0mCoach cannot view student outside own squad
+[32m ✔ [0mStudent cannot view another students record
+[32m ✔ [0mStudent schedule exposes no teammate names
+
+[4mCredential (Tests\Feature\Credential)[0m
+[32m ✔ [0mIssuing login sets username to index number
+[32m ✔ [0mReissuing resets password without creating second account
+[32m ✔ [0mChanging index number updates linked username
+[32m ✔ [0mGenerated password is not persisted in plain text
+
+[4mEnrolment (Tests\Feature\Enrolment)[0m
+[32m ✔ [0mNew enrolment closes previous active enrolment
+[32m ✔ [0mEnrolment blocked when squad at capacity
+
+[4mLocalisation (Tests\Feature\Localisation)[0m
+[32m ✔ [0mDhivehi locale renders rtl direction
+[32m ✔ [0mEnglish locale renders ltr direction
+[32m ✔ [0mSwitching locale persists for authenticated user
+[32m ✔ [0mInvalid locale is rejected
+[32m ✔ [0mLang dv and en have identical key sets
+[32m ✔ [0mNo untranslated literals in blade views
+
+[4mSession Scheduling (Tests\Feature\SessionScheduling)[0m
+[32m ✔ [0mGenerate skips dates with existing sessions
+[32m ✔ [0mOverlapping session is rejected
+
+[4mStudent Creation (Tests\Feature\StudentCreation)[0m
+[32m ✔ [0mAdmin can create student with primary guardian
+[32m ✔ [0mStudent creation requires at least one guardian
+[32m ✔ [0mDuplicate index number is rejected
+[32m ✔ [0mAge outside 5 to 18 is rejected
+[32m ✔ [0mThaana input is accepted and stored intact
+[32m ✔ [0mNon admin cannot create a student
+
+[30;42mOK (43 tests, 112 assertions)[0m

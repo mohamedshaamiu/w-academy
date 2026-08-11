@@ -1,0 +1,96 @@
+=== 4.2 Thaana webfont ===
+--- resources/fonts contents ---
+total 80
+drwxr-xr-x 1 pc 197121     0 Aug 11 09:11 .
+drwxr-xr-x 1 pc 197121     0 Aug 11 09:11 ..
+-rw-r--r-- 1 pc 197121 79320 Aug 11 09:11 MVBoli.ttf
+
+--- any font files anywhere in resources/ or public/ ---
+resources/fonts/MVBoli.ttf
+public/build/assets/MVBoli-DGgN0rby.ttf
+
+--- @font-face declarations ---
+resources/css/app.css:5:@font-face {
+resources/css/app.css-6-    font-family: 'MV Boli';
+resources/css/app.css-7-    src: url('../fonts/MVBoli.ttf') format('truetype');
+resources/css/app.css-8-    font-weight: normal;
+resources/css/app.css-9-    font-style: normal;
+resources/css/app.css-10-    font-display: swap;
+resources/css/app.css-11-}
+
+--- full app.css ---
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'MV Boli';
+    src: url('../fonts/MVBoli.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+.font-thaana {
+    font-family: 'MV Boli', 'Faruma', sans-serif;
+}
+
+html[dir='rtl'] body {
+    font-family: 'MV Boli', 'Faruma', sans-serif;
+}
+
+--- tailwind.config.js ---
+import forms from '@tailwindcss/forms';
+
+/** @type {import('tailwindcss').Config} */
+export default {
+    content: [
+        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+        './storage/framework/views/*.php',
+        './resources/views/**/*.blade.php',
+    ],
+
+    theme: {
+        extend: {
+            fontFamily: {
+                sans: ['MV Boli', 'Faruma', 'system-ui', 'sans-serif'],
+            },
+            colors: {
+                navy: {
+                    DEFAULT: '#0B1F3A',
+                    50: '#EBEEF3',
+                    100: '#D1D9E4',
+                    200: '#A3B3C9',
+                    300: '#758DAE',
+                    400: '#4A6693',
+                    500: '#0B1F3A',
+                    600: '#091A31',
+                    700: '#071526',
+                    800: '#05101C',
+                    900: '#030A12',
+                },
+                gold: {
+                    DEFAULT: '#C9A227',
+                    50: '#FBF5E3',
+                    100: '#F5E7BE',
+                    200: '#ECD48A',
+                    300: '#E2C056',
+                    400: '#D6AF3F',
+                    500: '#C9A227',
+                    600: '#A6851F',
+                    700: '#7D6417',
+                    800: '#54430F',
+                    900: '#2B2208',
+                },
+            },
+        },
+    },
+
+    plugins: [forms],
+};
+
+--- external font references (hotlinking) ---
+(none)
+
+--- built font asset ---
+-rw-r--r-- 1 pc 197121 79320 Aug 11 13:10 MVBoli-DGgN0rby.ttf

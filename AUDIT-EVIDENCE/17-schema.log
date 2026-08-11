@@ -1,0 +1,182 @@
+=== SCHEMA: columns per domain table (from scratch DB) ===
+
+--- users ---
+  id                           bigint(20) unsigned    NOTNULL PRI
+  name                         varchar(150)           NOTNULL 
+  username                     varchar(30)            NOTNULL UNI
+  email                        varchar(255)           NULL UNI
+  phone                        varchar(20)            NULL UNI
+  password                     varchar(255)           NOTNULL 
+  locale                       enum('dv','en')        NOTNULL 
+  must_change_password         tinyint(1)             NOTNULL 
+  is_active                    tinyint(1)             NOTNULL MUL
+  last_login_at                timestamp              NULL 
+  remember_token               varchar(100)           NULL 
+  created_at                   timestamp              NULL 
+  updated_at                   timestamp              NULL 
+  deleted_at                   timestamp              NULL 
+
+--- guardians ---
+  id                           bigint(20) unsigned    NOTNULL PRI
+  user_id                      bigint(20) unsigned    NOTNULL UNI
+  national_id                  varchar(20)            NULL 
+  address                      varchar(255)           NOTNULL 
+  occupation                   varchar(100)           NULL 
+  created_at                   timestamp              NULL 
+  updated_at                   timestamp              NULL 
+
+--- coaches ---
+  id                           bigint(20) unsigned    NOTNULL PRI
+  user_id                      bigint(20) unsigned    NOTNULL UNI
+  coach_no                     varchar(20)            NOTNULL UNI
+  specialisation               varchar(100)           NULL 
+  joined_on                    date                   NOTNULL 
+  created_at                   timestamp              NULL 
+  updated_at                   timestamp              NULL 
+
+--- students ---
+  id                           bigint(20) unsigned    NOTNULL PRI
+  index_number                 varchar(20)            NOTNULL UNI
+  user_id                      bigint(20) unsigned    NULL UNI
+  full_name                    varchar(150)           NOTNULL 
+  date_of_birth                date                   NOTNULL MUL
+  gender                       enum('male','female')  NOTNULL 
+  school_name                  varchar(150)           NULL 
+  class_level                  varchar(50)            NULL 
+  address                      varchar(255)           NOTNULL 
+  photo_path                   varchar(255)           NULL 
+  status                       enum('pending','active','suspended','inactive') NOTNULL MUL
+  registered_at                timestamp              NULL 
+  created_by                   bigint(20) unsigned    NOTNULL MUL
+  created_at                   timestamp              NULL 
+  updated_at                   timestamp              NULL 
+  deleted_at                   timestamp              NULL 
+
+--- guardian_student ---
+  id                           bigint(20) unsigned    NOTNULL PRI
+  guardian_id                  bigint(20) unsigned    NOTNULL MUL
+  student_id                   bigint(20) unsigned    NOTNULL MUL
+  relationship                 varchar(50)            NOTNULL 
+  is_primary                   tinyint(1)             NOTNULL 
+  receives_alerts              tinyint(1)             NOTNULL 
+  created_at                   timestamp              NULL 
+  updated_at                   timestamp              NULL 
+
+--- squads ---
+  id                           bigint(20) unsigned    NOTNULL PRI
+  name_dv                      varchar(100)           NOTNULL 
+  name_en                      varchar(100)           NOTNULL 
+  age_group                    varchar(30)            NOTNULL 
+  head_coach_id                bigint(20) unsigned    NULL MUL
+  venue_dv                     varchar(150)           NULL 
+  venue_en                     varchar(150)           NULL 
+  training_days                longtext               NOTNULL 
+  default_start_time           time                   NULL 
+  default_end_time             time                   NULL 
+  capacity                     smallint(5) unsigned   NULL 
+  is_active                    tinyint(1)             NOTNULL MUL
+  created_at                   timestamp              NULL 
+  updated_at                   timestamp              NULL 
+
+--- squad_student ---
+  id                           bigint(20) unsigned    NOTNULL PRI
+  squad_id                     bigint(20) unsigned    NOTNULL MUL
+  student_id                   bigint(20) unsigned    NOTNULL MUL
+  enrolled_on                  date                   NOTNULL 
+  left_on                      date                   NULL 
+  is_active                    tinyint(1)             NOTNULL 
+  created_at                   timestamp              NULL 
+  updated_at                   timestamp              NULL 
+
+--- training_sessions ---
+  id                           bigint(20) unsigned    NOTNULL PRI
+  squad_id                     bigint(20) unsigned    NOTNULL MUL
+  coach_id                     bigint(20) unsigned    NULL MUL
+  scheduled_start              datetime               NOTNULL 
+  scheduled_end                datetime               NOTNULL 
+  venue_dv                     varchar(150)           NULL 
+  venue_en                     varchar(150)           NULL 
+  status                       enum('planned','in_progress','completed','cancelled') NOTNULL MUL
+  cancellation_reason          text                   NULL 
+  notes                        text                   NULL 
+  created_by                   bigint(20) unsigned    NOTNULL MUL
+  created_at                   timestamp              NULL 
+  updated_at                   timestamp              NULL 
+
+--- attendances ---
+  id                           bigint(20) unsigned    NOTNULL PRI
+  training_session_id          bigint(20) unsigned    NOTNULL MUL
+  student_id                   bigint(20) unsigned    NOTNULL MUL
+  status                       enum('present','absent','late','excused') NOTNULL 
+  remark                       varchar(255)           NULL 
+  marked_by                    bigint(20) unsigned    NOTNULL MUL
+  marked_at                    timestamp              NOTNULL 
+  created_at                   timestamp              NULL 
+  updated_at                   timestamp              NULL 
+
+--- agreement_templates ---
+  id                           bigint(20) unsigned    NOTNULL PRI
+  version                      smallint(5) unsigned   NOTNULL UNI
+  title_dv                     varchar(255)           NOTNULL 
+  title_en                     varchar(255)           NOTNULL 
+  body_dv                      longtext               NOTNULL 
+  body_en                      longtext               NOTNULL 
+  consent_clauses              longtext               NOTNULL 
+  effective_from               date                   NOTNULL 
+  is_current                   tinyint(1)             NOTNULL MUL
+  created_at                   timestamp              NULL 
+  updated_at                   timestamp              NULL 
+
+--- agreement_signatures ---
+  id                           bigint(20) unsigned    NOTNULL PRI
+  agreement_template_id        bigint(20) unsigned    NOTNULL MUL
+  student_id                   bigint(20) unsigned    NOTNULL MUL
+  guardian_id                  bigint(20) unsigned    NOTNULL MUL
+  signed_at                    timestamp              NOTNULL 
+  signatory_name               varchar(150)           NOTNULL 
+  signature_image_path         varchar(255)           NULL 
+  consents                     longtext               NOTNULL 
+  signed_locale                enum('dv','en')        NOTNULL 
+  template_snapshot            longtext               NOTNULL 
+  ip_address                   varchar(45)            NOTNULL 
+  user_agent                   varchar(255)           NOTNULL 
+  status                       enum('signed','revoked') NOTNULL 
+  revoked_at                   timestamp              NULL 
+  revoked_reason               text                   NULL 
+  created_at                   timestamp              NULL 
+  updated_at                   timestamp              NULL 
+
+--- framework_pillars ---
+  id                           bigint(20) unsigned    NOTNULL PRI
+  code                         varchar(20)            NOTNULL UNI
+  name_dv                      varchar(100)           NOTNULL 
+  name_en                      varchar(100)           NOTNULL 
+  description_dv               text                   NOTNULL 
+  description_en               text                   NOTNULL 
+  icon                         varchar(30)            NOTNULL 
+  sort_order                   tinyint(3) unsigned    NOTNULL MUL
+  is_active                    tinyint(1)             NOTNULL MUL
+  created_at                   timestamp              NULL 
+  updated_at                   timestamp              NULL 
+
+--- framework_strike_levels ---
+  id                           bigint(20) unsigned    NOTNULL PRI
+  level                        tinyint(3) unsigned    NOTNULL UNI
+  label_dv                     varchar(100)           NOTNULL 
+  label_en                     varchar(100)           NOTNULL 
+  type_dv                      varchar(100)           NOTNULL 
+  type_en                      varchar(100)           NOTNULL 
+  action_dv                    text                   NOTNULL 
+  action_en                    text                   NOTNULL 
+  parent_role_dv               text                   NOTNULL 
+  parent_role_en               text                   NOTNULL 
+  triggers_timeout             tinyint(1)             NOTNULL 
+  timeout_minutes_min          tinyint(3) unsigned    NULL 
+  timeout_minutes_max          tinyint(3) unsigned    NULL 
+  triggers_parent_alert        tinyint(1)             NOTNULL 
+  triggers_meeting             tinyint(1)             NOTNULL 
+  triggers_suspension          tinyint(1)             NOTNULL 
+  sort_order                   tinyint(3) unsigned    NOTNULL MUL
+  is_active                    tinyint(1)             NOTNULL MUL
+  created_at                   timestamp              NULL 
+  updated_at                   timestamp              NULL 

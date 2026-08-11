@@ -1,0 +1,110 @@
+
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37m/[39m[38;5;103m .............................................................. home › Public\PublicController@home[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin[39m[38;5;103m ....................................... admin.dashboard › Admin\AdminDashboardController@index[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/agreement-templates[39m[38;5;103m admin.agreement-templates.index › Admin\AgreementTemplateController@index[39m
+  [33mPOST[39m            [37madmin/agreement-templates[39m[38;5;103m admin.agreement-templates.store › Admin\AgreementTemplateController@store[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/agreement-templates/create[39m[38;5;103m admin.agreement-templates.create › Admin\AgreementTemplateControll…[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/agreement-templates/[39m[33m{agreement_template}[39m[38;5;103m admin.agreement-templates.show › Admin\AgreementTemp…[39m
+  [33mPUT[39m[38;5;103m|[39m[33mPATCH[39m       [37madmin/agreement-templates/[39m[33m{agreement_template}[39m[38;5;103m admin.agreement-templates.update › Admin\AgreementTe…[39m
+  [31mDELETE[39m          [37madmin/agreement-templates/[39m[33m{agreement_template}[39m[38;5;103m admin.agreement-templates.destroy › Admin\AgreementT…[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/agreement-templates/[39m[33m{agreement_template}[39m[37m/edit[39m[38;5;103m admin.agreement-templates.edit › Admin\Agreemen…[39m
+  [33mPOST[39m            [37madmin/agreement-templates/[39m[33m{agreement_template}[39m[37m/publish[39m[38;5;103m admin.agreement-templates.publish › Admin\Ag…[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/agreements[39m[38;5;103m ................. admin.agreements.index › Admin\AgreementSignatureController@index[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/audit[39m[38;5;103m ........................................ admin.audit.index › Admin\AuditController@index[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/coaches[39m[38;5;103m .................................... admin.coaches.index › Admin\CoachController@index[39m
+  [33mPOST[39m            [37madmin/coaches[39m[38;5;103m .................................... admin.coaches.store › Admin\CoachController@store[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/coaches/create[39m[38;5;103m ........................... admin.coaches.create › Admin\CoachController@create[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/coaches/[39m[33m{coach}[39m[38;5;103m .............................. admin.coaches.show › Admin\CoachController@show[39m
+  [33mPUT[39m[38;5;103m|[39m[33mPATCH[39m       [37madmin/coaches/[39m[33m{coach}[39m[38;5;103m .......................... admin.coaches.update › Admin\CoachController@update[39m
+  [31mDELETE[39m          [37madmin/coaches/[39m[33m{coach}[39m[38;5;103m ........................ admin.coaches.destroy › Admin\CoachController@destroy[39m
+  [33mPOST[39m            [37madmin/coaches/[39m[33m{coach}[39m[37m/credentials[39m[38;5;103m admin.coaches.credentials.reset › Admin\CoachCredentialController…[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/coaches/[39m[33m{coach}[39m[37m/edit[39m[38;5;103m ......................... admin.coaches.edit › Admin\CoachController@edit[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/framework/pillars[39m[38;5;103m ............... admin.framework.pillars.index › Admin\PillarController@index[39m
+  [33mPATCH[39m           [37madmin/framework/pillars/[39m[33m{pillar}[39m[38;5;103m .... admin.framework.pillars.update › Admin\PillarController@update[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/framework/pillars/[39m[33m{pillar}[39m[37m/edit[39m[38;5;103m ... admin.framework.pillars.edit › Admin\PillarController@edit[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/framework/strike-levels[39m[38;5;103m admin.framework.strike-levels.index › Admin\StrikeLevelController@ind…[39m
+  [33mPATCH[39m           [37madmin/framework/strike-levels/[39m[33m{strike_level}[39m[38;5;103m admin.framework.strike-levels.update › Admin\StrikeLev…[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/framework/strike-levels/[39m[33m{strike_level}[39m[37m/edit[39m[38;5;103m admin.framework.strike-levels.edit › Admin\Strike…[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/guardians[39m[38;5;103m ............................. admin.guardians.index › Admin\GuardianController@index[39m
+  [33mPOST[39m            [37madmin/guardians[39m[38;5;103m ............................. admin.guardians.store › Admin\GuardianController@store[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/guardians/create[39m[38;5;103m .................... admin.guardians.create › Admin\GuardianController@create[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/guardians/[39m[33m{guardian}[39m[38;5;103m .................... admin.guardians.show › Admin\GuardianController@show[39m
+  [33mPUT[39m[38;5;103m|[39m[33mPATCH[39m       [37madmin/guardians/[39m[33m{guardian}[39m[38;5;103m ................ admin.guardians.update › Admin\GuardianController@update[39m
+  [31mDELETE[39m          [37madmin/guardians/[39m[33m{guardian}[39m[38;5;103m .............. admin.guardians.destroy › Admin\GuardianController@destroy[39m
+  [33mPOST[39m            [37madmin/guardians/[39m[33m{guardian}[39m[37m/credentials[39m[38;5;103m admin.guardians.credentials.reset › Admin\GuardianCredential…[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/guardians/[39m[33m{guardian}[39m[37m/edit[39m[38;5;103m ............... admin.guardians.edit › Admin\GuardianController@edit[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/reports/attendance[39m[38;5;103m .............. admin.reports.attendance › Admin\ReportController@attendance[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/sessions[39m[38;5;103m ................................ admin.sessions.index › Admin\SessionController@index[39m
+  [33mPOST[39m            [37madmin/sessions[39m[38;5;103m ................................ admin.sessions.store › Admin\SessionController@store[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/sessions/create[39m[38;5;103m ....................... admin.sessions.create › Admin\SessionController@create[39m
+  [33mPOST[39m            [37madmin/sessions/generate[39m[38;5;103m ..... admin.sessions.generate › Admin\SessionController@generateFromSchedule[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/sessions/[39m[33m{session}[39m[38;5;103m ........................ admin.sessions.show › Admin\SessionController@show[39m
+  [33mPUT[39m[38;5;103m|[39m[33mPATCH[39m       [37madmin/sessions/[39m[33m{session}[39m[38;5;103m .................... admin.sessions.update › Admin\SessionController@update[39m
+  [31mDELETE[39m          [37madmin/sessions/[39m[33m{session}[39m[38;5;103m .................. admin.sessions.destroy › Admin\SessionController@destroy[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/sessions/[39m[33m{session}[39m[37m/edit[39m[38;5;103m ................... admin.sessions.edit › Admin\SessionController@edit[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/squads[39m[38;5;103m ...................................... admin.squads.index › Admin\SquadController@index[39m
+  [33mPOST[39m            [37madmin/squads[39m[38;5;103m ...................................... admin.squads.store › Admin\SquadController@store[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/squads/create[39m[38;5;103m ............................. admin.squads.create › Admin\SquadController@create[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/squads/[39m[33m{squad}[39m[38;5;103m ................................ admin.squads.show › Admin\SquadController@show[39m
+  [33mPUT[39m[38;5;103m|[39m[33mPATCH[39m       [37madmin/squads/[39m[33m{squad}[39m[38;5;103m ............................ admin.squads.update › Admin\SquadController@update[39m
+  [31mDELETE[39m          [37madmin/squads/[39m[33m{squad}[39m[38;5;103m .......................... admin.squads.destroy › Admin\SquadController@destroy[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/squads/[39m[33m{squad}[39m[37m/edit[39m[38;5;103m ........................... admin.squads.edit › Admin\SquadController@edit[39m
+  [33mPOST[39m            [37madmin/squads/[39m[33m{squad}[39m[37m/enrol[39m[38;5;103m ......... admin.squads.enrol.store › Admin\SquadEnrolmentController@store[39m
+  [31mDELETE[39m          [37madmin/squads/[39m[33m{squad}[39m[37m/enrol/[39m[33m{student}[39m[38;5;103m admin.squads.enrol.destroy › Admin\SquadEnrolmentController@de…[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/students[39m[38;5;103m ................................ admin.students.index › Admin\StudentController@index[39m
+  [33mPOST[39m            [37madmin/students[39m[38;5;103m ................................ admin.students.store › Admin\StudentController@store[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/students/create[39m[38;5;103m ....................... admin.students.create › Admin\StudentController@create[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/students/[39m[33m{student}[39m[38;5;103m ........................ admin.students.show › Admin\StudentController@show[39m
+  [33mPUT[39m[38;5;103m|[39m[33mPATCH[39m       [37madmin/students/[39m[33m{student}[39m[38;5;103m .................... admin.students.update › Admin\StudentController@update[39m
+  [31mDELETE[39m          [37madmin/students/[39m[33m{student}[39m[38;5;103m .................. admin.students.destroy › Admin\StudentController@destroy[39m
+  [33mPOST[39m            [37madmin/students/[39m[33m{student}[39m[37m/credentials[39m[38;5;103m admin.students.credentials.issue › Admin\StudentCredentialCont…[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37madmin/students/[39m[33m{student}[39m[37m/edit[39m[38;5;103m ................... admin.students.edit › Admin\StudentController@edit[39m
+  [33mPOST[39m            [37madmin/students/[39m[33m{student}[39m[37m/guardians[39m[38;5;103m admin.students.guardians.store › Admin\StudentGuardianController…[39m
+  [31mDELETE[39m          [37madmin/students/[39m[33m{student}[39m[37m/guardians/[39m[33m{guardian}[39m[38;5;103m admin.students.guardians.destroy › Admin\StudentGuard…[39m
+  [33mPOST[39m            [37madmin/students/[39m[33m{student}[39m[37m/status[39m[38;5;103m ....... admin.students.status › Admin\StudentController@updateStatus[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37magreement/[39m[33m{student}[39m[38;5;103m ...................................... agreement.show › AgreementController@show[39m
+  [33mPOST[39m            [37magreement/[39m[33m{student}[39m[38;5;103m ...................................... agreement.sign › AgreementController@sign[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37magreement/[39m[33m{student}[39m[37m/download[39m[38;5;103m ..................... agreement.download › AgreementController@download[39m
+  [33mPOST[39m            [37mapi/v1/auth/login[39m[38;5;103m .................................. api.v1.auth.login › Api\V1\AuthController@login[39m
+  [33mPOST[39m            [37mapi/v1/auth/logout[39m[38;5;103m ............................... api.v1.auth.logout › Api\V1\AuthController@logout[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mapi/v1/children[39m[38;5;103m .................................. api.v1.children › Api\V1\ChildrenController@index[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mapi/v1/framework[39m[38;5;103m ............................... api.v1.framework › Api\V1\FrameworkController@index[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mapi/v1/me[39m[38;5;103m ..................................................... api.v1.me › Api\V1\AuthController@me[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mapi/v1/schedule[39m[38;5;103m .................................. api.v1.schedule › Api\V1\ScheduleController@index[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mcoach[39m[38;5;103m ....................................... coach.dashboard › Coach\CoachDashboardController@index[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mcoach/sessions[39m[38;5;103m ........................... coach.sessions.index › Coach\CoachSessionController@index[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mcoach/sessions/[39m[33m{session}[39m[38;5;103m ................... coach.sessions.show › Coach\CoachSessionController@show[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mcoach/sessions/[39m[33m{session}[39m[37m/attendance[39m[38;5;103m coach.sessions.attendance.edit › Coach\AttendanceController@edit[39m
+  [33mPOST[39m            [37mcoach/sessions/[39m[33m{session}[39m[37m/attendance[39m[38;5;103m coach.sessions.attendance.store › Coach\AttendanceController@st…[39m
+  [33mPOST[39m            [37mcoach/sessions/[39m[33m{session}[39m[37m/complete[39m[38;5;103m .. coach.sessions.complete › Coach\CoachSessionController@complete[39m
+  [33mPOST[39m            [37mcoach/sessions/[39m[33m{session}[39m[37m/start[39m[38;5;103m ........... coach.sessions.start › Coach\CoachSessionController@start[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mcoach/squads[39m[38;5;103m ................................. coach.squads.index › Coach\CoachSquadController@index[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mcoach/squads/[39m[33m{squad}[39m[38;5;103m ........................... coach.squads.show › Coach\CoachSquadController@show[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mcontact[39m[38;5;103m .................................................. contact › Public\PublicController@contact[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mdashboard[39m[38;5;103m ......................................... dashboard.redirect › DashboardRedirectController[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mframework[39m[38;5;103m ............................................ framework › Public\PublicController@framework[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mlocale/[39m[33m{locale}[39m[38;5;103m ............................................ locale.switch › LocaleController@switch[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mlogin[39m[38;5;103m ........................................... login › Auth\AuthenticatedSessionController@create[39m
+  [33mPOST[39m            [37mlogin[39m[38;5;103m .................................................... Auth\AuthenticatedSessionController@store[39m
+  [33mPOST[39m            [37mlogout[39m[38;5;103m ........................................ logout › Auth\AuthenticatedSessionController@destroy[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mpassword/change[39m[38;5;103m ............................... password.change › ForcePasswordChangeController@edit[39m
+  [33mPOST[39m            [37mpassword/change[39m[38;5;103m ...................... password.change.update › ForcePasswordChangeController@update[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mportal[39m[38;5;103m ............................. guardian.dashboard › Guardian\GuardianDashboardController@index[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mportal/attendance/[39m[33m{student}[39m[38;5;103m ...... guardian.attendance › Guardian\GuardianAttendanceController@index[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mportal/children[39m[38;5;103m ................. guardian.children.index › Guardian\GuardianStudentController@index[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mportal/children/[39m[33m{student}[39m[38;5;103m ......... guardian.children.show › Guardian\GuardianStudentController@show[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mportal/profile[39m[38;5;103m ............................. guardian.profile.edit › Guardian\ProfileController@edit[39m
+  [33mPATCH[39m           [37mportal/profile[39m[38;5;103m ......................... guardian.profile.update › Guardian\ProfileController@update[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mportal/schedule[39m[38;5;103m ...................... guardian.schedule › Guardian\GuardianScheduleController@index[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37msanctum/csrf-cookie[39m[38;5;103m .............. sanctum.csrf-cookie › Laravel\Sanctum › CsrfCookieController@show[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mstorage/[39m[33m{path}[39m[38;5;103m ....................................................................... storage.local[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mstudent[39m[38;5;103m ............................... student.dashboard › Student\StudentDashboardController@index[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mstudent/attendance[39m[38;5;103m .................. student.attendance › Student\StudentAttendanceController@index[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mstudent/profile[39m[38;5;103m ....................... student.profile.edit › Student\StudentProfileController@edit[39m
+  [33mPATCH[39m           [37mstudent/profile[39m[38;5;103m ................... student.profile.update › Student\StudentProfileController@update[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mstudent/schedule[39m[38;5;103m ........................ student.schedule › Student\StudentScheduleController@index[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mstudents/[39m[33m{student}[39m[37m/photo[39m[38;5;103m ................................... students.photo › StudentPhotoController[39m
+  [34mGET[39m[38;5;103m|[39m[38;5;103mHEAD[39m        [37mup[39m[38;5;103m ................................................................................................. [39m
+
+                                                                                                  [34;1mShowing [106] routes[39;22m
+

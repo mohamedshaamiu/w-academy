@@ -1,0 +1,138 @@
+RUNTIME PROBES — executed via `php artisan tinker --execute` against the scratch
+database `wacademy_audit_scratch` (created for this audit; the dev DB `wacademy`
+was never touched). No application file was created, modified or deleted.
+
+================================================================================
+PROBE A — student photo route signature (AUDIT.md finding P0-1)
+================================================================================
+Command:
+  DB_DATABASE=wacademy_audit_scratch php artisan tinker --execute='
+    $s = App\Models\Student::first();
+    echo route("students.photo",$s);
+    echo Illuminate\Support\Facades\URL::signedRoute("students.photo",["student"=>$s->id]);
+    $req = Illuminate\Http\Request::create(route("students.photo",$s),"GET");
+    var_export($req->hasValidSignature());
+  '
+
+Output:
+  student: id=1 photo_path=NULL
+  route()       : http://localhost/students/1/photo
+  signedRoute() : http://localhost/students/1/photo?signature=a91bd892e7a53f0e957c131fdba96d226ecfc0e1036e7fd027fe7d87c5bbd0bf
+  middleware    : web,auth,signed
+  hasValidSignature on route() URL: false
+  hasValidSignature on signed URL : true
+
+Interpretation: the route is registered with the `signed` middleware
+(Illuminate\Routing\Middleware\ValidateSignature). Every caller in
+resources/views builds the URL with route(), which produces an UNSIGNED URL for
+which hasValidSignature() is false. ValidateSignature aborts 403.
+
+================================================================================
+PROBE B — API token creation (AUDIT.md finding P0-2)
+================================================================================
+Command:
+  DB_DATABASE=wacademy_audit_scratch php artisan tinker --execute='
+    $u = App\Models\User::first();
+    var_export(method_exists($u,"createToken"));
+    var_export(Schema::hasTable("personal_access_tokens"));
+    $u->createToken("probe");
+  '
+
+Output:
+  User traits: HasAttributes, HasEvents, HasGlobalScopes, HasRelationships,
+    HasTimestamps, HasUniqueIds, HidesAttributes, GuardsAttributes,
+    PreventsCircularRecursion, ForwardsCalls, HasCollection, Authenticatable,
+    Authorizable, CanResetPassword, MustVerifyEmail, HasFactory, HasRoles,
+    LogsActivity, Notifiable, SoftDeletes, HasPermissions,
+    HasDatabaseNotifications, RoutesNotifications
+  has createToken method: false
+  personal_access_tokens table exists: false
+  createToken FAILED -> BadMethodCallException: Call to undefined method App\Models\User::createToken()
+
+Interpretation: App\Models\User does NOT use Laravel\Sanctum\HasApiTokens, and no
+migration creates personal_access_tokens (confirmed against the migrated scratch
+schema — see 17-schema.log and the table listing below). POST /api/v1/auth/login
+therefore throws before returning a token.
+
+Tables present after `migrate:fresh --seed` (no personal_access_tokens):
+  activity_log, agreement_signatures, agreement_templates, attendances, cache,
+  cache_locks, coaches, failed_jobs, framework_pillars, framework_strike_levels,
+  guardian_student, guardians, job_batches, jobs, migrations,
+  model_has_permissions, model_has_roles, permissions, role_has_permissions,
+  roles, sessions, squad_student, squads, students, training_sessions, users
+
+================================================================================
+PROBE C — agreement signature immutability (AUDIT.md finding P1-4)
+================================================================================
+Command: created a probe AgreementSignature row in the scratch DB, attempted to
+rewrite the fields the spec treats as write-once, then force-deleted the row.
+
+Output:
+  after mass-assign update(): TAMPERED
+  IMMUTABLE via update()? false
+  signed_at re-writable? true
+  status re-writable?    true
+  probe row removed.
+
+Interpretation: `template_snapshot`, `signed_at` and `status` are all listed in
+AgreementSignature::$fillable (app/Models/AgreementSignature.php:19-34) with no
+`saving`/`updating` guard, no `$guarded` protection and no DB-level trigger.
+A signed agreement record can be silently rewritten after the fact.
+
+================================================================================
+PROBE D — route middleware stacks (AUDIT.md findings P1-3, P1-6)
+================================================================================
+Command: php artisan route:list --json | (decode, print uri/name/middleware)
+
+Relevant rows:
+  agreement/{student}           agreement.show      web,Authenticate,RoleMiddleware:guardian
+  agreement/{student}           agreement.sign      web,Authenticate,RoleMiddleware:guardian
+  agreement/{student}/download  agreement.download  web,Authenticate,RoleMiddleware:guardian
+  portal                        guardian.dashboard  web,Authenticate,RoleMiddleware:guardian,EnsurePasswordChanged,EnsureAgreementSigned
+  student                       student.dashboard   web,Authenticate,RoleMiddleware:student,EnsurePasswordChanged,EnsureAgreementSigned
+  coach                         coach.dashboard     web,Authenticate,RoleMiddleware:coach,EnsurePasswordChanged
+  students/{student}/photo      students.photo      web,Authenticate,ValidateSignature
+  api/v1/children               api.v1.children     api,Authenticate:sanctum
+  api/v1/schedule               api.v1.schedule     api,Authenticate:sanctum
+  dashboard                     dashboard.redirect  web,Authenticate
+
+Interpretation:
+  - EnsureAgreementSigned IS applied to both the guardian and student groups.
+  - The agreement routes themselves carry NO EnsurePasswordChanged, so a
+    guardian still on the admin-issued first-login password can sign.
+  - The API routes carry NO EnsureAgreementSigned and NO EnsurePasswordChanged.
+  - students.photo carries ValidateSignature but no EnsurePasswordChanged.
+
+================================================================================
+PROBE E — query counts (AUDIT.md finding P2-15, N+1)
+================================================================================
+Seed volume in the scratch DB: students=4, squads=2, sessions=2, attendances=4
+(DemoDataSeeder). The guardian under test has 1 linked child, so these numbers
+are a floor, not a stress measurement.
+
+  GuardianDashboard (1 child)                   : 6 queries
+  EnsureAgreementSigned accessor loop (1 child) : 3 queries
+  Coach squad roster (2 students)               : 1 query
+  Coach squads w/ active_student_count accessor : 3 queries
+
+Interpretation: the per-child work in GuardianDashboardController::index
+(app/Http/Controllers/Guardian/GuardianDashboardController.php:16-40) issues one
+next-session query and one attendance query per child inside a ->map() closure,
+and Student::getHasSignedCurrentAgreementAttribute
+(app/Models/Student.php:92-104) issues an AgreementTemplate::current()->first()
+plus an exists() per call. Both scale linearly with the number of children.
+The absolute counts above are small only because the demo seed is small.
+
+================================================================================
+PROBE F — filesystem disk configuration (AUDIT.md IS-9.3)
+================================================================================
+  public disk root : storage/app/public
+  default disk     : local
+  storage/app/      contains: private/  public/
+  public/storage symlink: NOT present
+  Storage::url / asset('storage' / '/storage/' references in app+views: 0 hits
+
+Interpretation: student photos and drawn signatures are written to the `local`
+disk, whose Laravel 11 default root is storage/app/private. Nothing is exposed
+through a public URL. The private-storage requirement holds; only the delivery
+route is broken (Probe A).

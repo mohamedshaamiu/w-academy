@@ -1,0 +1,357 @@
+=== TOTAL FILE COUNT (app resources/views database) ===
+221
+
+=== PER-DIRECTORY BREAKDOWN (file count) ===
+0  app
+1  app/Concerns
+5  app/Enums
+0  app/Http
+6  app/Http/Controllers
+17  app/Http/Controllers/Admin
+0  app/Http/Controllers/Api
+4  app/Http/Controllers/Api/V1
+1  app/Http/Controllers/Auth
+4  app/Http/Controllers/Coach
+5  app/Http/Controllers/Guardian
+1  app/Http/Controllers/Public
+4  app/Http/Controllers/Student
+5  app/Http/Middleware
+2  app/Http/Requests
+11  app/Http/Requests/Admin
+1  app/Http/Requests/Auth
+1  app/Http/Requests/Coach
+1  app/Http/Requests/Guardian
+1  app/Http/Requests/Student
+0  app/Http/Resources
+0  app/Http/Resources/Api
+5  app/Http/Resources/Api/V1
+13  app/Models
+5  app/Policies
+1  app/Providers
+6  app/Services
+1  app/Support
+0  app/View
+3  app/View/Components
+13  config
+1  database
+8  database/factories
+19  database/migrations
+7  database/seeders
+0  lang
+16  lang/dv
+16  lang/en
+0  resources/views
+1  resources/views/admin
+1  resources/views/admin/agreement-signatures
+4  resources/views/admin/agreement-templates
+1  resources/views/admin/audit
+4  resources/views/admin/coaches
+1  resources/views/admin/coaches/partials
+4  resources/views/admin/framework
+4  resources/views/admin/guardians
+1  resources/views/admin/guardians/partials
+1  resources/views/admin/reports
+4  resources/views/admin/sessions
+1  resources/views/admin/sessions/partials
+4  resources/views/admin/squads
+4  resources/views/admin/students
+1  resources/views/admin/students/partials
+2  resources/views/auth
+6  resources/views/coach
+17  resources/views/components
+8  resources/views/guardian
+1  resources/views/guardian/partials
+3  resources/views/layouts
+3  resources/views/public
+1  resources/views/public/partials
+5  resources/views/student
+4  routes
+1  tests
+9  tests/Feature
+1  tests/Feature/Auth
+0  tests/Unit
+
+=== FULL FILE LIST WITH LINE COUNTS ===
+    35  app/Concerns/HasTranslatedAttributes.php
+    22  app/Enums/AgreementStatus.php
+    24  app/Enums/AttendanceStatus.php
+    27  app/Enums/Locale.php
+    24  app/Enums/SessionStatus.php
+    24  app/Enums/StudentStatus.php
+    32  app/Http/Controllers/Admin/AdminDashboardController.php
+    19  app/Http/Controllers/Admin/AgreementSignatureController.php
+    67  app/Http/Controllers/Admin/AgreementTemplateController.php
+    17  app/Http/Controllers/Admin/AuditController.php
+    77  app/Http/Controllers/Admin/CoachController.php
+    23  app/Http/Controllers/Admin/CoachCredentialController.php
+    78  app/Http/Controllers/Admin/GuardianController.php
+    23  app/Http/Controllers/Admin/GuardianCredentialController.php
+    38  app/Http/Controllers/Admin/PillarController.php
+    80  app/Http/Controllers/Admin/ReportController.php
+    97  app/Http/Controllers/Admin/SessionController.php
+    60  app/Http/Controllers/Admin/SquadController.php
+    33  app/Http/Controllers/Admin/SquadEnrolmentController.php
+    47  app/Http/Controllers/Admin/StrikeLevelController.php
+   139  app/Http/Controllers/Admin/StudentController.php
+    24  app/Http/Controllers/Admin/StudentCredentialController.php
+    61  app/Http/Controllers/Admin/StudentGuardianController.php
+    80  app/Http/Controllers/AgreementController.php
+    52  app/Http/Controllers/Api/V1/AuthController.php
+    20  app/Http/Controllers/Api/V1/ChildrenController.php
+    21  app/Http/Controllers/Api/V1/FrameworkController.php
+    34  app/Http/Controllers/Api/V1/ScheduleController.php
+    52  app/Http/Controllers/Auth/AuthenticatedSessionController.php
+    35  app/Http/Controllers/Coach/AttendanceController.php
+    30  app/Http/Controllers/Coach/CoachDashboardController.php
+    48  app/Http/Controllers/Coach/CoachSessionController.php
+    33  app/Http/Controllers/Coach/CoachSquadController.php
+    10  app/Http/Controllers/Controller.php
+    22  app/Http/Controllers/DashboardRedirectController.php
+    40  app/Http/Controllers/ForcePasswordChangeController.php
+    25  app/Http/Controllers/Guardian/GuardianAttendanceController.php
+    46  app/Http/Controllers/Guardian/GuardianDashboardController.php
+    31  app/Http/Controllers/Guardian/GuardianScheduleController.php
+    32  app/Http/Controllers/Guardian/GuardianStudentController.php
+    38  app/Http/Controllers/Guardian/ProfileController.php
+    23  app/Http/Controllers/LocaleController.php
+    31  app/Http/Controllers/Public/PublicController.php
+    23  app/Http/Controllers/Student/StudentAttendanceController.php
+    39  app/Http/Controllers/Student/StudentDashboardController.php
+    33  app/Http/Controllers/Student/StudentProfileController.php
+    32  app/Http/Controllers/Student/StudentScheduleController.php
+    20  app/Http/Controllers/StudentPhotoController.php
+    25  app/Http/Middleware/ApplyStudentSessionLifetime.php
+    65  app/Http/Middleware/EnsureAgreementSigned.php
+    31  app/Http/Middleware/EnsurePasswordChanged.php
+    24  app/Http/Middleware/SetApiLocale.php
+    29  app/Http/Middleware/SetLocale.php
+    22  app/Http/Requests/Admin/GenerateSessionsRequest.php
+    30  app/Http/Requests/Admin/StoreAgreementTemplateRequest.php
+    24  app/Http/Requests/Admin/StoreCoachRequest.php
+    25  app/Http/Requests/Admin/StoreGuardianRequest.php
+    26  app/Http/Requests/Admin/StoreSessionRequest.php
+    31  app/Http/Requests/Admin/StoreSquadRequest.php
+    51  app/Http/Requests/Admin/StoreStudentRequest.php
+    27  app/Http/Requests/Admin/UpdateCoachRequest.php
+    28  app/Http/Requests/Admin/UpdateGuardianRequest.php
+    31  app/Http/Requests/Admin/UpdateSquadRequest.php
+    41  app/Http/Requests/Admin/UpdateStudentRequest.php
+    80  app/Http/Requests/Auth/LoginRequest.php
+    23  app/Http/Requests/Coach/StoreAttendanceRequest.php
+    30  app/Http/Requests/Guardian/UpdateGuardianProfileRequest.php
+    31  app/Http/Requests/ProfileUpdateRequest.php
+    23  app/Http/Requests/SignAgreementRequest.php
+    27  app/Http/Requests/Student/UpdateStudentProfileRequest.php
+    20  app/Http/Resources/Api/V1/FrameworkPillarResource.php
+    23  app/Http/Resources/Api/V1/FrameworkStrikeLevelResource.php
+    22  app/Http/Resources/Api/V1/StudentResource.php
+    23  app/Http/Resources/Api/V1/TrainingSessionResource.php
+    21  app/Http/Resources/Api/V1/UserResource.php
+    68  app/Models/AgreementSignature.php
+    46  app/Models/AgreementTemplate.php
+    54  app/Models/Attendance.php
+    44  app/Models/Coach.php
+    38  app/Models/FrameworkPillar.php
+    56  app/Models/FrameworkStrikeLevel.php
+    41  app/Models/Guardian.php
+    48  app/Models/GuardianStudent.php
+    67  app/Models/Squad.php
+    49  app/Models/SquadStudent.php
+   117  app/Models/Student.php
+    66  app/Models/TrainingSession.php
+    93  app/Models/User.php
+    39  app/Policies/AttendancePolicy.php
+    47  app/Policies/SquadPolicy.php
+    63  app/Policies/StudentPolicy.php
+    65  app/Policies/TrainingSessionPolicy.php
+    18  app/Policies/UserPolicy.php
+    24  app/Providers/AppServiceProvider.php
+   127  app/Services/AgreementService.php
+    65  app/Services/AttendanceService.php
+   170  app/Services/CredentialService.php
+    61  app/Services/EnrolmentService.php
+   103  app/Services/SessionSchedulingService.php
+    75  app/Services/StudentRegistrationService.php
+    60  app/Support/FormatsDates.php
+    19  app/View/Components/AppLayout.php
+    19  app/View/Components/GuestLayout.php
+    18  app/View/Components/PublicLayout.php
+    61  config/academy.php
+    54  config/activitylog.php
+   126  config/app.php
+   117  config/auth.php
+   108  config/cache.php
+   173  config/database.php
+    80  config/filesystems.php
+   132  config/logging.php
+   116  config/mail.php
+   206  config/permission.php
+   112  config/queue.php
+    38  config/services.php
+   217  config/session.php
+    29  database/factories/AgreementTemplateFactory.php
+    27  database/factories/AttendanceFactory.php
+    23  database/factories/CoachFactory.php
+    23  database/factories/GuardianFactory.php
+    29  database/factories/SquadFactory.php
+    30  database/factories/StudentFactory.php
+    30  database/factories/TrainingSessionFactory.php
+    45  database/factories/UserFactory.php
+    45  database/migrations/0001_01_01_000000_create_users_table.php
+    35  database/migrations/0001_01_01_000001_create_cache_table.php
+    57  database/migrations/0001_01_01_000002_create_jobs_table.php
+    27  database/migrations/2024_01_01_000010_create_guardians_table.php
+    27  database/migrations/2024_01_01_000020_create_coaches_table.php
+    38  database/migrations/2024_01_01_000030_create_students_table.php
+    28  database/migrations/2024_01_01_000040_create_guardian_student_table.php
+    35  database/migrations/2024_01_01_000050_create_squads_table.php
+    29  database/migrations/2024_01_01_000060_create_squad_student_table.php
+    35  database/migrations/2024_01_01_000070_create_training_sessions_table.php
+    30  database/migrations/2024_01_01_000080_create_attendances_table.php
+    31  database/migrations/2024_01_01_000090_create_agreement_templates_table.php
+    38  database/migrations/2024_01_01_000100_create_agreement_signatures_table.php
+    32  database/migrations/2024_01_01_000110_create_framework_pillars_table.php
+    41  database/migrations/2024_01_01_000120_create_framework_strike_levels_table.php
+   134  database/migrations/2026_08_11_084916_create_permission_tables.php
+    27  database/migrations/2026_08_11_084920_create_activity_log_table.php
+    22  database/migrations/2026_08_11_084921_add_event_column_to_activity_log_table.php
+    22  database/migrations/2026_08_11_084922_add_batch_uuid_column_to_activity_log_table.php
+    33  database/seeders/AdminUserSeeder.php
+    44  database/seeders/AgreementTemplateSeeder.php
+    27  database/seeders/DatabaseSeeder.php
+   174  database/seeders/DemoDataSeeder.php
+    39  database/seeders/FrameworkPillarSeeder.php
+    80  database/seeders/RolePermissionSeeder.php
+    49  database/seeders/StrikeLevelSeeder.php
+   201  lang/dv/admin.php
+    33  lang/dv/agreement.php
+    27  lang/dv/attendance.php
+    23  lang/dv/auth.php
+    26  lang/dv/coach.php
+    98  lang/dv/common.php
+    15  lang/dv/framework.php
+    48  lang/dv/guardian.php
+    43  lang/dv/nav.php
+     6  lang/dv/pagination.php
+    17  lang/dv/public.php
+    19  lang/dv/report.php
+    37  lang/dv/session.php
+    21  lang/dv/squad.php
+    62  lang/dv/student.php
+   198  lang/dv/validation.php
+   201  lang/en/admin.php
+    33  lang/en/agreement.php
+    27  lang/en/attendance.php
+    23  lang/en/auth.php
+    26  lang/en/coach.php
+    98  lang/en/common.php
+    15  lang/en/framework.php
+    48  lang/en/guardian.php
+    43  lang/en/nav.php
+     6  lang/en/pagination.php
+    17  lang/en/public.php
+    19  lang/en/report.php
+    37  lang/en/session.php
+    21  lang/en/squad.php
+    62  lang/en/student.php
+   198  lang/en/validation.php
+    19  resources/css/app.css
+     7  resources/js/app.js
+     4  resources/js/bootstrap.js
+    39  resources/views/admin/agreement-signatures/index.blade.php
+    85  resources/views/admin/agreement-templates/create.blade.php
+    86  resources/views/admin/agreement-templates/edit.blade.php
+    40  resources/views/admin/agreement-templates/index.blade.php
+    88  resources/views/admin/agreement-templates/show.blade.php
+    28  resources/views/admin/audit/index.blade.php
+    37  resources/views/admin/coaches/create.blade.php
+    38  resources/views/admin/coaches/edit.blade.php
+    44  resources/views/admin/coaches/index.blade.php
+     8  resources/views/admin/coaches/partials/credential-modal.blade.php
+    51  resources/views/admin/coaches/show.blade.php
+    62  resources/views/admin/dashboard.blade.php
+    48  resources/views/admin/framework/pillar-edit.blade.php
+    28  resources/views/admin/framework/pillars.blade.php
+   104  resources/views/admin/framework/strike-level-edit.blade.php
+    28  resources/views/admin/framework/strike-levels.blade.php
+    43  resources/views/admin/guardians/create.blade.php
+    44  resources/views/admin/guardians/edit.blade.php
+    42  resources/views/admin/guardians/index.blade.php
+     8  resources/views/admin/guardians/partials/credential-modal.blade.php
+    53  resources/views/admin/guardians/show.blade.php
+    58  resources/views/admin/reports/attendance.blade.php
+    59  resources/views/admin/sessions/create.blade.php
+    60  resources/views/admin/sessions/edit.blade.php
+    71  resources/views/admin/sessions/index.blade.php
+    37  resources/views/admin/sessions/partials/generate-modal.blade.php
+    70  resources/views/admin/sessions/show.blade.php
+    95  resources/views/admin/squads/create.blade.php
+    96  resources/views/admin/squads/edit.blade.php
+    43  resources/views/admin/squads/index.blade.php
+   101  resources/views/admin/squads/show.blade.php
+   127  resources/views/admin/students/create.blade.php
+    55  resources/views/admin/students/edit.blade.php
+    68  resources/views/admin/students/index.blade.php
+     8  resources/views/admin/students/partials/credential-modal.blade.php
+    98  resources/views/admin/students/show.blade.php
+    29  resources/views/auth/change-password.blade.php
+    32  resources/views/auth/login.blade.php
+   135  resources/views/coach/attendance-mark.blade.php
+    55  resources/views/coach/dashboard.blade.php
+    90  resources/views/coach/session-detail.blade.php
+    26  resources/views/coach/sessions.blade.php
+    39  resources/views/coach/squad-detail.blade.php
+    19  resources/views/coach/squads.blade.php
+     3  resources/views/components/application-logo.blade.php
+     7  resources/views/components/auth-session-status.blade.php
+    46  resources/views/components/credential-issuer.blade.php
+     3  resources/views/components/danger-button.blade.php
+     1  resources/views/components/dropdown-link.blade.php
+    35  resources/views/components/dropdown.blade.php
+     9  resources/views/components/input-error.blade.php
+     5  resources/views/components/input-label.blade.php
+    16  resources/views/components/lang-switcher.blade.php
+    78  resources/views/components/modal.blade.php
+    11  resources/views/components/nav-link.blade.php
+     3  resources/views/components/primary-button.blade.php
+    11  resources/views/components/responsive-nav-link.blade.php
+     3  resources/views/components/secondary-button.blade.php
+    65  resources/views/components/signature-pad.blade.php
+    24  resources/views/components/status-badge.blade.php
+     3  resources/views/components/text-input.blade.php
+    28  resources/views/guardian/agreement-download.blade.php
+    64  resources/views/guardian/agreement-sign.blade.php
+    10  resources/views/guardian/attendance.blade.php
+    87  resources/views/guardian/child-detail.blade.php
+    24  resources/views/guardian/children.blade.php
+    40  resources/views/guardian/dashboard.blade.php
+    45  resources/views/guardian/partials/attendance-table.blade.php
+    73  resources/views/guardian/profile.blade.php
+    33  resources/views/guardian/schedule.blade.php
+   109  resources/views/layouts/app.blade.php
+    28  resources/views/layouts/guest.blade.php
+    48  resources/views/layouts/public.blade.php
+     3  resources/views/public/contact.blade.php
+    69  resources/views/public/framework.blade.php
+    42  resources/views/public/home.blade.php
+    18  resources/views/public/partials/contact-block.blade.php
+     4  resources/views/student/agreement-pending.blade.php
+    52  resources/views/student/attendance.blade.php
+    38  resources/views/student/dashboard.blade.php
+    78  resources/views/student/profile.blade.php
+    35  resources/views/student/schedule.blade.php
+    19  routes/api.php
+    17  routes/auth.php
+     8  routes/console.php
+   156  routes/web.php
+   107  tests/Feature/AgreementGateTest.php
+    29  tests/Feature/AgreementTemplateTest.php
+    75  tests/Feature/AttendanceTest.php
+    94  tests/Feature/Auth/AuthenticationTest.php
+    84  tests/Feature/AuthorizationTest.php
+    66  tests/Feature/CredentialTest.php
+    42  tests/Feature/EnrolmentTest.php
+   125  tests/Feature/LocalisationTest.php
+    56  tests/Feature/SessionSchedulingTest.php
+   138  tests/Feature/StudentCreationTest.php
+    19  tests/TestCase.php
