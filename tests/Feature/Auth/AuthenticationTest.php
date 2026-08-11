@@ -14,7 +14,24 @@ class AuthenticationTest extends TestCase
     {
         $response = $this->get('/login');
 
-        $response->assertStatus(200);
+        $response->assertOk();
+
+        // SPEC.md §9.4 / §8.1: exactly one identifier field, a password field,
+        // a language toggle, and no register or forgot-password affordance.
+        $response->assertSee('name="username"', false);
+        $response->assertSee('name="password"', false);
+        $response->assertSee(__('auth.login.identifier'));
+        $response->assertSee(route('locale.switch', 'en'), false);
+
+        $response->assertDontSee('name="email"', false);
+        $this->assertSame(
+            1,
+            substr_count($response->getContent(), 'name="username"'),
+            'SPEC.md §8.1 requires a single identifier field.'
+        );
+        foreach (['/register', '/forgot-password', '/reset-password'] as $forbidden) {
+            $response->assertDontSee($forbidden, false);
+        }
     }
 
     public function test_student_can_log_in_with_index_number(): void
