@@ -119,10 +119,60 @@ config/academy.php                         academy policy knobs
 lang/{dv,en}/                              identical key sets
 ```
 
+## Demo deployment
+
+Live at **https://demos.devcitymv.com/w-academy/** on Devcity's shared demo
+box (SSH host alias `devcitymv`, CyberPanel/OpenLiteSpeed). `README.md` §
+"Deployment" describes the generic first-time install; this section is the
+redeploy procedure for that specific slot.
+
+- App dir `/home/demos.devcitymv.com/public_html/w-academy/`, site user
+  `demos8016`, DB `demos_wacademy`.
+- `APP_ENV=production`, `APP_DEBUG=false`,
+  `APP_URL=https://demos.devcitymv.com/w-academy` — **no `/public` suffix**.
+  The vhost routes traffic into `public/` transparently.
+- Server toolchain is on `PATH` for `demos8016`: PHP 8.3, node 20, composer.
+- It is a real git checkout, so `git fetch` + `git checkout` is the deploy —
+  no tarballs.
+
+**Never run composer/npm/artisan as root** — always drop to the site user:
+`su - demos8016 -s /bin/bash -c '...'`. Root-created files leave the LSAPI
+worker unable to write logs, cache and sessions.
+
+```bash
+git checkout -- package-lock.json   # drifts server-side; discard before switching
+git fetch origin && git checkout <branch>
+composer install --no-dev --optimize-autoloader --no-interaction
+npm install && npm run build
+php artisan migrate --force
+php artisan optimize:clear && php artisan config:cache && php artisan route:cache && php artisan view:cache
+```
+
+Two things not to do:
+
+- **Do not re-seed.** The demo already holds its seeded data. Reach for
+  `db:seed` only when the seeders themselves have actually changed, and then
+  only after checking the seeder is idempotent.
+- **Do not `git clean -fd`.** The root `.htaccess` (`RewriteRule ^$ public/`)
+  is untracked and survives branch switches; cleaning kills the
+  bare-directory redirect.
+
+`storage:link` is not needed — photos and signatures stay on the private disk
+behind the signed `students.photo` route, and nothing is served from the
+`public` disk.
+
+Verify after every deploy: `/login` is 200 and carries `dir="rtl"`,
+`/dashboard` 302s to `/login`, and the `app-*.css` hash in the served HTML
+matches what vite just printed — that last one is what catches a stale cache.
+
 ## Current state
 
 All P0 and P1 items from the remediation are closed. Suite is green
 (87 tests / 615 assertions), Pint clean.
+
+`remediation/phase-1` is pushed and is what the demo runs. **`main` is still
+the original pre-remediation build** — the two have diverged and no PR has
+been opened. Merge before treating `main` as current.
 
 Outstanding, and both need the customer rather than code:
 
