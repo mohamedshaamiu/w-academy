@@ -206,10 +206,17 @@ class LocalisationTest extends TestCase
                     continue;
                 }
 
-                $bundled[] = $file;
+                // Only source fonts are documented. Build output is derived and
+                // carries a content hash that changes on every build.
+                if ($directory === resource_path('fonts')) {
+                    $bundled[] = $file;
+                }
+
+                // Strip Vite's -HASH suffix before matching the denylist.
+                $stem = preg_replace('/-[A-Za-z0-9_]{8,}$/', '', $file->getFilenameWithoutExtension());
 
                 $this->assertNotContains(
-                    preg_replace('/[^a-z]/', '', strtolower($file->getFilenameWithoutExtension())),
+                    preg_replace('/[^a-z]/', '', strtolower($stem)),
                     $proprietary,
                     "SPEC.md §3.4: {$file->getFilename()} is a proprietary system font and must not be bundled."
                 );

@@ -22,3 +22,7 @@ yarn-error.log
 /.vscode
 /.zed
 .claude/
+
+# Source font folder — not part of the app. Only licence-recorded faces are
+# committed, under resources/fonts/. See FONT-LICENCE.md.
+/thaana

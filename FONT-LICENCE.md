@@ -1,6 +1,7 @@
 # Thaana Webfont — Licence Position
 
-**Status: OUTSTANDING. A licensed Thaana webfont must be supplied before go-live.**
+**Status: font supplied and bundled. One item outstanding — the licence text
+has not been captured in writing (see "What is still needed").**
 
 Tracked as SPEC.md §14 ("Licensed Thaana webfont — must be procured before
 go-live. See `FONT-LICENCE.md`.") and BACKLOG.md **P1-B**.
@@ -50,43 +51,58 @@ Enforced by `LocalisationTest::test_thaana_font_class_applies_only_in_dv_locale`
 
 ## What renders today
 
-No `@font-face` is declared. `resources/css/app.css` defines:
+**MV Faseyha**, supplied by the academy and bundled at
+`resources/fonts/MVFaseyha.otf` (25,180 bytes). Declared in
+`resources/css/app.css`:
 
 ```css
+@font-face {
+    font-family: 'MV Faseyha';
+    src: url('../fonts/MVFaseyha.otf') format('opentype');
+    font-display: swap;
+}
+
 :root {
     --font-thaana: 'MV Faseyha', 'Faruma', sans-serif;
 }
 ```
 
-Thaana therefore resolves against faces already installed on the reader's
-machine — MV Faseyha first, then Faruma (widely installed in the Maldives),
-then a generic sans-serif. Readers without either installed will see Thaana in
-a fallback face. **This is acceptable for development and UAT. It is not
-acceptable for go-live**, because it makes rendering dependent on the visitor's
-machine rather than on what the VPS serves.
+Vite emits it to `public/build/assets/MVFaseyha-*.otf`, so the VPS serves it —
+nothing is hotlinked. The internal family name in the font's `name` table is
+exactly `MV Faseyha`, matching the CSS. Faruma remains as a fallback against
+the reader's own installed copy, covering the moment before the webfont loads;
+it is not bundled and not redistributed.
 
-## What is needed to close this
+## What is still needed
 
-The academy has chosen **MV Faseyha**, and has advised it is free to download.
-"Free to download" is not by itself a licence to redistribute, so before the
-file is committed the following must be recorded here:
+The academy advised MV Faseyha is free to download, and supplied the file.
+"Free to download" is not by itself a licence to redistribute from a web
+server, so for completeness the following should be recorded here:
 
-1. **The file** — placed at `resources/fonts/MVFaseyha.woff2`.
-   `.woff2` is strongly preferred over `.ttf`: roughly a third of the size over
-   the wire (BACKLOG.md P3-05).
-2. **Source URL** — where the file was obtained.
-3. **Licence name and text** — or a URL to it, confirming redistribution from a
-   web server is permitted.
-4. **Date obtained** and the person who obtained it.
+1. **Source URL** — where the file was obtained.
+2. **Licence name and text**, or a URL to it, confirming web redistribution is
+   permitted.
+3. **Date obtained** and by whom.
 
-Then uncomment the `@font-face` block already prepared in
-`resources/css/app.css`, run `npm run build`, and update the table below.
+This is a paperwork gap, not a technical one. The font renders correctly today.
+
+Optional improvement: converting the `.otf` to `.woff2` would cut roughly
+40% off the transfer size (BACKLOG.md P3-05). At 25 KB the gain is small and
+it needs tooling that is not in this project, so it was not done.
 
 ## Fonts currently bundled
 
 | File | Family | Licence | Redistribution permitted | Source |
 |---|---|---|---|---|
-| _none_ | — | — | — | — |
+| `resources/fonts/MVFaseyha.otf` | MV Faseyha | _to be recorded_ | stated as free to download by the academy; not yet evidenced in writing | supplied by the academy |
+
+## Not bundled
+
+The academy's font folder also contained `MV_Waheed.otf`, `faruma.ttf`,
+`MVTypewriter_reg.ttf` and `MVTypewriter_bol.ttf`. None is used by the
+application and none has a recorded licence, so none was committed — the
+folder is gitignored. Add any of them here only with its licence recorded,
+so the MV Boli mistake is not repeated.
 
 ---
 

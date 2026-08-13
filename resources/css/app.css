@@ -9,28 +9,18 @@
  | layouts put on <body> ONLY when the active locale is `dv`. It is never the
  | global `sans` family: English must render in the Latin stack.
  |
- | No @font-face is declared yet. The previously bundled MVBoli.ttf was a
- | proprietary Microsoft system font with no licence permitting web
- | redistribution, and has been removed — see FONT-LICENCE.md.
- |
- | Until the licensed face is dropped into resources/fonts/ and declared here,
- | this stack resolves against faces already installed on the reader's machine:
- | MV Faseyha first (the academy's choice), then Faruma, then a generic
- | sans-serif so Thaana still renders rather than falling back to a Latin face.
+ | MV Faseyha is bundled locally and served by the VPS — never hotlinked.
+ | Faruma is a fallback against the reader's own installed copy, for the moment
+ | between first paint and the webfont arriving. See FONT-LICENCE.md.
  */
+@font-face {
+    font-family: 'MV Faseyha';
+    src: url('../fonts/MVFaseyha.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 :root {
     --font-thaana: 'MV Faseyha', 'Faruma', sans-serif;
 }
-
-/*
- | When the licensed file is supplied, add it here and it takes precedence
- | over the locally installed copies above:
- |
- | @font-face {
- |     font-family: 'MV Faseyha';
- |     src: url('../fonts/MVFaseyha.woff2') format('woff2');
- |     font-weight: normal;
- |     font-style: normal;
- |     font-display: swap;
- | }
- */
