@@ -145,10 +145,10 @@ git fetch origin && git checkout <branch>
 composer install --no-dev --optimize-autoloader --no-interaction
 npm install && npm run build
 php artisan migrate --force
-php artisan optimize:clear && php artisan config:cache && php artisan route:cache && php artisan view:cache
+php artisan optimize:clear && php artisan config:cache && php artisan view:cache
 ```
 
-Two things not to do:
+Three things not to do:
 
 - **Do not re-seed.** The demo already holds its seeded data. Reach for
   `db:seed` only when the seeders themselves have actually changed, and then
@@ -156,14 +156,35 @@ Two things not to do:
 - **Do not `git clean -fd`.** The root `.htaccess` (`RewriteRule ^$ public/`)
   is untracked and survives branch switches; cleaning kills the
   bare-directory redirect.
+- **Do not run `route:cache` (nor `artisan optimize`, which includes it) on
+  this demo.** The app is served from a *subdirectory* (`/w-academy/`), and a
+  cached route table breaks the bare directory URL: `GET
+  https://demos.devcitymv.com/w-academy/` returns **405 Method Not Allowed**
+  ("The GET method is not supported for route /. Supported methods: HEAD.")
+  while every deeper URL — `/login`, `/framework`, even `/w-academy/index.php`
+  — still returns 200.
+
+  It is the route cache itself, not a stale one: clearing it gives 200, and a
+  freshly built cache reproduces the 405 immediately. With routes cached,
+  `CompiledRouteCollection::match()` puts the request through
+  `requestWithoutTrailingSlash()`, which rewrites `REQUEST_URI` from
+  `/w-academy/` to `/w-academy`. That collides with the subdirectory base
+  path, the compiled matcher fails to match, and Laravel's fallback then
+  reports only the *other* verb it can find for `/` — hence the misleading
+  `Allow: HEAD` on what is really a routing miss. Confirmed on Laravel 11.55.0.
+
+  `config:cache` and `view:cache` are unaffected — keep those. No other app on
+  the demo box route-caches, which is why w-academy was the only one hit.
 
 `storage:link` is not needed — photos and signatures stay on the private disk
 behind the signed `students.photo` route, and nothing is served from the
 `public` disk.
 
-Verify after every deploy: `/login` is 200 and carries `dir="rtl"`,
-`/dashboard` 302s to `/login`, and the `app-*.css` hash in the served HTML
-matches what vite just printed — that last one is what catches a stale cache.
+Verify after every deploy: the bare root `/w-academy/` is 200 (**not** 405 —
+see the route-cache note above; the trailing slash matters, so test that exact
+URL), `/login` is 200 and carries `dir="rtl"`, `/dashboard` 302s to `/login`,
+and the `app-*.css` hash in the served HTML matches what vite just printed —
+that last one is what catches a stale cache.
 
 ## Current state
 
