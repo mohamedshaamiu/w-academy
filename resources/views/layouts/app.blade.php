@@ -27,11 +27,24 @@
             ['route' => 'admin.squads.index', 'label' => __('nav.admin.squads')],
             ['route' => 'admin.sessions.index', 'label' => __('nav.admin.sessions')],
             ['route' => 'admin.agreement-templates.index', 'label' => __('nav.admin.agreement_templates')],
+            ['route' => 'admin.agreements.index', 'label' => __('nav.admin.agreements')],
             ['route' => 'admin.framework.pillars.index', 'label' => __('nav.admin.framework')],
             ['route' => 'admin.reports.attendance', 'label' => __('nav.admin.reports')],
             ['route' => 'admin.audit.index', 'label' => __('nav.admin.audit')],
         ],
         default => [],
+    };
+
+    // Admin carries eleven destinations — more than a top bar holds without
+    // scrolling, so from `lg` up it moves to a sidebar. The three narrower
+    // portals keep the top nav. Below `lg` every portal uses the strip.
+    $sidebar = $portal === 'admin';
+
+    // 'admin.students.index' -> matches anything under 'admin.students*'.
+    $isActive = function (string $route): bool {
+        [$group, $section] = array_pad(explode('.', $route), 2, '');
+
+        return request()->routeIs($group.'.'.$section.'*');
     };
 @endphp
 <!DOCTYPE html>
@@ -47,64 +60,102 @@
     </head>
     {{-- SPEC.md §3.4: the Thaana face applies only in the dv locale. --}}
     <body class="{{ app()->getLocale() === 'dv' ? 'font-thaana' : 'font-sans' }} antialiased bg-navy-50 text-navy-900">
-        <div class="min-h-screen">
-            <header class="bg-navy text-white">
-                <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
-                    <a href="{{ route('dashboard.redirect') }}" class="flex shrink-0 items-center gap-2 font-bold">
+        <div class="min-h-screen {{ $sidebar ? 'lg:flex' : '' }}">
+            @if ($sidebar)
+                {{-- Sits on the start edge, so it mirrors to the right under RTL. --}}
+                <aside class="hidden bg-navy text-white lg:flex lg:w-64 lg:shrink-0 lg:flex-col">
+                    <a href="{{ route('dashboard.redirect') }}" class="flex items-center gap-2 px-5 py-4 font-bold">
                         <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gold text-navy-900">W</span>
-                        <span class="hidden sm:inline">{{ __('common.app_name') }}</span>
+                        <span>{{ __('common.app_name') }}</span>
                     </a>
 
-                    <nav class="hidden flex-1 items-center gap-5 overflow-x-auto text-sm font-medium md:flex">
+                    <nav class="flex flex-1 flex-col gap-0.5 px-3 pb-6 text-sm font-medium">
                         @foreach ($navLinks as $link)
                             <a
                                 href="{{ route($link['route']) }}"
-                                class="whitespace-nowrap border-b-2 py-1 {{ request()->routeIs(explode('.', $link['route'])[0].'.'.explode('.', $link['route'])[1].'*') ? 'border-gold text-gold' : 'border-transparent hover:text-gold' }}"
+                                @class([
+                                    'rounded-md border-s-4 px-3 py-2 text-start',
+                                    'border-gold bg-white/10 text-gold' => $isActive($link['route']),
+                                    'border-transparent hover:bg-white/5 hover:text-gold' => ! $isActive($link['route']),
+                                ])
+                                @if ($isActive($link['route'])) aria-current="page" @endif
                             >
                                 {{ $link['label'] }}
                             </a>
                         @endforeach
                     </nav>
+                </aside>
+            @endif
 
-                    <div class="flex items-center gap-3">
-                        <x-lang-switcher />
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="rounded-md border border-white/30 px-3 py-1.5 text-sm hover:bg-white/10">
-                                {{ __('nav.logout') }}
-                            </button>
-                        </form>
+            <div class="flex min-w-0 flex-1 flex-col">
+                <header class="bg-navy text-white">
+                    <div class="mx-auto flex w-full items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8 {{ $sidebar ? '' : 'max-w-7xl' }}">
+                        {{-- With a sidebar the wordmark lives there instead, from lg up. --}}
+                        <a href="{{ route('dashboard.redirect') }}" class="flex shrink-0 items-center gap-2 font-bold {{ $sidebar ? 'lg:hidden' : '' }}">
+                            <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gold text-navy-900">W</span>
+                            <span class="hidden sm:inline">{{ __('common.app_name') }}</span>
+                        </a>
+
+                        @unless ($sidebar)
+                            <nav class="hidden flex-1 items-center gap-5 overflow-x-auto text-sm font-medium md:flex">
+                                @foreach ($navLinks as $link)
+                                    <a
+                                        href="{{ route($link['route']) }}"
+                                        class="whitespace-nowrap border-b-2 py-1 {{ $isActive($link['route']) ? 'border-gold text-gold' : 'border-transparent hover:text-gold' }}"
+                                        @if ($isActive($link['route'])) aria-current="page" @endif
+                                    >
+                                        {{ $link['label'] }}
+                                    </a>
+                                @endforeach
+                            </nav>
+                        @endunless
+
+                        <div class="flex items-center gap-3 {{ $sidebar ? 'ms-auto' : '' }}">
+                            <x-lang-switcher />
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="rounded-md border border-white/30 px-3 py-1.5 text-sm hover:bg-white/10">
+                                    {{ __('nav.logout') }}
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                </div>
 
-                <nav class="flex items-center gap-4 overflow-x-auto border-t border-white/10 px-4 py-2 text-sm font-medium md:hidden">
-                    @foreach ($navLinks as $link)
-                        <a href="{{ route($link['route']) }}" class="whitespace-nowrap hover:text-gold">{{ $link['label'] }}</a>
-                    @endforeach
-                </nav>
-            </header>
+                    <nav class="flex items-center gap-4 overflow-x-auto border-t border-white/10 px-4 py-2 text-sm font-medium {{ $sidebar ? 'lg:hidden' : 'md:hidden' }}">
+                        @foreach ($navLinks as $link)
+                            <a
+                                href="{{ route($link['route']) }}"
+                                class="whitespace-nowrap {{ $isActive($link['route']) ? 'text-gold' : 'hover:text-gold' }}"
+                                @if ($isActive($link['route'])) aria-current="page" @endif
+                            >
+                                {{ $link['label'] }}
+                            </a>
+                        @endforeach
+                    </nav>
+                </header>
 
-            @if (session('status'))
-                <div class="mx-auto mt-4 max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div class="rounded-md bg-green-50 px-4 py-3 text-sm text-green-800">{{ session('status') }}</div>
-                </div>
-            @endif
+                @if (session('status'))
+                    <div class="mx-auto mt-4 w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <div class="rounded-md bg-green-50 px-4 py-3 text-sm text-green-800">{{ session('status') }}</div>
+                    </div>
+                @endif
 
-            @if (session('notice'))
-                <div class="mx-auto mt-4 max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div class="rounded-md bg-gold-50 px-4 py-3 text-sm text-navy-900">{{ session('notice') }}</div>
-                </div>
-            @endif
+                @if (session('notice'))
+                    <div class="mx-auto mt-4 w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <div class="rounded-md bg-gold-50 px-4 py-3 text-sm text-navy-900">{{ session('notice') }}</div>
+                    </div>
+                @endif
 
-            @isset($header)
-                <div class="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8">
-                    <h1 class="text-xl font-bold text-navy">{{ $header }}</h1>
-                </div>
-            @endisset
+                @isset($header)
+                    <div class="mx-auto w-full max-w-7xl px-4 pt-6 sm:px-6 lg:px-8">
+                        <h1 class="text-xl font-bold text-navy">{{ $header }}</h1>
+                    </div>
+                @endisset
 
-            <main class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                {{ $slot }}
-            </main>
+                <main class="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                    {{ $slot }}
+                </main>
+            </div>
         </div>
     </body>
 </html>
