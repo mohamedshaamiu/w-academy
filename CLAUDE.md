@@ -57,6 +57,15 @@ If Dhivehi copy hasn't been supplied, seed the literal `[DV CONTENT PENDING]`
 (and `[EN CONTENT PENDING]`). **Do not invent or machine-translate Dhivehi** —
 SPEC.md §3.6. Those placeholders are correct, not defects.
 
+One authorised exception: the **public marketing copy** (hero, vision, mission,
+values, about, the pillar descriptions in `FrameworkPillarSeeder`) was written
+for the demo at the customer's instruction, in both languages. Every such
+string is marked `DEMO COPY — CLIENT TO CONFIRM` in the line above it and the
+deviation is recorded as BACKLOG-NEW.md NEW-5. Do **not** revert those to
+pending markers, and do **not** extend the exception to any other surface —
+agreement bodies, strike-ladder policy text and the academy's address and
+phone number stay pending until the customer supplies them.
+
 **2. Layout mirrors.** Use logical Tailwind utilities (`ms-`, `me-`, `ps-`,
 `pe-`, `text-start`, `text-end`), never `ml-`/`mr-`/`pl-`/`pr-`/`text-left`/
 `text-right`. `dir` is locale-driven in every layout.
@@ -153,6 +162,18 @@ Three things not to do:
 - **Do not re-seed.** The demo already holds its seeded data. Reach for
   `db:seed` only when the seeders themselves have actually changed, and then
   only after checking the seeder is idempotent.
+
+  `FrameworkPillarSeeder` is the one that has changed since the demo was first
+  seeded — it now carries real pillar names and demo descriptions instead of
+  `[CONTENT PENDING]`, and the public site is built around them. It is
+  idempotent on `code`, so it is safe to re-run on its own:
+
+  ```bash
+  php artisan db:seed --class=FrameworkPillarSeeder --force
+  ```
+
+  Nothing else needs re-seeding. Never run a bare `db:seed` here — that would
+  drag in `DemoDataSeeder` and the rest.
 - **Do not `git clean -fd`.** The root `.htaccess` (`RewriteRule ^$ public/`)
   is untracked and survives branch switches; cleaning kills the
   bare-directory redirect.
@@ -182,25 +203,51 @@ behind the signed `students.photo` route, and nothing is served from the
 
 Verify after every deploy: the bare root `/w-academy/` is 200 (**not** 405 —
 see the route-cache note above; the trailing slash matters, so test that exact
-URL), `/login` is 200 and carries `dir="rtl"`, `/dashboard` 302s to `/login`,
-and the `app-*.css` hash in the served HTML matches what vite just printed —
-that last one is what catches a stale cache.
+URL), `/about`, `/framework` and `/contact` are 200, `/login` is 200 and
+carries `dir="rtl"`, `/dashboard` 302s to `/login`, and the `app-*.css` hash in
+the served HTML matches what vite just printed — that last one is what catches
+a stale cache.
+
+The public site is the demo's first impression, so also check it renders the
+seeded pillar names rather than `[CONTENT PENDING]`:
+
+```bash
+curl -s https://demos.devcitymv.com/w-academy/ | grep -c 'CONTENT PENDING'
+```
+
+Expect **4** — the academy address and phone, each rendered twice (contact
+block and footer). More than that means `FrameworkPillarSeeder` has not been
+re-run.
 
 ## Current state
 
 All P0 and P1 items from the remediation are closed. Suite is green
-(87 tests / 615 assertions), Pint clean.
+(91 tests / 1080 assertions, plus the one pre-existing incomplete for
+BACKLOG-NEW.md NEW-1), Pint clean.
+
+The public site was rebuilt to be informative: a design-led hero slider,
+academy intro, vision & mission, values, the four pillars, "how to join", an
+enriched contact block, a richer footer, and a new `/about` page. Sections live
+in `resources/views/public/partials/`; see README.md § "The public site" and
+`PublicPagesTest`. `/about` is outside SPEC.md §7's route table — recorded as
+BACKLOG-NEW.md NEW-6.
 
 `remediation/phase-1` is pushed and is what the demo runs. **`main` is still
 the original pre-remediation build** — the two have diverged and no PR has
 been opened. Merge before treating `main` as current.
 
-Outstanding, and both need the customer rather than code:
+Outstanding, and all of these need the customer rather than code:
 
 - **Dhivehi copy** for the "no agreement published" screen —
   `lang/dv/agreement.php` `unavailable.*` is `[DV CONTENT PENDING]`.
 - **MV Faseyha licence text** — the font is bundled and working; the licence
   itself isn't evidenced in writing. See `FONT-LICENCE.md`.
+- **Academy address and phone** — `public.contact.address_value` /
+  `phone_value` are the only `[CONTENT PENDING]` left on the public site. They
+  render twice each (contact block and footer).
+- **Sign-off on the demo public copy** — everything marked `DEMO COPY —
+  CLIENT TO CONFIRM`; see BACKLOG-NEW.md NEW-5 and
+  `grep -rn "DEMO COPY" lang/ database/seeders/`.
 
 `BACKLOG.md` holds the remaining optional items and `BACKLOG-NEW.md` the ones
 found during remediation. Known and deliberately deferred: N+1 on the guardian

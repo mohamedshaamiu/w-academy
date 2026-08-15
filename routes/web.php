@@ -40,6 +40,7 @@ use Illuminate\Support\Facades\Route;
 // --- Public -----------------------------------------------------------
 
 Route::get('/', [PublicController::class, 'home'])->name('home');
+Route::get('/about', [PublicController::class, 'about'])->name('about');
 Route::get('/framework', [PublicController::class, 'framework'])->name('framework');
 Route::get('/contact', [PublicController::class, 'contact'])->name('contact');
 Route::get('/locale/{locale}', [LocaleController::class, 'switch'])->name('locale.switch');

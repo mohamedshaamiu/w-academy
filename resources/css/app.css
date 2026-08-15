@@ -24,3 +24,39 @@
 :root {
     --font-thaana: 'MV Faseyha', 'Faruma', sans-serif;
 }
+
+/*
+ | Directional affordances — SPEC.md §3.4
+ |
+ | "Icons, chevrons, progress bars and any directional affordance must mirror
+ | under RTL." Any glyph that points along the reading axis carries this class
+ | and is flipped by the document direction, so a single SVG serves both.
+ */
+[dir='rtl'] .mirror-inline {
+    transform: scaleX(-1);
+}
+
+/*
+ | The public hero rotates on a timer. Readers who have asked their OS for
+ | reduced motion get a static first slide instead — the Alpine component
+ | checks the same query before it starts its interval.
+ */
+/*
+ | Hero pagination dots. Declared as components rather than bound utility
+ | classes so the active state reliably overrides the base one — two competing
+ | `bg-*` utilities on the same element resolve by stylesheet order, which is
+ | not something a template should depend on.
+ */
+@layer components {
+    .hero-dot {
+        @apply h-1.5 w-3 rounded-full bg-white/30 transition-all duration-300;
+    }
+
+    .hero-dot:not(.hero-dot--active):hover {
+        @apply bg-white/60;
+    }
+
+    .hero-dot--active {
+        @apply w-8 bg-gold;
+    }
+}

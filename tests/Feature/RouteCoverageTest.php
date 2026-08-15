@@ -38,6 +38,10 @@ class RouteCoverageTest extends TestCase
         'framework',
         'contact',
         'locale.switch',
+        // Static academy information. Outside §7's table, but public by the
+        // same reasoning as `contact`: read-only content, no registration
+        // affordance (§10).
+        'about',
         // SPEC.md §7 "Auth" — the login screen must be reachable by a guest
         'login',
         // SPEC.md §7 API — the token endpoint is necessarily unauthenticated

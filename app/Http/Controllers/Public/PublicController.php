@@ -16,6 +16,18 @@ class PublicController extends Controller
         ]);
     }
 
+    /**
+     * SPEC.md §7's public table lists home, framework and contact. This page is
+     * an addition on top of that set: static academy information only, still
+     * carrying no registration or sign-up affordance (§10).
+     */
+    public function about(): View
+    {
+        return view('public.about', [
+            'pillars' => FrameworkPillar::active()->get(),
+        ]);
+    }
+
     public function framework(): View
     {
         return view('public.framework', [

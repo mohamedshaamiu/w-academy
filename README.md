@@ -100,6 +100,37 @@ once" pattern from their respective admin index pages.
   are required on the admin form for that content; there's no single-language
   content column anywhere.
 
+## The public site
+
+Four public pages, all guest-reachable and all bilingual:
+
+| URL | View | Contents |
+|---|---|---|
+| `/` | `public/home.blade.php` | Rotating hero, academy intro, the four pillars, vision & mission, how to join, contact block |
+| `/about` | `public/about.blade.php` | Academy story, vision & mission, values, framework summary, the three portal views |
+| `/framework` | `public/framework.blade.php` | The four pillars in full, the strike ladder table |
+| `/contact` | `public/contact.blade.php` | Address, phone, office hours, enrolment notice |
+
+None of them carries a registration, sign-up or forgot-password affordance —
+enrolment is arranged at the academy office (SPEC.md §9, §10), and
+`PublicPagesTest::test_public_pages_offer_no_registration_or_password_reset_link`
+asserts that against the rendered HTML.
+
+Shared sections live in `resources/views/public/partials/` and are composed by
+the page templates. The hero is design-led — no photography — using the crest
+palette and a pitch-line motif; its slides are defined entirely in
+`lang/{dv,en}/public.php` under `hero.slides`, so adding or removing a slide is
+a translation change, not a template change. It cross-fades on a 7-second
+timer, pauses on hover and focus, and stays on the first slide for readers who
+have asked their OS for reduced motion.
+
+> **Copy status.** Much of the public copy was authored for the demo rather
+> than supplied by W-Academy, which is a recorded deviation from SPEC.md §3.6.
+> Every such string is marked `DEMO COPY — CLIENT TO CONFIRM` in the file above
+> it. List them with `grep -rn "DEMO COPY" lang/ database/seeders/` and see
+> BACKLOG-NEW.md NEW-5 before go-live. Genuine unknowns (the academy address
+> and phone number) are still `[DV/EN CONTENT PENDING]`.
+
 ## Changing the strike ladder
 
 The discipline strike ladder is entirely table-driven

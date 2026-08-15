@@ -111,3 +111,84 @@ the user-facing label is out of step.
 **Files affected:** `lang/{en,dv}/report.php`, `resources/views/admin/reports/attendance.blade.php:39`, `app/Http/Controllers/Admin/ReportController.php:52`.
 **Proving test:** `AttendanceStatisticsTest::test_report_column_heading_matches_the_configured_policy`.
 **Depends on:** Dhivehi copy for "Attended".
+
+---
+
+## NEW-5 — The public site ships with authored ("demo") copy, including Dhivehi
+
+- **Severity:** **P1** (content governance — blocks go-live, not acceptance of
+  the mechanism).
+- **Found during:** the public-site build (slider, vision/mission, about page).
+- **SPEC ref:** §3.6 (*"Do NOT fabricate, machine-translate, or invent Dhivehi
+  or English content"*), §12 (*"No placeholder or lorem ipsum content"*).
+
+**What it is.** The public pages were rebuilt to be informative: a rotating
+hero, an academy intro, vision and mission, values, the four pillars, a
+"how to join" sequence, an enriched contact block and a new `/about` page.
+None of that copy was supplied by W-Academy. It was **authored** — in **both**
+English and Dhivehi — on the customer's instruction, so the demo reads as a
+finished site rather than a page of `[CONTENT PENDING]` markers.
+
+This is a deliberate, recorded deviation from §3.6, not an oversight.
+
+**Where it is.** Every authored string carries the marker
+`DEMO COPY — CLIENT TO CONFIRM (SPEC.md §3.6)` immediately above it:
+
+```
+lang/en/public.php        hero, intro, vision, mission, values, pillars,
+lang/dv/public.php        how, cta, about.*, contact.lead, footer.*
+lang/en/framework.php     page.lead, page.how_to_read_*
+lang/dv/framework.php     page.lead, page.how_to_read_*
+database/seeders/FrameworkPillarSeeder.php   description_dv / description_en
+```
+
+Find them all with:
+
+```bash
+grep -rn "DEMO COPY" lang/ database/seeders/
+```
+
+**What is NOT authored.** The pillar *names* (home, school, religion, sport)
+are stated as fact in SPEC.md §1. `public.contact.address_value` and
+`phone_value` remain `[DV/EN CONTENT PENDING]` — those are academy facts
+nobody can invent. `StrikeLevelSeeder` was left entirely untouched: the strike
+ladder's type/action/parent-role copy is genuine academy policy and §14 still
+lists levels 4 and 5 as undefined.
+
+**Recommended handling.** Walk the marked keys with the customer and either
+confirm the wording or replace it. To return any of them to the strict §3.6
+position, substitute `[DV CONTENT PENDING]` / `[EN CONTENT PENDING]` — the
+templates already render the "not available in this language" hint through
+`HasTranslatedAttributes::isTranslationFallback()` and need no change.
+`FrameworkPillarSeeder` is idempotent on `code`, so re-running it applies
+whatever the file says.
+
+**Files affected:** `lang/{en,dv}/public.php`, `lang/{en,dv}/framework.php`,
+`database/seeders/FrameworkPillarSeeder.php`.
+**Proving test:** none — this is a content decision, not a defect. Coverage of
+the *mechanism* is `PublicPagesTest`.
+**Depends on:** the customer.
+
+---
+
+## NEW-6 — `/about` is a public route outside SPEC.md §7's table
+
+- **Severity:** **P3** (route-table conformance).
+- **Found during:** the public-site build.
+- **SPEC ref:** §7 (the public route table), §10 (out of scope).
+
+`GET /about` → `Public\PublicController@about` was added so the academy story,
+vision, mission, values and portal overview have somewhere to live that is not
+the home page. §7 lists only `/`, `/locale/{locale}`, `/framework` and
+`/contact` as public.
+
+It is static information only. It contains no registration or sign-up
+affordance, adds no migration, model or write path, and touches nothing in
+§10's do-not-build list — the same shape as `/contact`, which §7 does allow.
+`RouteCoverageTest::PUBLIC_ROUTE_NAMES` allowlists it with that reasoning
+inline, and `PublicPagesTest::test_public_pages_offer_no_registration_or_password_reset_link`
+asserts the no-sign-up property against the rendered HTML.
+
+**Recommended handling.** Fold `/about` into SPEC.md §7's public table at the
+next spec revision, or drop the page and move its sections onto `/`.
+**Files affected:** `routes/web.php`, `app/Http/Controllers/Public/PublicController.php`, `tests/Feature/RouteCoverageTest.php`.
