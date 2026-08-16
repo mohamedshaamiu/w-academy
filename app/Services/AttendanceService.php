@@ -39,11 +39,15 @@ class AttendanceService
 
         DB::transaction(function () use ($session, $entries, $markedBy, $rosterIds) {
             foreach ($entries as $entry) {
-                if (! in_array($entry['student_id'], $rosterIds, true)) {
+                // A browser posts every field as a string, so cast before the
+                // strict comparison against the integer roster ids.
+                $studentId = (int) $entry['student_id'];
+
+                if (! in_array($studentId, $rosterIds, true)) {
                     continue;
                 }
 
-                $student = Student::find($entry['student_id']);
+                $student = Student::find($studentId);
                 $status = $entry['status'];
 
                 if ($student->status === StudentStatus::Suspended) {
@@ -51,7 +55,7 @@ class AttendanceService
                 }
 
                 Attendance::updateOrCreate(
-                    ['training_session_id' => $session->id, 'student_id' => $entry['student_id']],
+                    ['training_session_id' => $session->id, 'student_id' => $studentId],
                     [
                         'status' => $status,
                         'remark' => $entry['remark'] ?? null,
