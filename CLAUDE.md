@@ -57,14 +57,21 @@ If Dhivehi copy hasn't been supplied, seed the literal `[DV CONTENT PENDING]`
 (and `[EN CONTENT PENDING]`). **Do not invent or machine-translate Dhivehi** —
 SPEC.md §3.6. Those placeholders are correct, not defects.
 
-One authorised exception: the **public marketing copy** (hero, vision, mission,
-values, about, the pillar descriptions in `FrameworkPillarSeeder`) was written
-for the demo at the customer's instruction, in both languages. Every such
-string is marked `DEMO COPY — CLIENT TO CONFIRM` in the line above it and the
-deviation is recorded as BACKLOG-NEW.md NEW-5. Do **not** revert those to
-pending markers, and do **not** extend the exception to any other surface —
-agreement bodies, strike-ladder policy text and the academy's address and
-phone number stay pending until the customer supplies them.
+Three kinds of content now live side by side. Know which you are touching
+before you edit it:
+
+| Kind | Where | Rule |
+|---|---|---|
+| **Customer's own words** | Agreement title/body + discipline clause, all three strike levels, the four pillar *descriptions* — all `_dv` | Transcribed from their document. Do not reword, "improve" or translate. Fix only against the source PDF. |
+| **DEMO COPY** | Public marketing copy: hero, intro, vision, mission, values, about, how-to-join, footer, the coaches section, and the pillar descriptions' `_en` side | Authored for the demo at the customer's instruction. Marked `DEMO COPY — CLIENT TO CONFIRM` on the line above. Recorded as BACKLOG-NEW.md NEW-5. Do **not** revert to pending markers. |
+| **Genuinely pending** | Every `_en` counterpart of the customer's Dhivehi, the photo-consent clause (both languages), `agreement.unavailable.*` (dv), academy address and phone | Stays `[DV/EN CONTENT PENDING]` until the customer supplies it. |
+
+The demo-copy exception does **not** extend to any new surface. In particular
+the agreement and strike ladder now hold real Dhivehi, so the temptation to
+"complete" them by translating is stronger, not weaker — don't. An English
+column reading `[EN CONTENT PENDING]` next to real Dhivehi is the correct
+state, and `HasTranslatedAttributes::isTranslationFallback()` already renders
+the "not available in this language" hint for it.
 
 **2. Layout mirrors.** Use logical Tailwind utilities (`ms-`, `me-`, `ps-`,
 `pe-`, `text-start`, `text-end`), never `ml-`/`mr-`/`pl-`/`pr-`/`text-left`/
@@ -93,11 +100,94 @@ disk and served only through the signed, policy-checked `students.photo` route
 construction site. Never suppress a media failure with `onerror`; the
 `<x-student-photo>` component renders a visible placeholder instead.
 
+**Coach photos are the deliberate counter-example, not a hole in this rule.**
+They sit on the same private disk but are served by `coaches.photo`, which
+carries **only** the `signed` middleware — no auth, no policy. That is
+correct: the homepage coaches section is public, and a coach is academy staff
+who consented to being on the marketing site, not a minor. §8.6 governs child
+data and does not reach them. The signature exists to stop URL enumeration,
+nothing more. Build the URLs with `Coach::photoUrl()` (same single-construction
+-site discipline), and the same no-`onerror` rule applies — a coach without a
+photo gets a crest-palette initial. Proven by `CoachPhotoTest`; the route is
+allowlisted with this reasoning in `RouteCoverageTest::PUBLIC_ROUTE_NAMES`.
+Before you "fix" it by adding auth, read BACKLOG-NEW.md NEW-9 — that would
+break the public homepage.
+
 **5. Business rules live in services.** `app/Services/` is the authority; no
 business logic in Blade, no raw SQL. `AttendanceStatisticsService` is the
 **sole** place any attendance count or percentage is computed — enforced by a
 grep-based test. `late`/`excused` treatment is read from
 `config('academy.attendance')`, never hardcoded.
+
+## Customer documents
+
+`customer documents/` (tracked, at the repo root) holds what W-Academy
+actually supplied, in August 2026. Treat it as the source of truth for
+content, the way SPEC.md is for behaviour.
+
+| File | What it is | Status |
+|---|---|---|
+| `logo.jpeg` | The academy crest — black/gold, "W-ACADEMY EST. 2026" | Processed into site assets, see § Branding |
+| `W CDMY.pdf` | Code of conduct, the 4 pillars, the 5 golden rules, the 3-strike ladder, and the parental agreement form. **Dhivehi only** | Transcribed and seeded |
+| `U6 Physical Check-Up Chart & Assessment Sheet.pdf` | Under-6 movement/health assessment form (English) | **Not built** — no SPEC coverage, BACKLOG-NEW.md NEW-8 |
+| `TRANSCRIPTION-DV.md` | The transcription of `W CDMY.pdf`, written by this project | The thing to read/edit; not the PDF |
+
+**The PDF cannot be copy-pasted.** It is a Word export whose text layer is
+broken: every Thaana run is an embedded image, and the ToUnicode map collapses
+almost every glyph to `ޑ`. `pdftotext`, PyMuPDF `get_text()` and the embedded
+font's cmap all return garbage — verified, don't spend time re-discovering it.
+Tesseract's `div` model is no better on this render.
+
+What did work, if another Dhivehi document ever arrives:
+
+1. Render pages at high zoom with PyMuPDF (`fitz.Matrix(6,6)` in strips, or
+   10–18× for individual words) and read them.
+2. Recover the per-word **character counts** from the broken text layer — the
+   run lengths survive even though the letters don't. That turns transcription
+   into a checkable exercise rather than a guess.
+3. Verify by re-rendering your transcription in MV Boli
+   (`C:\Windows\Fonts\mvboli.ttf`) directly beneath the original crop and
+   comparing. Pillow has no libraqm here, so reverse the combining-mark
+   clusters manually before drawing — that is enough to compare shapes.
+
+`TRANSCRIPTION-DV.md` records the result and marks with `؟` the handful of
+words that survived every check but still deserve a native reader. **Those
+flags are honest uncertainty, not defects — do not silently resolve them.**
+
+Where it landed:
+
+- `AgreementTemplateSeeder` — title, full body, discipline-acknowledgement
+  clause (`_dv`).
+- `StrikeLevelSeeder` — all three levels' label/type/action/parent-role
+  (`_dv`), with the escalation flags matched to the document: 3–5 min time-out
+  at strike 1, parent meeting/call at strike 2, suspension at strike 3, parent
+  alerted at every level.
+- `FrameworkPillarSeeder` — the four pillar descriptions (`_dv`).
+
+All three are idempotent (`version`, `level`, `code`) and safe to re-run.
+
+## Branding
+
+The crest is the customer's `logo.jpeg`, centre-cropped and circle-masked into:
+
+```
+public/images/crest.png        320px, used in every layout
+public/favicon.ico             16/32/48px multi-size
+public/apple-touch-icon.png    180px
+```
+
+Regenerate with Pillow from `customer documents/logo.jpeg` if the customer
+sends a new crest; don't hand-edit the derived files. `resources/views/
+partials/favicons.blade.php` is the single `<link>` block, included by all
+three layouts (`public`, `app`, `guest`).
+
+The crest replaced a CSS-only "W" lettermark in the public header and footer,
+the portal top bar and sidebar, and the login screen. `resources/views/
+components/application-logo.blade.php` is still the stock Laravel SVG and is
+referenced nowhere — dead code, safe to delete or repoint.
+
+Palette stays navy `#0B1F3A` / gold `#C9A227` (SPEC.md §9), which is what the
+crest is built from.
 
 ## Testing
 
@@ -126,6 +216,10 @@ app/Policies/                              exactly the 5 in SPEC.md §11
 app/Services/                              all business rules
 config/academy.php                         academy policy knobs
 lang/{dv,en}/                              identical key sets
+customer documents/                        what the customer supplied + TRANSCRIPTION-DV.md
+public/images/crest.png                    academy crest, derived from logo.jpeg
+resources/views/partials/favicons.blade.php  single favicon <link> block
+resources/views/public/partials/           the public site's composable sections
 ```
 
 ## Demo deployment
@@ -163,17 +257,23 @@ Three things not to do:
   `db:seed` only when the seeders themselves have actually changed, and then
   only after checking the seeder is idempotent.
 
-  `FrameworkPillarSeeder` is the one that has changed since the demo was first
-  seeded — it now carries real pillar names and demo descriptions instead of
-  `[CONTENT PENDING]`, and the public site is built around them. It is
-  idempotent on `code`, so it is safe to re-run on its own:
+  Three content seeders have changed since the demo was first seeded, all of
+  them idempotent (`code`, `level`, `version`) and safe to re-run **by name**:
 
   ```bash
   php artisan db:seed --class=FrameworkPillarSeeder --force
+  php artisan db:seed --class=StrikeLevelSeeder --force
+  php artisan db:seed --class=AgreementTemplateSeeder --force
   ```
 
   Nothing else needs re-seeding. Never run a bare `db:seed` here — that would
   drag in `DemoDataSeeder` and the rest.
+
+  Note `AgreementTemplateSeeder` writes version 1 in place. That is fine while
+  the demo's signatures are throwaway, but on a real deployment **changing a
+  published agreement's body is not a seeder's job** — signatures are immutable
+  and bound to the version they signed (rule 3). Publish a new version through
+  the admin UI instead.
 - **Do not `git clean -fd`.** The root `.htaccess` (`RewriteRule ^$ public/`)
   is untracked and survives branch switches; cleaning kills the
   bare-directory redirect.
@@ -219,6 +319,16 @@ Expect **4** — the academy address and phone, each rendered twice (contact
 block and footer). More than that means `FrameworkPillarSeeder` has not been
 re-run.
 
+Since the customer content landed, also confirm on the deployed site:
+
+- the homepage carries `images/crest.png` and `/favicon.ico` is 200;
+- the homepage coaches section names the seeded coaches;
+- `/framework` renders the customer's Dhivehi strike ladder — grep the live
+  HTML for `ސަސްޕެންޝަން` (suspension) and `ޓްރެއިނިންގ` (from the sport
+  pillar). Their absence means the content seeders were skipped.
+
+Last deployed 18 Aug 2026 (`f4103d0`) and verified against all of the above.
+
 ## Current state
 
 All P0 and P1 items from the remediation are closed. Suite is green
@@ -232,21 +342,34 @@ page. Sections live in `resources/views/public/partials/`; see README.md §
 "The public site" and `PublicPagesTest`. `/about` is outside SPEC.md §7's
 route table — recorded as BACKLOG-NEW.md NEW-6.
 
-**Customer content landed (Aug 2026).** `customer documents/` holds the
-academy crest (now `public/images/crest.png` + favicons, shown in every
-layout), the Dhivehi code-of-conduct/agreement document `W CDMY.pdf`
-(hand-transcribed — see `customer documents/TRANSCRIPTION-DV.md` — and seeded
-into `AgreementTemplateSeeder`, `StrikeLevelSeeder` and the dv side of
-`FrameworkPillarSeeder`), and a U6 assessment sheet that is out of Phase-1
-scope (BACKLOG-NEW.md NEW-7/NEW-8). English translations of the agreement and
-strike ladder were NOT supplied and stay `[EN CONTENT PENDING]` — do not
-machine-translate them. The homepage coach section (customer request) reads
-coach records, with optional photos via the public signed `coaches.photo`
-route — NEW-9, `CoachPhotoTest`.
+**Customer content landed 18 Aug 2026** — see § "Customer documents" above for
+the full picture. In short: the crest is now the site's branding, the Dhivehi
+agreement/strike-ladder/pillar copy is real customer text, the English side of
+all of it is still owed, and the U6 assessment sheet was deliberately not
+built (BACKLOG-NEW.md NEW-7/NEW-8).
 
-`remediation/phase-1` is pushed and is what the demo runs. **`main` is still
-the original pre-remediation build** — the two have diverged and no PR has
-been opened. Merge before treating `main` as current.
+**Coaches on the homepage** (customer request, same day). The section reads
+the coach records admins already maintain — name, specialisation, joined year,
+optional photo. It renders nothing when there are no coaches. Files:
+
+```
+database/migrations/2026_08_18_000010_add_photo_path_to_coaches_table.php
+app/Models/Coach.php                            hasPhoto(), photoUrl()
+app/Http/Controllers/CoachPhotoController.php   signed, no auth — see rule 4
+routes/web.php                                  coaches.photo
+resources/views/public/partials/coach-cards.blade.php
+resources/views/admin/coaches/{create,edit}.blade.php   upload field
+tests/Feature/CoachPhotoTest.php
+```
+
+Uploads go to the private disk under `coaches/` via the admin coach form
+(`enctype="multipart/form-data"` — easy to forget when adding fields there).
+Recorded as BACKLOG-NEW.md NEW-9 because the route sits outside SPEC.md §7's
+table, the same shape of deviation as `/about` (NEW-6).
+
+`remediation/phase-1` is pushed (`f4103d0`) and is what the demo runs.
+**`main` is still the original pre-remediation build** — the two have diverged
+and no PR has been opened. Merge before treating `main` as current.
 
 Outstanding, and all of these need the customer rather than code:
 
@@ -265,6 +388,11 @@ Outstanding, and all of these need the customer rather than code:
 - **Sign-off on the demo public copy** — everything marked `DEMO COPY —
   CLIENT TO CONFIRM`; see BACKLOG-NEW.md NEW-5 and
   `grep -rn "DEMO COPY" lang/ database/seeders/`.
+- **Coach photos and real coach records** — the homepage section works but the
+  demo only holds `DemoDataSeeder`'s two placeholder coaches, none with a
+  photo. Nothing to build; the academy adds them through Admin → Coaches.
+- **A scope decision on the U6 assessment sheet** — deliberately not built
+  (BACKLOG-NEW.md NEW-8). Confirm it is Phase 2 rather than an omission.
 
 `BACKLOG.md` holds the remaining optional items and `BACKLOG-NEW.md` the ones
 found during remediation. Known and deliberately deferred: N+1 on the guardian
