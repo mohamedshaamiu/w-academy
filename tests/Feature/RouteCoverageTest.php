@@ -44,6 +44,11 @@ class RouteCoverageTest extends TestCase
         'about',
         // SPEC.md §7 "Auth" — the login screen must be reachable by a guest
         'login',
+        // Coach photos feed the public homepage coach section, so the route
+        // is guest-reachable by design; the `signed` middleware alone guards
+        // it (403 without a valid signature — proven in CoachPhotoTest).
+        // Not child data, so SPEC.md §8.6 does not apply.
+        'coaches.photo',
         // SPEC.md §7 API — the token endpoint is necessarily unauthenticated
         'api.v1.auth.login',
     ];

@@ -18,6 +18,7 @@ class StoreCoachRequest extends FormRequest
             'phone' => ['required', 'regex:/^[79]\d{6}$/', 'unique:users,phone'],
             'email' => ['nullable', 'email', 'unique:users,email'],
             'specialisation' => ['nullable', 'string', 'max:100'],
+            'photo' => ['nullable', 'image', 'max:4096'],
             'joined_on' => ['required', 'date'],
         ];
     }

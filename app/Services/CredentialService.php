@@ -141,6 +141,7 @@ class CredentialService
                 'user_id' => $user->id,
                 'coach_no' => $this->nextCoachNumber(),
                 'specialisation' => $attributes['specialisation'] ?? null,
+                'photo_path' => $attributes['photo_path'] ?? null,
                 'joined_on' => $attributes['joined_on'] ?? now()->toDateString(),
             ]);
 

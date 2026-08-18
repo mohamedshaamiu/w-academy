@@ -110,6 +110,15 @@ return [
         ],
     ],
 
+    'coaches' => [
+        // DEMO COPY — CLIENT TO CONFIRM (SPEC.md §3.6). Names, photos and
+        // specialisations come from the coach records the academy creates.
+        'heading' => 'Meet the coaches',
+        'body' => 'Every squad trains under an assigned academy coach.',
+        'role_fallback' => 'Academy coach',
+        'since' => 'With the academy since :year',
+    ],
+
     'cta' => [
         // DEMO COPY — CLIENT TO CONFIRM (SPEC.md §3.6)
         'heading' => 'Ready to enrol your child?',

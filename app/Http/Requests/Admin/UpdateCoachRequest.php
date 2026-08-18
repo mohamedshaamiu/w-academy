@@ -21,6 +21,7 @@ class UpdateCoachRequest extends FormRequest
             'phone' => ['required', 'regex:/^[79]\d{6}$/', Rule::unique('users', 'phone')->ignore($userId)],
             'email' => ['nullable', 'email', Rule::unique('users', 'email')->ignore($userId)],
             'specialisation' => ['nullable', 'string', 'max:100'],
+            'photo' => ['nullable', 'image', 'max:4096'],
             'joined_on' => ['required', 'date'],
         ];
     }

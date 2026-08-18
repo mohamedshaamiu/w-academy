@@ -222,15 +222,27 @@ re-run.
 ## Current state
 
 All P0 and P1 items from the remediation are closed. Suite is green
-(91 tests / 1080 assertions, plus the one pre-existing incomplete for
+(100 tests / 1148 assertions, plus the one pre-existing incomplete for
 BACKLOG-NEW.md NEW-1), Pint clean.
 
 The public site was rebuilt to be informative: a design-led hero slider,
-academy intro, vision & mission, values, the four pillars, "how to join", an
-enriched contact block, a richer footer, and a new `/about` page. Sections live
-in `resources/views/public/partials/`; see README.md § "The public site" and
-`PublicPagesTest`. `/about` is outside SPEC.md §7's route table — recorded as
-BACKLOG-NEW.md NEW-6.
+academy intro, vision & mission, values, the four pillars, a coaches section,
+"how to join", an enriched contact block, a richer footer, and a new `/about`
+page. Sections live in `resources/views/public/partials/`; see README.md §
+"The public site" and `PublicPagesTest`. `/about` is outside SPEC.md §7's
+route table — recorded as BACKLOG-NEW.md NEW-6.
+
+**Customer content landed (Aug 2026).** `customer documents/` holds the
+academy crest (now `public/images/crest.png` + favicons, shown in every
+layout), the Dhivehi code-of-conduct/agreement document `W CDMY.pdf`
+(hand-transcribed — see `customer documents/TRANSCRIPTION-DV.md` — and seeded
+into `AgreementTemplateSeeder`, `StrikeLevelSeeder` and the dv side of
+`FrameworkPillarSeeder`), and a U6 assessment sheet that is out of Phase-1
+scope (BACKLOG-NEW.md NEW-7/NEW-8). English translations of the agreement and
+strike ladder were NOT supplied and stay `[EN CONTENT PENDING]` — do not
+machine-translate them. The homepage coach section (customer request) reads
+coach records, with optional photos via the public signed `coaches.photo`
+route — NEW-9, `CoachPhotoTest`.
 
 `remediation/phase-1` is pushed and is what the demo runs. **`main` is still
 the original pre-remediation build** — the two have diverged and no PR has
@@ -238,6 +250,11 @@ been opened. Merge before treating `main` as current.
 
 Outstanding, and all of these need the customer rather than code:
 
+- **English translations** of the agreement body/title, the discipline-clause
+  label and the strike ladder (`*_en` columns), plus the photo-consent clause
+  in both languages — BACKLOG-NEW.md NEW-7.
+- **A Dhivehi proofread** of the `؟`-flagged words in
+  `customer documents/TRANSCRIPTION-DV.md`.
 - **Dhivehi copy** for the "no agreement published" screen —
   `lang/dv/agreement.php` `unavailable.*` is `[DV CONTENT PENDING]`.
 - **MV Faseyha licence text** — the font is bundled and working; the licence

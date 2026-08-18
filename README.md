@@ -106,7 +106,7 @@ Four public pages, all guest-reachable and all bilingual:
 
 | URL | View | Contents |
 |---|---|---|
-| `/` | `public/home.blade.php` | Rotating hero, academy intro, the four pillars, vision & mission, how to join, contact block |
+| `/` | `public/home.blade.php` | Rotating hero, academy intro, the four pillars, vision & mission, the coaches, how to join, contact block |
 | `/about` | `public/about.blade.php` | Academy story, vision & mission, values, framework summary, the three portal views |
 | `/framework` | `public/framework.blade.php` | The four pillars in full, the strike ladder table |
 | `/contact` | `public/contact.blade.php` | Address, phone, office hours, enrolment notice |
@@ -115,6 +115,14 @@ None of them carries a registration, sign-up or forgot-password affordance —
 enrolment is arranged at the academy office (SPEC.md §9, §10), and
 `PublicPagesTest::test_public_pages_offer_no_registration_or_password_reset_link`
 asserts that against the rendered HTML.
+
+The site is branded with the customer's crest (`customer documents/logo.jpeg`,
+processed into `public/images/crest.png`, `public/favicon.ico` and
+`public/apple-touch-icon.png`) in the header, footer, portal chrome and login
+screen. The homepage coaches section reads the coach records the admin
+maintains; a coach photo is optional (uploaded on the admin coach form,
+served through the signed public `coaches.photo` route — BACKLOG-NEW.md
+NEW-9), and a coach without one gets a crest-palette initial instead.
 
 Shared sections live in `resources/views/public/partials/` and are composed by
 the page templates. The hero is design-led — no photography — using the crest

@@ -192,3 +192,71 @@ asserts the no-sign-up property against the rendered HTML.
 **Recommended handling.** Fold `/about` into SPEC.md §7's public table at the
 next spec revision, or drop the page and move its sections onto `/`.
 **Files affected:** `routes/web.php`, `app/Http/Controllers/Public/PublicController.php`, `tests/Feature/RouteCoverageTest.php`.
+
+---
+
+## NEW-7 — Customer content document received; Dhivehi seeded, English still owed
+
+- **Severity:** content decision (not a defect).
+- **Found during:** content integration, 18 Aug 2026.
+- **SPEC ref:** §3.6 (source content), §14 (customer-owed items).
+
+The customer supplied `customer documents/W CDMY.pdf` — the code of conduct,
+the three-strike discipline ladder and the parental agreement form, all in
+Dhivehi — plus the academy crest (`logo.jpeg`). The PDF embeds every Thaana
+run as an image with a corrupted text layer, so the Dhivehi was transcribed by
+hand, cross-checked against the character counts recoverable from the broken
+text layer, and verified by re-rendering in MV Boli against the original.
+`customer documents/TRANSCRIPTION-DV.md` records the transcription and marks
+the handful of words (`؟`) that still deserve a native speaker's proofread.
+
+Seeded from it: `AgreementTemplateSeeder` (real title, body and the
+discipline-acknowledgement clause label), `StrikeLevelSeeder` (all three
+strike levels, with escalation flags matching the document: 3–5 min time-out
+at strike 1, meeting/call at strike 2, suspension at strike 3),
+`FrameworkPillarSeeder` (the four pillar descriptions, dv side).
+
+**Still owed by the customer:**
+1. **English translations** for all of the above — §3.6 forbids
+   machine-translating, so every `*_en` column stays `[EN CONTENT PENDING]`.
+2. **A Dhivehi proofread** of the `؟`-flagged words in TRANSCRIPTION-DV.md.
+3. The **photo-consent clause** text (not present in the document, both
+   languages pending) — note the agreement currently signs with a pending
+   photo-consent label.
+4. The pillar descriptions' **English** side is still the pre-document demo
+   copy (NEW-5) — close in spirit but not a translation of the now-real
+   Dhivehi; confirm or replace.
+
+---
+
+## NEW-8 — U6 Physical Check-Up & Assessment Sheet: out of Phase-1 scope
+
+- **Severity:** scope note.
+- **SPEC ref:** §10 (behaviour check-ins and pillar *ratings* are excluded;
+  assessments appear nowhere in SPEC.md).
+
+The customer also supplied `customer documents/U6 Physical Check-Up Chart &
+Assessment Sheet.pdf` (English): an Under-6 fundamental-movement and health
+assessment form — vitals, motor-skill tests with D/C/A rubric, coach summary,
+parent signature. Building it would need new migrations, models, routes and
+UI with no SPEC coverage, closest in spirit to §10's excluded check-ins and
+report-card uploads. Recorded here as a Phase-2 candidate; nothing built.
+
+---
+
+## NEW-9 — Homepage coach section + public signed coach-photo route
+
+- **Severity:** P3 (route-table conformance, same shape as NEW-6).
+- **Found during:** customer request, 18 Aug 2026 ("at the homepage they need
+  coach photos and details added").
+
+The homepage now renders the academy's coaches (name, specialisation, joined
+year, optional photo) from the coach records the admin maintains. Photos are
+stored on the private disk and served by `GET /coaches/{coach}/photo`
+(`coaches.photo`), which carries only the `signed` middleware: the section is
+public by design, coaches are staff rather than child data, so §8.6's
+auth+policy requirement does not apply — the signature only prevents URL
+enumeration. Admin coach create/edit forms accept the upload. Proving test:
+`CoachPhotoTest`; the route is allowlisted with reasoning in
+`RouteCoverageTest::PUBLIC_ROUTE_NAMES`. Fold into SPEC.md §7 at the next
+revision.

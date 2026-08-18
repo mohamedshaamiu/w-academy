@@ -5,6 +5,8 @@ return [
         'coach_no' => 'Coach number',
         'specialisation' => 'Specialisation',
         'joined_on' => 'Joined on',
+        'photo' => 'Photo',
+        'photo_hint' => 'Shown in the coaches section of the public site (optional).',
     ],
 
     'dashboard' => [

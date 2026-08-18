@@ -17,6 +17,8 @@
 
         <title>{{ $title ?? __('common.app_name') }}</title>
 
+        @include('partials.favicons')
+
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     {{-- SPEC.md §3.4: the Thaana face applies only in the dv locale. --}}
@@ -24,7 +26,7 @@
         <header class="sticky top-0 z-40 bg-navy text-white shadow-sm">
             <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
                 <a href="{{ route('home') }}" class="flex items-center gap-2 text-lg font-bold">
-                    <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-gold text-navy-900">W</span>
+                    <img src="{{ asset('images/crest.png') }}" alt="" class="h-10 w-10 rounded-full ring-1 ring-gold/60">
                     {{ __('common.app_name') }}
                 </a>
 
@@ -72,7 +74,7 @@
             <div class="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-4 py-12 sm:grid-cols-3 sm:px-6 lg:px-8">
                 <div>
                     <p class="flex items-center gap-2 text-base font-bold text-navy">
-                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-navy text-gold">W</span>
+                        <img src="{{ asset('images/crest.png') }}" alt="" class="h-9 w-9 rounded-full">
                         {{ __('common.app_name') }}
                     </p>
                     <p class="mt-3 leading-relaxed">{{ __('public.footer.blurb') }}</p>

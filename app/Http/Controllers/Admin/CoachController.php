@@ -35,7 +35,13 @@ class CoachController extends Controller
 
     public function store(StoreCoachRequest $request): RedirectResponse
     {
-        [$coach] = $this->credentials->createCoach($request->validated());
+        $attributes = $request->safe()->except('photo');
+
+        if ($request->hasFile('photo')) {
+            $attributes['photo_path'] = $request->file('photo')->store('coaches', 'local');
+        }
+
+        [$coach] = $this->credentials->createCoach($attributes);
 
         return redirect()->route('admin.coaches.show', $coach)->with('status', __('admin.coach.created'));
     }
@@ -63,6 +69,9 @@ class CoachController extends Controller
         $coach->update([
             'specialisation' => $validated['specialisation'] ?? null,
             'joined_on' => $validated['joined_on'],
+            ...($request->hasFile('photo')
+                ? ['photo_path' => $request->file('photo')->store('coaches', 'local')]
+                : []),
         ]);
 
         return redirect()->route('admin.coaches.show', $coach)->with('status', __('admin.coach.updated'));

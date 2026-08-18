@@ -22,6 +22,7 @@ use App\Http\Controllers\Coach\AttendanceController;
 use App\Http\Controllers\Coach\CoachDashboardController;
 use App\Http\Controllers\Coach\CoachSessionController;
 use App\Http\Controllers\Coach\CoachSquadController;
+use App\Http\Controllers\CoachPhotoController;
 use App\Http\Controllers\DashboardRedirectController;
 use App\Http\Controllers\Guardian\GuardianAttendanceController;
 use App\Http\Controllers\Guardian\GuardianDashboardController;
@@ -161,3 +162,11 @@ Route::middleware(['auth', 'role:admin', 'password.changed'])
 Route::get('/students/{student}/photo', StudentPhotoController::class)
     ->middleware(['auth', 'password.changed', 'signed'])
     ->name('students.photo');
+
+// --- Public, signed coach photo route ------------------------------------
+
+// Coach photos appear on the public homepage, so no auth — the signature
+// alone stops URL enumeration. Not child data (contrast students.photo).
+Route::get('/coaches/{coach}/photo', CoachPhotoController::class)
+    ->middleware('signed')
+    ->name('coaches.photo');

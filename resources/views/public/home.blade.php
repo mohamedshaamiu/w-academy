@@ -25,6 +25,8 @@
 
     @include('public.partials.vision-mission')
 
+    @include('public.partials.coach-cards')
+
     @include('public.partials.enrolment-steps')
 
     <div class="bg-navy-50">

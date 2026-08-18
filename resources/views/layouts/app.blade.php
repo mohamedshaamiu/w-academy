@@ -56,6 +56,8 @@
 
         <title>{{ $title ?? __('common.app_name') }}</title>
 
+        @include('partials.favicons')
+
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     {{-- SPEC.md §3.4: the Thaana face applies only in the dv locale. --}}
@@ -65,7 +67,7 @@
                 {{-- Sits on the start edge, so it mirrors to the right under RTL. --}}
                 <aside class="hidden bg-navy text-white lg:flex lg:w-64 lg:shrink-0 lg:flex-col">
                     <a href="{{ route('dashboard.redirect') }}" class="flex items-center gap-2 px-5 py-4 font-bold">
-                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gold text-navy-900">W</span>
+                        <img src="{{ asset('images/crest.png') }}" alt="" class="h-8 w-8 rounded-full ring-1 ring-gold/60">
                         <span>{{ __('common.app_name') }}</span>
                     </a>
 
@@ -92,7 +94,7 @@
                     <div class="mx-auto flex w-full items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8 {{ $sidebar ? '' : 'max-w-7xl' }}">
                         {{-- With a sidebar the wordmark lives there instead, from lg up. --}}
                         <a href="{{ route('dashboard.redirect') }}" class="flex shrink-0 items-center gap-2 font-bold {{ $sidebar ? 'lg:hidden' : '' }}">
-                            <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gold text-navy-900">W</span>
+                            <img src="{{ asset('images/crest.png') }}" alt="" class="h-8 w-8 rounded-full ring-1 ring-gold/60">
                             <span class="hidden sm:inline">{{ __('common.app_name') }}</span>
                         </a>
 

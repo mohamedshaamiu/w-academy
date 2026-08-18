@@ -7,13 +7,15 @@
 
         <title>{{ $title ?? __('common.app_name') }}</title>
 
+        @include('partials.favicons')
+
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     {{-- SPEC.md §3.4: the Thaana face applies only in the dv locale. --}}
     <body class="{{ app()->getLocale() === 'dv' ? 'font-thaana' : 'font-sans' }} antialiased bg-navy-50 text-navy-900">
         <div class="flex min-h-screen flex-col items-center justify-center px-4 py-10">
             <div class="mb-6 flex items-center gap-2 text-xl font-bold text-navy">
-                <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gold text-navy-900">W</span>
+                <img src="{{ asset('images/crest.png') }}" alt="" class="h-12 w-12 rounded-full">
                 {{ __('common.app_name') }}
             </div>
 

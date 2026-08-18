@@ -110,6 +110,15 @@ return [
         ],
     ],
 
+    'coaches' => [
+        // DEMO COPY — CLIENT TO CONFIRM (SPEC.md §3.6). Names, photos and
+        // specialisations come from the coach records the academy creates.
+        'heading' => 'ކޯޗުންނާ ބައްދަލުކުރައްވާ',
+        'body' => 'ކޮންމެ ސްކޮޑެއް ތަމްރީނުވަނީ ކަނޑައެޅިފައިވާ އެކަޑަމީ ކޯޗެއްގެ ބެލުމުގެ ދަށުންނެވެ.',
+        'role_fallback' => 'އެކަޑަމީ ކޯޗު',
+        'since' => 'އެކަޑަމީއާ ގުޅުނީ :year ގައި',
+    ],
+
     'cta' => [
         // DEMO COPY — CLIENT TO CONFIRM (SPEC.md §3.6)
         'heading' => 'ދަރިފުޅު ރަޖިސްޓްރީކުރައްވަން ބޭނުންފުޅުތޯ؟',

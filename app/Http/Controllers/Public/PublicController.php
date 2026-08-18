@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
+use App\Models\Coach;
 use App\Models\FrameworkPillar;
 use App\Models\FrameworkStrikeLevel;
 use Illuminate\View\View;
@@ -13,6 +14,7 @@ class PublicController extends Controller
     {
         return view('public.home', [
             'pillars' => FrameworkPillar::active()->get(),
+            'coaches' => Coach::with('user')->orderBy('coach_no')->get(),
         ]);
     }
 
