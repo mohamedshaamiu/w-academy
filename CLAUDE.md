@@ -389,7 +389,7 @@ Since the customer content landed, also confirm on the deployed site:
   HTML for `ސަސްޕެންޝަން` (suspension) and `ޓްރެއިނިންގ` (from the sport
   pillar). Their absence means the content seeders were skipped.
 
-Last deployed 18 Aug 2026 (`f4103d0`) and verified against all of the above.
+Last deployed 19 Aug 2026 (`1901540`) and verified against all of the above.
 
 ## Current state
 
