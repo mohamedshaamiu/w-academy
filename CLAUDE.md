@@ -189,6 +189,63 @@ referenced nowhere — dead code, safe to delete or repoint.
 Palette stays navy `#0B1F3A` / gold `#C9A227` (SPEC.md §9), which is what the
 crest is built from.
 
+## Photography
+
+`client photos/` (repo root) holds the seven photographs the academy supplied
+on 18 Aug 2026 — squad shots on the futsal pitch, training at sunset, and beach
+sessions. Same rule as the crest: the originals are the source, the web assets
+are **derived and regenerated, never hand-edited**.
+
+```
+client photos/{1..7}.png          the originals — GITIGNORED, local only
+public/images/photos/<slug>-{800,1600}.{webp,jpg}   committed
+```
+
+**The originals are deliberately not in the repo** (23 MB of phone PNGs, kept
+out at the customer's request — `.gitignore`). This is the one place the
+project departs from how `customer documents/` works, so a fresh clone can
+*serve* the photography but cannot *regenerate* it. Get the originals back from
+the customer before changing quality, dimensions or the crop.
+
+Regenerate with Pillow: flatten RGBA onto white, LANCZOS to 1600 and 800 wide,
+WebP q80 / JPEG q82 progressive, EXIF dropped. The originals are phone photos
+carrying location data, so stripping it is the point, not a side effect.
+
+`resources/views/components/site-photo.blade.php` is the **single construction
+site** for these URLs — the marketing counterpart of `Student::photoUrl()`. It
+holds the slug → intrinsic-size map, emits `<picture>` with a WebP source and a
+JPEG fallback, and declares width/height so nothing shifts as photos land. Add
+a photo by adding the renditions *and* the map entry; an unknown name throws
+rather than rendering a broken image. No `onerror`, same as rule 4.
+
+**Alt text is empty on every one of them, and that is correct.** Each photo
+sits beside a heading that already carries the meaning, so a description adds
+nothing — and writing one would mean inventing Dhivehi copy the customer has
+not supplied (rule 1, SPEC.md §3.6). A `[DV CONTENT PENDING]` alt attribute
+would be worse than none. The `/about` gallery band is captionless for the same
+reason and is labelled from the existing `public.hero.label` key.
+
+The same constraint shaped the whole change: **no new lang keys were added**,
+so dv/en key sets stayed identical on their own and the deployed
+`CONTENT PENDING` count stays at 4.
+
+`SitePhotoTest` is the safety net — every declared rendition exists at its
+declared size, every name used in a view resolves, and nothing builds an
+`images/photos` path outside the component.
+
+White copy sits over photographs in the hero, the three page heroes, the CTA
+band and the login screen. The navy scrims there are **load-bearing for
+contrast**, not decoration; keep them if you change the imagery.
+
+**These seven are approved for publication** — confirmed 19 Aug 2026. They show
+identifiable minors, so that approval is what the publication rests on; do not
+add an eighth photograph on the assumption it is covered.
+
+Separately, the agreement's photo-consent clause is still `[CONTENT PENDING]`
+in both languages (BACKLOG-NEW.md NEW-7). That gap is about **future** intakes
+being covered by the agreement rather than by a side conversation, and it is
+still owed.
+
 ## Testing
 
 `SPEC.md` §13 names the required tests. A test that only asserts
@@ -322,6 +379,11 @@ re-run.
 Since the customer content landed, also confirm on the deployed site:
 
 - the homepage carries `images/crest.png` and `/favicon.ico` is 200;
+- the photography is served — `curl -sI .../w-academy/images/photos/
+  training-stretch-1600.webp` is 200, and the homepage HTML names all seven
+  slugs (`curl -s ... | grep -o 'images/photos/[a-z-]*' | sort -u | wc -l`
+  expects 7). These are tracked files under `public/`, so `git checkout` is the
+  whole deploy — but a 404 here means the checkout missed them;
 - the homepage coaches section names the seeded coaches;
 - `/framework` renders the customer's Dhivehi strike ladder — grep the live
   HTML for `ސަސްޕެންޝަން` (suspension) and `ޓްރެއިނިންގ` (from the sport
@@ -332,7 +394,7 @@ Last deployed 18 Aug 2026 (`f4103d0`) and verified against all of the above.
 ## Current state
 
 All P0 and P1 items from the remediation are closed. Suite is green
-(100 tests / 1148 assertions, plus the one pre-existing incomplete for
+(104 tests / 1222 assertions, plus the one pre-existing incomplete for
 BACKLOG-NEW.md NEW-1), Pint clean.
 
 The public site was rebuilt to be informative: a design-led hero slider,
@@ -341,6 +403,11 @@ academy intro, vision & mission, values, the four pillars, a coaches section,
 page. Sections live in `resources/views/public/partials/`; see README.md §
 "The public site" and `PublicPagesTest`. `/about` is outside SPEC.md §7's
 route table — recorded as BACKLOG-NEW.md NEW-6.
+
+**The academy's photography landed 18 Aug 2026** and now runs through the
+public site and the login screen — see § "Photography". It replaced the
+design-led, image-free hero. No new lang keys were needed, so nothing about the
+translation state changed; guardian consent for public use is the open item.
 
 **Customer content landed 18 Aug 2026** — see § "Customer documents" above for
 the full picture. In short: the crest is now the site's branding, the Dhivehi

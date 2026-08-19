@@ -1,14 +1,29 @@
 @php
     // The slide set is defined entirely in lang/{dv,en}/public.php, so adding
     // or removing a slide is a translation change, not a template change.
+    $slideKeys = array_keys(__('public.hero.slides'));
     $slides = array_values(__('public.hero.slides'));
+
+    // Photography per slide, keyed by the slide's translation key. A slide
+    // added in lang/ that is not named here falls back to the rotation, so a
+    // translation change still cannot break this template.
+    $rotation = ['training-stretch', 'training-lineup', 'beach-squad'];
+    $slidePhoto = [
+        'pillars' => 'training-stretch',
+        'framework' => 'training-lineup',
+        'families' => 'beach-squad',
+    ];
 @endphp
 
 {{--
-    Design-led hero. The academy has supplied no photography, so the slides are
-    built from the crest palette (navy #0B1F3A / gold #C9A227) and a pitch-line
-    motif rather than imagery. Slides cross-fade in place: every slide stays in
-    the grid cell so the section height is the tallest slide and nothing jumps.
+    Photographic hero, built from the academy's own photos (CLAUDE.md
+    § Photography). Each slide carries its own image; image and copy cross-fade
+    on the same signal, so the pairing never breaks mid-transition. Everything
+    stays in one grid cell, so the section is as tall as its tallest slide and
+    nothing jumps.
+
+    White copy sits over a photograph, so the navy scrim below is load-bearing
+    for contrast rather than decoration — keep it if you change the imagery.
 
     Without JavaScript the first slide renders and the rest sit at opacity 0 —
     the page is still readable. Alpine takes over the opacity once it boots.
@@ -41,21 +56,44 @@
     aria-roledescription="carousel"
     aria-label="{{ __('public.hero.label') }}"
 >
-    {{-- Pitch-line motif: a centre circle and halfway line bleeding off the
-         inline-end edge. Logical inset so it mirrors with the document. --}}
     <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-        <div class="absolute inset-0 bg-gradient-to-b from-navy-500 via-navy-600 to-navy-700"></div>
-        <svg class="absolute -top-24 -end-32 h-[36rem] w-[36rem] text-gold opacity-[0.12]" viewBox="0 0 400 400" fill="none" stroke="currentColor">
+        <div class="absolute inset-0 bg-navy-700"></div>
+
+        {{-- One photo per slide, fading on the same signal as the copy. --}}
+        @foreach ($slides as $index => $slide)
+            <div
+                class="absolute inset-0 transition-opacity duration-700 motion-reduce:transition-none"
+                style="opacity: {{ $index === 0 ? '1' : '0' }};"
+                :style="{ opacity: active === {{ $index }} ? 1 : 0 }"
+            >
+                <x-site-photo
+                    :name="$slidePhoto[$slideKeys[$index]] ?? $rotation[$index % count($rotation)]"
+                    :priority="$index === 0"
+                    sizes="100vw"
+                    class="block h-full w-full"
+                    img-class="h-full w-full object-cover object-center"
+                />
+            </div>
+        @endforeach
+
+        {{-- The scrim. Vertical on purpose: a vertical gradient needs no
+             mirroring, so it behaves identically under rtl and ltr. --}}
+        <div class="absolute inset-0 bg-gradient-to-b from-navy-900/85 via-navy-900/75 to-navy-900/90"></div>
+
+        {{-- Pitch-line motif, kept from the pre-photography hero but dropped to
+             a whisper so it reads as a watermark over the image. Logical inset,
+             so it mirrors with the document. --}}
+        <svg class="absolute -top-24 -end-32 h-[36rem] w-[36rem] text-gold opacity-[0.07]" viewBox="0 0 400 400" fill="none" stroke="currentColor">
             <circle cx="200" cy="200" r="120" stroke-width="1.5" />
             <circle cx="200" cy="200" r="180" stroke-width="1" />
             <circle cx="200" cy="200" r="6" fill="currentColor" stroke="none" />
             <path d="M20 200H380" stroke-width="1" />
-            <path d="M60 60h120v80H60zM220 260h120v80H220z" stroke-width="1" />
         </svg>
+
         <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent"></div>
     </div>
 
-    <div class="mx-auto grid max-w-6xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
+    <div class="mx-auto grid max-w-6xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
         @foreach ($slides as $index => $slide)
             <div
                 class="col-start-1 row-start-1 transition-opacity duration-700 motion-reduce:transition-none"
@@ -67,7 +105,7 @@
             >
                 <p class="text-sm font-semibold uppercase tracking-widest text-gold-300">{{ $slide['eyebrow'] }}</p>
                 <h1 class="mt-4 max-w-2xl text-3xl font-bold leading-tight sm:text-5xl">{{ $slide['title'] }}</h1>
-                <p class="mt-5 max-w-xl text-base leading-relaxed text-navy-100 sm:text-lg">{{ $slide['body'] }}</p>
+                <p class="mt-5 max-w-xl text-base leading-relaxed text-navy-50 sm:text-lg">{{ $slide['body'] }}</p>
             </div>
         @endforeach
 

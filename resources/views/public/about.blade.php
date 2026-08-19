@@ -10,17 +10,11 @@
 
 <x-public-layout :title="__('public.about.title')">
     <section class="relative isolate overflow-hidden bg-navy text-white">
-        <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-            <div class="absolute inset-0 bg-gradient-to-b from-navy-500 to-navy-700"></div>
-            <svg class="absolute -bottom-40 -end-24 h-96 w-96 text-gold opacity-10" viewBox="0 0 400 400" fill="none" stroke="currentColor">
-                <circle cx="200" cy="200" r="150" stroke-width="1.5" />
-                <circle cx="200" cy="200" r="90" stroke-width="1" />
-            </svg>
-        </div>
+        @include('public.partials.page-hero-backdrop', ['photo' => 'academy-group'])
 
         <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
             <h1 class="max-w-3xl text-3xl font-bold sm:text-4xl">{{ __('public.about.title') }}</h1>
-            <p class="mt-4 max-w-2xl text-lg leading-relaxed text-navy-100">{{ __('public.about.lead') }}</p>
+            <p class="mt-4 max-w-2xl text-lg leading-relaxed text-navy-50">{{ __('public.about.lead') }}</p>
         </div>
     </section>
 
@@ -36,6 +30,13 @@
                 <p class="mt-4 leading-relaxed text-navy-500">{{ __('public.about.who_body') }}</p>
             </div>
         </div>
+
+        <x-site-photo
+            name="beach-squad"
+            sizes="(min-width: 640px) 90vw, 100vw"
+            class="mt-12 block overflow-hidden rounded-2xl shadow-md ring-1 ring-navy-100"
+            img-class="aspect-[16/9] w-full object-cover object-center"
+        />
     </section>
 
     @include('public.partials.vision-mission')
@@ -113,6 +114,8 @@
             <p class="mt-3 max-w-3xl leading-relaxed text-navy-500">{{ __('public.about.language_body') }}</p>
         </div>
     </section>
+
+    @include('public.partials.gallery-band')
 
     @include('public.partials.cta-block')
 </x-public-layout>

@@ -125,12 +125,14 @@ served through the signed public `coaches.photo` route — BACKLOG-NEW.md
 NEW-9), and a coach without one gets a crest-palette initial instead.
 
 Shared sections live in `resources/views/public/partials/` and are composed by
-the page templates. The hero is design-led — no photography — using the crest
-palette and a pitch-line motif; its slides are defined entirely in
-`lang/{dv,en}/public.php` under `hero.slides`, so adding or removing a slide is
-a translation change, not a template change. It cross-fades on a 7-second
-timer, pauses on hover and focus, and stays on the first slide for readers who
-have asked their OS for reduced motion.
+the page templates. The hero is photographic, one image per slide, over a navy
+scrim; its slides are defined entirely in `lang/{dv,en}/public.php` under
+`hero.slides`, so adding or removing a slide is a translation change, not a
+template change. Image and copy cross-fade together on a 7-second timer, it
+pauses on hover and focus, and it stays on the first slide for readers who have
+asked their OS for reduced motion.
+
+The photography itself is the customer's own — see "Photography" below.
 
 > **Copy status.** Much of the public copy was authored for the demo rather
 > than supplied by W-Academy, which is a recorded deviation from SPEC.md §3.6.
@@ -138,6 +140,47 @@ have asked their OS for reduced motion.
 > it. List them with `grep -rn "DEMO COPY" lang/ database/seeders/` and see
 > BACKLOG-NEW.md NEW-5 before go-live. Genuine unknowns (the academy address
 > and phone number) are still `[DV/EN CONTENT PENDING]`.
+
+### Photography
+
+The seven photographs in `client photos/` are the academy's own, supplied by
+the customer in August 2026 and approved by them for publication. The web
+assets are derived from them the way `public/images/crest.png` is derived from
+the crest, and are regenerated rather than hand-edited.
+
+The originals themselves are **gitignored** at the customer's request, so a
+clone serves the photography but cannot regenerate it — ask the customer for
+the originals first.
+
+Each source becomes a 1600w and an 800w rendition in WebP with a JPEG fallback,
+under `public/images/photos/`, RGB and with EXIF stripped — the originals are
+phone photos and carry location data that has no business on a public site.
+
+`<x-site-photo>` is the only place these URLs are built, the marketing
+counterpart of `Student::photoUrl()`. It declares each photo's intrinsic size
+so the page reserves the right box before the image lands, and it carries no
+`onerror` fallback — a missing file must be visible. `SitePhotoTest` proves
+every declared rendition exists at the declared size, that every name used in a
+view resolves, and that nothing reaches into `images/photos` outside the
+component.
+
+Alt text is deliberately empty on all of it. Each photo sits beside a heading
+that already carries the meaning, and writing alt text would mean inventing
+Dhivehi the customer has not supplied (SPEC.md §3.6). For the same reason the
+gallery band on `/about` carries no captions.
+
+Where they appear: the three hero slides, the home intro, the vision & mission
+band, the "how to join" section and the closing call to action; the `/about`,
+`/framework` and `/contact` page heroes (via
+`public/partials/page-hero-backdrop.blade.php`); the `/about` gallery band; the
+login screen; and, at 10% behind navy, the portal top bar.
+
+> **Consent.** These seven photographs are approved for publication (confirmed
+> 19 Aug 2026). They show identifiable children, so that approval is what the
+> publication rests on — it does not extend to photographs added later. The
+> agreement's own photo-consent clause is still `[CONTENT PENDING]` in both
+> languages (BACKLOG-NEW.md NEW-7) and is still owed, so that future intakes
+> are covered by the agreement rather than by a side conversation.
 
 ## Changing the strike ladder
 

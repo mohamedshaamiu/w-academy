@@ -90,7 +90,20 @@
             @endif
 
             <div class="flex min-w-0 flex-1 flex-col">
-                <header class="bg-navy text-white">
+                <header class="relative isolate overflow-hidden bg-navy text-white">
+                    {{-- A photographic texture behind the portal bar, held at a
+                         whisper. The portal is a working tool, so the imagery
+                         brands it without competing with the navigation on it. --}}
+                    <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+                        <x-site-photo
+                            name="training-stretch"
+                            sizes="100vw"
+                            class="block h-full w-full"
+                            img-class="h-full w-full object-cover object-[center_30%]"
+                        />
+                        <div class="absolute inset-0 bg-navy/90"></div>
+                    </div>
+
                     <div class="mx-auto flex w-full items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8 {{ $sidebar ? '' : 'max-w-7xl' }}">
                         {{-- With a sidebar the wordmark lives there instead, from lg up. --}}
                         <a href="{{ route('dashboard.redirect') }}" class="flex shrink-0 items-center gap-2 font-bold {{ $sidebar ? 'lg:hidden' : '' }}">

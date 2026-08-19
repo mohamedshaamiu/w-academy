@@ -9,9 +9,20 @@
     in-person process on purpose.
 --}}
 <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-    <div class="max-w-2xl">
-        <h2 class="text-2xl font-bold text-navy sm:text-3xl">{{ __('public.how.heading') }}</h2>
-        <p class="mt-3 leading-relaxed text-navy-500">{{ __('public.how.body') }}</p>
+    <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
+        <div class="lg:col-span-7">
+            <h2 class="text-2xl font-bold text-navy sm:text-3xl">{{ __('public.how.heading') }}</h2>
+            <p class="mt-3 leading-relaxed text-navy-500">{{ __('public.how.body') }}</p>
+        </div>
+
+        <div class="lg:col-span-5">
+            <x-site-photo
+                name="academy-group"
+                sizes="(min-width: 1024px) 40vw, 100vw"
+                class="block overflow-hidden rounded-2xl shadow-md ring-1 ring-navy-100"
+                img-class="aspect-[3/2] w-full object-cover"
+            />
+        </div>
     </div>
 
     <ol class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">

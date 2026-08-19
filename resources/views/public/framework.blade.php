@@ -1,13 +1,10 @@
 <x-public-layout :title="__('framework.page.title')">
     <section class="relative isolate overflow-hidden bg-navy text-white">
-        <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-            <div class="absolute inset-0 bg-gradient-to-b from-navy-500 to-navy-700"></div>
-            <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent"></div>
-        </div>
+        @include('public.partials.page-hero-backdrop', ['photo' => 'training-lineup'])
 
         <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
             <h1 class="text-3xl font-bold sm:text-4xl">{{ __('framework.page.title') }}</h1>
-            <p class="mt-4 max-w-2xl text-lg leading-relaxed text-navy-100">{{ __('framework.page.lead') }}</p>
+            <p class="mt-4 max-w-2xl text-lg leading-relaxed text-navy-50">{{ __('framework.page.lead') }}</p>
         </div>
     </section>
 

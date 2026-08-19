@@ -26,3 +26,9 @@ yarn-error.log
 # Source font folder — not part of the app. Only licence-recorded faces are
 # committed, under resources/fonts/. See FONT-LICENCE.md.
 /thaana
+
+# Customer photo originals — kept out of the repo by request (23 MB of phone
+# PNGs). Only the derived web renditions are committed, under
+# public/images/photos/. Regenerating them needs the originals back from the
+# customer. See CLAUDE.md § Photography.
+/client photos/

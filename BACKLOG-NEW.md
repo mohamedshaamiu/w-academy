@@ -260,3 +260,31 @@ enumeration. Admin coach create/edit forms accept the upload. Proving test:
 `CoachPhotoTest`; the route is allowlisted with reasoning in
 `RouteCoverageTest::PUBLIC_ROUTE_NAMES`. Fold into SPEC.md §7 at the next
 revision.
+
+---
+
+## NEW-10 — Academy photography on the public site
+
+- **Severity:** closed for these seven photographs; one related item stays open
+  under NEW-7.
+- **Found during:** customer request, 18 Aug 2026 (seven photographs supplied
+  in `client photos/`).
+
+The public site is now photographic: the hero slides, the home intro, the
+vision & mission band, "how to join", the closing CTA, the `/about`,
+`/framework` and `/contact` heroes, an `/about` gallery band, the login screen
+and the portal top bar all render the academy's own photos through
+`<x-site-photo>` (CLAUDE.md § Photography, `SitePhotoTest`).
+
+Every photograph shows identifiable children, so publication was raised before
+going ahead. **Confirmed 19 Aug 2026: these seven are approved.** That approval
+is specific to them — it is not a standing licence for photographs added later,
+and a new photograph needs the same check.
+
+The originals are gitignored at the customer's request, so regenerating the
+renditions means asking the customer for the source files again.
+
+Still open, tracked under NEW-7 item 3: the agreement's **photo-consent clause
+itself**, `[CONTENT PENDING]` in both languages. Until it exists, consent for
+each intake rests on a side conversation rather than on the document guardians
+sign.
