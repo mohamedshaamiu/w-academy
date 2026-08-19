@@ -384,10 +384,51 @@ Since the customer content landed, also confirm on the deployed site:
   slugs (`curl -s ... | grep -o 'images/photos/[a-z-]*' | sort -u | wc -l`
   expects 7). These are tracked files under `public/`, so `git checkout` is the
   whole deploy — but a 404 here means the checkout missed them;
-- the homepage coaches section names the seeded coaches;
+- the homepage coaches section names the seeded coaches — **grep in Dhivehi**,
+  not English (see the false alarms below);
 - `/framework` renders the customer's Dhivehi strike ladder — grep the live
   HTML for `ސަސްޕެންޝަން` (suspension) and `ޓްރެއިނިންގ` (from the sport
   pillar). Their absence means the content seeders were skipped.
+
+### Two false alarms this verification produces
+
+Both of these look like a broken deploy and are not. Confirmed 19 Aug 2026;
+don't spend the time again.
+
+**The server's `app-*.css` is smaller than the one you just built locally.**
+On the photography deploy it was 48.29 kB on the server against 52.34 kB
+locally — which reads exactly like Tailwind purging classes the new views need,
+i.e. a silently broken layout. It isn't. `tailwind.config.js` scans
+`./storage/framework/views/*.php` as well as `resources/views`, and a dev box
+accumulates compiled Blade there from local runs and the test suite. The local
+build is therefore a **superset** carrying utilities nothing on the site uses;
+the server, with a clean `view:cache`, builds the honest smaller file. Only the
+*hash* has to match between the served HTML and what vite printed — the size
+does not have to match your local build.
+
+To actually settle it, compare specific classes rather than sizes. Note
+`grep -c` is useless here: minified CSS is a single line, so every count is 1
+or 0 regardless of how many matches there are. Use `grep -Fo` with the
+CSS-escaped name:
+
+```bash
+grep -Fo 'aspect-\[16\/6\]' live.css      # Tailwind escapes [ ] / : % .
+grep -Fo 'object-\[center_30\%\]' live.css
+```
+
+**The coaches section looks missing from the live homepage.** Grepping the
+served HTML for `coach` returns nothing. The demo renders in **Dhivehi** by
+default, so the heading is `ކޯޗުންނާ ބައްދަލުކުރައްވާ` and the names are
+Thaana — an English grep can't see any of it. There is also no `?lang=` query
+param; the locale lives in the session. Grep for the dv string from
+`lang/dv/public.php`, or check `Coach::count()` on the box:
+
+```bash
+php -r '$a = require "lang/dv/public.php"; echo $a["coaches"]["heading"];'
+```
+
+The same trap applies to any content check on this demo. Everything
+customer-supplied is Dhivehi.
 
 Last deployed 19 Aug 2026 (`1901540`) and verified against all of the above.
 
