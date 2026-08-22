@@ -62,9 +62,9 @@ before you edit it:
 
 | Kind | Where | Rule |
 |---|---|---|
-| **Customer's own words** | Agreement title/body + discipline clause, all three strike levels, the four pillar *descriptions* — all `_dv` | Transcribed from their document. Do not reword, "improve" or translate. Fix only against the source PDF. |
-| **DEMO COPY** | Public marketing copy: hero, intro, vision, mission, values, about, how-to-join, footer, the coaches section, and the pillar descriptions' `_en` side | Authored for the demo at the customer's instruction. Marked `DEMO COPY — CLIENT TO CONFIRM` on the line above. Recorded as BACKLOG-NEW.md NEW-5. Do **not** revert to pending markers. |
-| **Genuinely pending** | Every `_en` counterpart of the customer's Dhivehi, the photo-consent clause (both languages), `agreement.unavailable.*` (dv), academy address and phone | Stays `[DV/EN CONTENT PENDING]` until the customer supplies it. |
+| **Customer's own words** | Agreement title/body + discipline clause, all three strike levels, the four pillar *descriptions* — all `_dv`; plus the **W-ACADEMY acronym** in `public.values.items`, which is theirs in `dv` **and** `en` | Do not reword, "improve" or translate. Fix only against the source — the PDF for the `_dv` transcriptions, `WACADEMY-ACRONYM.md` for the acronym. Neither side of the acronym is a translation of the other, so "aligning" them is a defect, not a tidy-up. |
+| **DEMO COPY** | Public marketing copy: hero, intro, vision, mission, the values *heading*, about, how-to-join, footer, the coaches section, and the pillar descriptions' `_en` side | Authored for the demo at the customer's instruction. Marked `DEMO COPY — CLIENT TO CONFIRM` on the line above. Recorded as BACKLOG-NEW.md NEW-5. Do **not** revert to pending markers. |
+| **Genuinely pending** | Every `_en` counterpart of the customer's Dhivehi, the photo-consent clause (both languages), `agreement.unavailable.*` (dv) | Stays `[DV/EN CONTENT PENDING]` until the customer supplies it. **The public site no longer has any** — address, phone and email landed 22 Aug 2026. |
 
 The demo-copy exception does **not** extend to any new surface. In particular
 the agreement and strike ladder now hold real Dhivehi, so the temptation to
@@ -131,6 +131,7 @@ content, the way SPEC.md is for behaviour.
 | `W CDMY.pdf` | Code of conduct, the 4 pillars, the 5 golden rules, the 3-strike ladder, and the parental agreement form. **Dhivehi only** | Transcribed and seeded |
 | `U6 Physical Check-Up Chart & Assessment Sheet.pdf` | Under-6 movement/health assessment form (English) | **Not built** — no SPEC coverage, BACKLOG-NEW.md NEW-8 |
 | `TRANSCRIPTION-DV.md` | The transcription of `W CDMY.pdf`, written by this project | The thing to read/edit; not the PDF |
+| `WACADEMY-ACRONYM.md` | The W-ACADEMY acronym — eight values, one per letter. Sent over WhatsApp 21 Aug 2026, **in both languages** | Seeded into `public.values`, see below |
 
 **The PDF cannot be copy-pasted.** It is a Word export whose text layer is
 broken: every Thaana run is an embedded image, and the ToUnicode map collapses
@@ -165,6 +166,37 @@ Where it landed:
 - `FrameworkPillarSeeder` — the four pillar descriptions (`_dv`).
 
 All three are idempotent (`version`, `level`, `code`) and safe to re-run.
+
+### The W-ACADEMY acronym
+
+Separate from all of the above, and arriving by a different route. On
+**21 August 2026** the academy sent, over WhatsApp, eight values — one per
+letter of `W-ACADEMY` — with a description each, **in Dhivehi and English
+both**. Transcribed in `customer documents/WACADEMY-ACRONYM.md`.
+
+It lives in `public.values.items` (`lang/{dv,en}/public.php`) and renders
+through `resources/views/public/partials/acronym-values.blade.php` on
+`/about`. It replaced four authored values, so `public.values.items` is no
+longer DEMO COPY — only `public.values.heading` still is.
+
+Two things to know before touching it:
+
+- **Neither language is a translation of the other.** The academy wrote both.
+  The Dhivehi entries carry a bracketed gloss the English does not
+  (`އެޖިލިޓީ (ހަލުވިކަން)`), the W entry has no gloss at all, and the
+  Achievement body ends without a full stop. All of that is theirs. Do not
+  "align" the two sides.
+- **There is no ninth value.** Their long English message carried a stray
+  `E - Enable` between Motivation and Youth. It breaks the acronym, is absent
+  from their own Dhivehi *and* from their own short list, is punctuated unlike
+  its neighbours, and its text is a generic definition of *sport* addressed to
+  spectators. It is deliberately not carried, and
+  `PublicPagesTest::test_the_english_value_letters_spell_the_academy_name`
+  asserts the letters still spell `WACADEMY`. Confirm the omission with the
+  academy before go-live rather than re-adding it.
+
+Note this is content in a **lang file**, not a seeder — nothing to re-run on
+deploy beyond `view:cache`.
 
 ## Branding
 
@@ -372,9 +404,11 @@ seeded pillar names rather than `[CONTENT PENDING]`:
 curl -s https://demos.devcitymv.com/w-academy/ | grep -c 'CONTENT PENDING'
 ```
 
-Expect **4** — the academy address and phone, each rendered twice (contact
-block and footer). More than that means `FrameworkPillarSeeder` has not been
-re-run.
+Expect **0**. It was 4 — the academy address and phone, each rendered twice
+(contact block and footer) — until the academy supplied them on 22 Aug 2026.
+Anything above 0 now means either the content seeders were not re-run or the
+checkout is older than that date. `PublicPagesTest::test_the_dhivehi_public
+_site_carries_no_pending_markers` is the same check run before the deploy.
 
 Since the customer content landed, also confirm on the deployed site:
 
@@ -450,6 +484,13 @@ public site and the login screen — see § "Photography". It replaced the
 design-led, image-free hero. No new lang keys were needed, so nothing about the
 translation state changed; guardian consent for public use is the open item.
 
+**The W-ACADEMY acronym landed 21 Aug 2026** — eight values, one per letter,
+supplied in Dhivehi *and* English. It replaced the four authored values in
+`public.values` and renders on `/about`. First public-site content where both
+languages are the customer's own; see § "The W-ACADEMY acronym" above. One
+open item: confirm with the academy that the stray `E - Enable` in their
+English message is dropped.
+
 **Customer content landed 18 Aug 2026** — see § "Customer documents" above for
 the full picture. In short: the crest is now the site's branding, the Dhivehi
 agreement/strike-ladder/pillar copy is real customer text, the English side of
@@ -490,12 +531,18 @@ Outstanding, and all of these need the customer rather than code:
   `lang/dv/agreement.php` `unavailable.*` is `[DV CONTENT PENDING]`.
 - **MV Faseyha licence text** — the font is bundled and working; the licence
   itself isn't evidenced in writing. See `FONT-LICENCE.md`.
-- **Academy address and phone** — `public.contact.address_value` /
-  `phone_value` are the only `[CONTENT PENDING]` left on the public site. They
-  render twice each (contact block and footer).
 - **Sign-off on the demo public copy** — everything marked `DEMO COPY —
   CLIENT TO CONFIRM`; see BACKLOG-NEW.md NEW-5 and
-  `grep -rn "DEMO COPY" lang/ database/seeders/`.
+  `grep -rn "DEMO COPY" lang/ database/seeders/`. The values block is now the
+  customer's own words and out of that list; its heading is not.
+- **Confirmation that `E - Enable` is not a ninth value** — see § "The
+  W-ACADEMY acronym".
+- **The Dhivehi form of the academy address.** `ލ. މާވަށް` is the island's
+  own name written by this project — the academy gave "Laamu Maavah" in Latin
+  only. Flagged in a comment above `public.contact.address_heading` in
+  `lang/en/public.php`. (The phone number was six digits when first supplied
+  and the academy corrected it to `7872190` the same day; that one is
+  settled.)
 - **Coach photos and real coach records** — the homepage section works but the
   demo only holds `DemoDataSeeder`'s two placeholder coaches, none with a
   photo. Nothing to build; the academy adds them through Admin → Coaches.

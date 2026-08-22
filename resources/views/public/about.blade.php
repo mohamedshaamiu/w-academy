@@ -41,21 +41,7 @@
 
     @include('public.partials.vision-mission')
 
-    <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold text-navy sm:text-3xl">{{ __('public.values.heading') }}</h2>
-
-        <div class="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2">
-            @foreach (__('public.values.items') as $value)
-                <article class="rounded-2xl border border-navy-100 bg-white p-6">
-                    <h3 class="flex items-center gap-3 font-semibold text-navy">
-                        <span class="h-2 w-2 shrink-0 rounded-full bg-gold" aria-hidden="true"></span>
-                        {{ $value['title'] }}
-                    </h3>
-                    <p class="mt-2 text-sm leading-relaxed text-navy-500">{{ $value['body'] }}</p>
-                </article>
-            @endforeach
-        </div>
-    </section>
+    @include('public.partials.acronym-values')
 
     <section class="bg-navy-50 py-16">
         <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">

@@ -148,10 +148,32 @@ Find them all with:
 grep -rn "DEMO COPY" lang/ database/seeders/
 ```
 
+**Partially closed, 22 August 2026 — `public.values`.** The academy supplied
+the W-ACADEMY acronym (eight values, one per letter of its name) in **both**
+languages on 21 Aug. It replaced the four authored values, so
+`public.values.items` is now the customer's own words on both sides — the
+first content on the public site where neither language is a translation of
+the other, and the first authored block to be retired rather than confirmed.
+See `customer documents/WACADEMY-ACRONYM.md`. `public.values.heading` is still
+authored and still carries the marker; the academy sent the eight entries
+without a heading.
+
+Their English message also carried a stray ninth entry, `E - Enable`, which
+breaks the acronym, is absent from their own Dhivehi, and reads as a pasted
+definition of *sport*. It is deliberately not carried.
+`PublicPagesTest::test_the_english_value_letters_spell_the_academy_name` is
+what keeps it out.
+
 **What is NOT authored.** The pillar *names* (home, school, religion, sport)
 are stated as fact in SPEC.md §1. `public.contact.address_value` and
-`phone_value` remain `[DV/EN CONTENT PENDING]` — those are academy facts
-nobody can invent. `StrikeLevelSeeder` was left entirely untouched: the strike
+`phone_value` were `[DV/EN CONTENT PENDING]` — academy facts nobody can invent
+— and were **supplied on 22 August 2026** along with an email address (a new
+`email_*` key pair in both languages). The public site now carries no pending
+marker at all in Dhivehi; `PublicPagesTest::test_the_dhivehi_public_site
+_carries_no_pending_markers` holds that line. One of those values still wants a
+word from the academy: the Dhivehi form of the address was written here rather
+than supplied. (The phone number arrived a digit short and was corrected to
+`7872190` the same day.) `StrikeLevelSeeder` was left entirely untouched: the strike
 ladder's type/action/parent-role copy is genuine academy policy and §14 still
 lists levels 4 and 5 as undefined.
 

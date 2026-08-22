@@ -99,7 +99,11 @@
                         </div>
                         <div>
                             <dt class="text-xs uppercase tracking-wide text-navy-300">{{ __('public.contact.phone_heading') }}</dt>
-                            <dd>{{ __('public.contact.phone_value') }}</dd>
+                            <dd><a href="tel:{{ preg_replace('/\D/', '', __('public.contact.phone_value')) }}" dir="ltr" class="transition hover:text-gold-700">{{ __('public.contact.phone_value') }}</a></dd>
+                        </div>
+                        <div>
+                            <dt class="text-xs uppercase tracking-wide text-navy-300">{{ __('public.contact.email_heading') }}</dt>
+                            <dd><a href="mailto:{{ __('public.contact.email_value') }}" dir="ltr" class="transition hover:text-gold-700">{{ __('public.contact.email_value') }}</a></dd>
                         </div>
                         <div>
                             <dt class="text-xs uppercase tracking-wide text-navy-300">{{ __('public.contact.office_hours_heading') }}</dt>

@@ -129,6 +129,100 @@ class PublicPagesTest extends TestCase
     }
 
     /**
+     * The W-ACADEMY acronym (customer content, 21 Aug 2026 — see
+     * "customer documents/WACADEMY-ACRONYM.md"). Every entry the lang file
+     * defines must reach /about in the reader's own language, letter
+     * included.
+     */
+    public function test_about_renders_every_acronym_value_in_the_active_locale(): void
+    {
+        foreach (['dv', 'en'] as $locale) {
+            $values = trans('public.values.items', [], $locale);
+
+            $this->assertNotEmpty($values, "public.values.items is empty for '{$locale}'.");
+
+            $response = $this->withSession(['locale' => $locale])->get('/about');
+            $response->assertOk();
+
+            foreach ($values as $key => $value) {
+                foreach (['letter', 'title', 'body'] as $part) {
+                    $this->assertArrayHasKey($part, $value, "public.values.items.{$key} has no '{$part}' in '{$locale}'.");
+                    $response->assertSee($value[$part]);
+                }
+            }
+        }
+    }
+
+    /**
+     * The eight values are the letters of the academy's name, in order. The
+     * customer's own English message carried a stray ninth entry
+     * ("E - Enable") that breaks the acronym and is absent from their
+     * Dhivehi; this is what stops it — or any dropped letter — coming back
+     * unnoticed.
+     */
+    public function test_the_english_value_letters_spell_the_academy_name(): void
+    {
+        $letters = array_column(trans('public.values.items', [], 'en'), 'letter');
+
+        $this->assertSame('WACADEMY', implode('', $letters));
+
+        $this->assertCount(
+            count($letters),
+            trans('public.values.items', [], 'dv'),
+            'The Dhivehi acronym must hold exactly the same number of entries as the English.'
+        );
+    }
+
+    /**
+     * The academy's own contact details (supplied 22 Aug 2026). These were the
+     * last `[CONTENT PENDING]` markers on the public site, and they render in
+     * two places each — the contact block and the footer — so this walks every
+     * public page rather than just /contact.
+     *
+     * The marker assertion is deliberately scoped to Dhivehi: the strike
+     * ladder's `*_en` columns are still genuinely pending (BACKLOG-NEW.md
+     * NEW-7), so /framework in English is *expected* to carry one.
+     */
+    public function test_the_academy_contact_details_reach_every_public_page_with_no_pending_markers(): void
+    {
+        foreach (['dv', 'en'] as $locale) {
+            foreach (['address_value', 'phone_value', 'email_value'] as $key) {
+                $value = trans("public.contact.{$key}", [], $locale);
+
+                $this->assertStringNotContainsString(
+                    'CONTENT PENDING',
+                    $value,
+                    "public.contact.{$key} is still pending in '{$locale}'."
+                );
+
+                foreach (['/contact', '/'] as $uri) {
+                    $this->app['auth']->forgetGuards();
+
+                    $response = $this->withSession(['locale' => $locale])->get($uri);
+                    $response->assertOk();
+                    $response->assertSee($value);
+                }
+            }
+        }
+    }
+
+    /**
+     * CLAUDE.md's deploy verification greps the served homepage for
+     * `CONTENT PENDING` — this is the same check, run before the deploy
+     * rather than after it.
+     */
+    public function test_the_dhivehi_public_site_carries_no_pending_markers(): void
+    {
+        foreach (self::PUBLIC_URIS as $uri) {
+            $this->app['auth']->forgetGuards();
+
+            $response = $this->withSession(['locale' => 'dv'])->get($uri);
+            $response->assertOk();
+            $response->assertDontSee('CONTENT PENDING');
+        }
+    }
+
+    /**
      * SPEC.md §12: no directional Tailwind utility may appear in mirrored
      * layout — logical properties only, so the whole app mirrors under RTL.
      */

@@ -107,7 +107,7 @@ Four public pages, all guest-reachable and all bilingual:
 | URL | View | Contents |
 |---|---|---|
 | `/` | `public/home.blade.php` | Rotating hero, academy intro, the four pillars, vision & mission, the coaches, how to join, contact block |
-| `/about` | `public/about.blade.php` | Academy story, vision & mission, values, framework summary, the three portal views |
+| `/about` | `public/about.blade.php` | Academy story, vision & mission, the W-ACADEMY acronym (`partials/acronym-values.blade.php` — the academy's own eight values, supplied in both languages), framework summary, the three portal views |
 | `/framework` | `public/framework.blade.php` | The four pillars in full, the strike ladder table |
 | `/contact` | `public/contact.blade.php` | Address, phone, office hours, enrolment notice |
 

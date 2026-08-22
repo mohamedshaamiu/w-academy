@@ -57,24 +57,60 @@ return [
     ],
 
     'values' => [
+        // The W-ACADEMY acronym — the academy's own eight values, one per
+        // letter of its name. Supplied by W-Academy on 21 August 2026 in
+        // BOTH languages; see "customer documents/WACADEMY-ACRONYM.md" for
+        // provenance and for the stray ninth English entry ("E - Enable")
+        // that is deliberately not carried here.
+        //
+        // Unlike the pillar descriptions, neither side of this is a
+        // translation of the other — both are the customer's own words.
+        // Do not reword, "improve" or re-translate either language.
+        //
+        // The academy sent the eight entries without a heading, so the one
+        // below is still ours:
         // DEMO COPY — CLIENT TO CONFIRM (SPEC.md §3.6)
         'heading' => 'What we hold to',
         'items' => [
+            'winning' => [
+                'letter' => 'W',
+                'title' => 'Winning Mindset',
+                'body' => 'Developing the mental resilience to approach every match with confidence, learn from setbacks, and maintain a focus on continuous improvement both on and off the pitch.',
+            ],
+            'agility' => [
+                'letter' => 'A',
+                'title' => 'Agility',
+                'body' => 'Building sharp physical footwork, quick reaction times, and tactical adaptability to read the game fast and execute decisions under pressure.',
+            ],
+            'cooperation' => [
+                'letter' => 'C',
+                'title' => 'Cooperation',
+                'body' => 'Fostering strong teamwork, trust, and clear communication, teaching players that individual talent shines brightest within a unified squad.',
+            ],
+            'achievement' => [
+                'letter' => 'A',
+                'title' => 'Achievement',
+                'body' => 'Setting clear individual and team goals, celebrating progress, and inspiring players to reach new milestones in their football development.',
+            ],
             'discipline' => [
+                'letter' => 'D',
                 'title' => 'Discipline',
-                'body' => 'The strike ladder is published, graduated, and applied the same way for every player.',
+                'body' => 'Instilling dedication, tactical obedience, respect for officials and opponents, and a reliable work ethic in training and daily routines.',
             ],
-            'respect' => [
-                'title' => 'Respect',
-                'body' => 'Coaches, players and parents are held to the same standard of conduct.',
+            'energy' => [
+                'letter' => 'E',
+                'title' => 'Energy',
+                'body' => 'Bringing high intensity, passion, and enthusiasm to every session, creating a dynamic environment that fuels high performance.',
             ],
-            'consistency' => [
-                'title' => 'Consistency',
-                'body' => 'Sessions run to a schedule, attendance is recorded every session, and the record is open to guardians.',
+            'motivation' => [
+                'letter' => 'M',
+                'title' => 'Motivation',
+                'body' => 'Igniting the internal drive to practice relentlessly, master complex skills, and overcome challenges on the path to growth.',
             ],
-            'partnership' => [
-                'title' => 'Partnership',
-                'body' => 'Nothing about a child is decided without their guardian — the agreement is signed before a player takes the field.',
+            'youth' => [
+                'letter' => 'Y',
+                'title' => 'Youth',
+                'body' => 'Empowering the next generation of football talent, nurturing young potential with age-appropriate training, character building, and guidance for long-term athletic success.',
             ],
         ],
     ],
@@ -169,10 +205,17 @@ return [
         'title' => 'Contact Us',
         // DEMO COPY — CLIENT TO CONFIRM (SPEC.md §3.6)
         'lead' => 'Enrolment, squad placement and questions about the agreement are all handled at the academy office.',
+        // Supplied by the academy 22 August 2026. The address is theirs in
+        // English; the Dhivehi side is the island's own name, written here
+        // rather than transliterated back — CONFIRM THE SPELLING WITH THEM.
+        // The phone number was corrected to seven digits by the academy on
+        // 22 August 2026; it first arrived one digit short.
         'address_heading' => 'Address',
-        'address_value' => '[EN CONTENT PENDING]',
+        'address_value' => 'Laamu Maavah',
         'phone_heading' => 'Phone',
-        'phone_value' => '[EN CONTENT PENDING]',
+        'phone_value' => '7872190',
+        'email_heading' => 'Email',
+        'email_value' => 'saamin0011@gmail.com',
         'office_hours_heading' => 'Office Hours',
         'office_hours_value' => 'Sunday–Thursday, 9:00–16:00',
     ],
