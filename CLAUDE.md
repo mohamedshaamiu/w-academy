@@ -464,7 +464,15 @@ php -r '$a = require "lang/dv/public.php"; echo $a["coaches"]["heading"];'
 The same trap applies to any content check on this demo. Everything
 customer-supplied is Dhivehi.
 
-Last deployed 19 Aug 2026 (`1901540`) and verified against all of the above.
+Last deployed 22 Aug 2026 (`aabf340`) and verified against all of the above,
+plus the content that landed with it: the eight acronym values render on
+`/about` in Dhivehi, `Enable` appears nowhere, and the contact details resolve
+(`tel:7872190` and `mailto:saamin0011@gmail.com` twice each per page, address
+once each in the contact block and footer). The pending-marker count is now
+**0**, not 4.
+
+The server built `app-O9jkPogK.css` at 47.50 kB against 51.51 kB locally —
+that is the first false alarm above, not a purge failure.
 
 ## Current state
 
